@@ -1,6 +1,7 @@
 ﻿using System;
 using InternetERP.Data;
 using InternetERP.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApplication
 {
@@ -9,6 +10,7 @@ namespace ConsoleApplication
         static void Main(string[] args)
         {
             var db = new InternetERPDbContext();
+            db.Database.Migrate();
             //db.Database.EnsureDeleted();
             //db.Database.EnsureCreated();
 
@@ -25,7 +27,7 @@ namespace ConsoleApplication
             //    {
             //        Name = "Администратор"
             //    }
-                
+
             //};
             //var town = new Town
             //{
@@ -40,7 +42,7 @@ namespace ConsoleApplication
             //    {
             //        Name = "Пазарджик"
             //    },
-                
+
             //};
             //employee.Address = address;
             //db.Employees.Add(employee);
