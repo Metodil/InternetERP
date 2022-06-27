@@ -8,7 +8,7 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-            //var db = new InternetERPDbContext();
+            var db = new InternetERPDbContext();
             //db.Database.EnsureDeleted();
             //db.Database.EnsureCreated();
 
