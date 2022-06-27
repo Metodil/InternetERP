@@ -44,7 +44,7 @@ namespace ConsoleApplication
             //};
             //employee.Address = address;
             //db.Employees.Add(employee);
-            //db.SaveChanges();
+            db.SaveChanges();
 
         }
     }
