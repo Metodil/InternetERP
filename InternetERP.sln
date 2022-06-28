@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetERP.Models", "Inter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetERP.Services", "InternetERP.Services\InternetERP.Services.csproj", "{DD8DDAF8-F17B-4BD1-8255-90928A2D3B49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetERP.Initializer", "InternetERP.Initializer\InternetERP.Initializer.csproj", "{4A49D19F-1640-4423-8B3D-97FD04266338}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetERP.Initializer", "InternetERP.Initializer\InternetERP.Initializer.csproj", "{4A49D19F-1640-4423-8B3D-97FD04266338}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetERP.Web", "InternetERP.Web\InternetERP.Web.csproj", "{6BEBB65B-8672-48D5-82D8-BF1B206050C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{4A49D19F-1640-4423-8B3D-97FD04266338}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A49D19F-1640-4423-8B3D-97FD04266338}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A49D19F-1640-4423-8B3D-97FD04266338}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BEBB65B-8672-48D5-82D8-BF1B206050C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BEBB65B-8672-48D5-82D8-BF1B206050C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BEBB65B-8672-48D5-82D8-BF1B206050C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BEBB65B-8672-48D5-82D8-BF1B206050C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

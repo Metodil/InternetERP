@@ -1,14 +1,16 @@
 ﻿using InternetERP.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternetERP.Data
 {
-    public class InternetERPDbContext : DbContext
+    public class InternetERPDbContext : IdentityDbContext<IdentityUser>
     {
         public InternetERPDbContext()
         {
         }
-        public InternetERPDbContext(DbContextOptions options)
+        public InternetERPDbContext(DbContextOptions<InternetERPDbContext> options)
             : base(options)
         {
         }
@@ -22,7 +24,6 @@ namespace InternetERP.Data
         public DbSet<Failure> Failures { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<JobTitle> JobTitles { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<FailurePart> FailuresParts { get; set; }
@@ -38,8 +39,10 @@ namespace InternetERP.Data
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) // ModelBuilder
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<StatusFailure>()
                 .HasIndex(sf => sf.Name)
                 .IsUnique();

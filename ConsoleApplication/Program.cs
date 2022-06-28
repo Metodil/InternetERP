@@ -10,9 +10,10 @@ namespace ConsoleApplication
         static void Main(string[] args)
         {
             var db = new InternetERPDbContext();
+            
             db.Database.Migrate();
             // test
-            db.SaveChanges();
+            //db.SaveChanges();
 
         }
     }
