@@ -11,6 +11,7 @@ namespace ConsoleApplication
         {
             var db = new InternetERPDbContext();
             db.Database.Migrate();
+            // test
             db.SaveChanges();
 
         }
