@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApplication", "ConsoleApplication\ConsoleApplication.csproj", "{C9460DB3-E015-46D0-84EF-9CD978FAE95A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleApplication\ConsoleUI.csproj", "{C9460DB3-E015-46D0-84EF-9CD978FAE95A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetERP.Data", "InternetERP.Data\InternetERP.Data.csproj", "{C8DEB48C-9CAD-4C3D-9098-3AB190932098}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetERP.Services", "Int
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetERP.Initializer", "InternetERP.Initializer\InternetERP.Initializer.csproj", "{4A49D19F-1640-4423-8B3D-97FD04266338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetERP.Web", "InternetERP.Web\InternetERP.Web.csproj", "{6BEBB65B-8672-48D5-82D8-BF1B206050C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetERP.Web", "InternetERP.Web\InternetERP.Web.csproj", "{6BEBB65B-8672-48D5-82D8-BF1B206050C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -29,7 +29,10 @@ namespace InternetERP.Models
 		public string Password { get; set; }
 		[Required]
 		[MaxLength(50)]
-		public string FullName { get; set; }
+		public string FirstName { get; set; }
+		[Required]
+		[MaxLength(50)]
+		public string LastName { get; set; }
 		[Required]
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
