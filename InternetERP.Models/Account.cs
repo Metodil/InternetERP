@@ -21,6 +21,9 @@ namespace InternetERP.Models
 		[Required]
 		[MaxLength(30)]
 		public string UserName { get; set; }
+		//[Required]
+		//[MaxLength(30)]
+		//public string LastName { get; set; }
 		[Required]
 		[MaxLength(35)]
 		public string Password { get; set; }
@@ -30,8 +33,8 @@ namespace InternetERP.Models
 		[Required]
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
-		[Required]
-		public decimal Payment { get; set; }
+		//[Required]
+		public decimal? МonthlyPayment { get; set; }
 		[Required]
 		public DateTime CreateDate  { get; set; }
         public virtual ICollection<Failure> Failures { get; set; }
