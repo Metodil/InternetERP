@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>aspnet-InternetERP.Web-559C8D8D-BF2A-493C-830C-EA35142D9CEC</UserSecretsId>
   </PropertyGroup>
 
