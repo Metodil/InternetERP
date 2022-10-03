@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>aspnet-InternetERP-BBB373B5-EF3F-4DBB-B8AA-7152CEC275BF</UserSecretsId>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+	<ItemGroup>
+		<AdditionalFiles Include="..\..\stylecop.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<InternalsVisibleTo Include="InternetERP.Web.Tests" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.5" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.161" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\InternetERP.Common\InternetERP.Common.csproj" />
+    <ProjectReference Include="..\..\Data\InternetERP.Data.Models\InternetERP.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\InternetERP.Data\InternetERP.Data.csproj" />
+    <ProjectReference Include="..\..\Services\InternetERP.Services.Data\InternetERP.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\InternetERP.Services.Mapping\InternetERP.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\InternetERP.Services.Messaging\InternetERP.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Services\InternetERP.Services\InternetERP.Services.csproj" />
+    <ProjectReference Include="..\InternetERP.Web.Infrastructure\InternetERP.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\InternetERP.Web.ViewModels\InternetERP.Web.ViewModels.csproj" />
+  </ItemGroup>
+</Project>
