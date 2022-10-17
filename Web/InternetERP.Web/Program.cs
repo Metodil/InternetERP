@@ -1,4 +1,4 @@
-﻿namespace InternetERP.Web
+namespace InternetERP.Web
 {
     using System.Reflection;
 

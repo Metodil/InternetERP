@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
     using InternetERP.Data;
     using InternetERP.Data.Common;
     using InternetERP.Data.Common.Repositories;
@@ -13,9 +14,6 @@
     using InternetERP.Data.Seeding;
     using InternetERP.Services.Data;
     using InternetERP.Services.Messaging;
-
-    using CommandLine;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
