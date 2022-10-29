@@ -8,7 +8,6 @@
 
     using InternetERP.Data.Common.Models;
     using InternetERP.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +23,41 @@
         {
         }
 
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
+
+        public DbSet<Failure> Failures { get; set; }
+
+        public DbSet<FailurePart> FailureParts { get; set; }
+
+        public DbSet<FailureTeam> FailureTeams { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<InternetPayment> InternetPayments { get; set; }
+
+        public DbSet<InternetAccount> InternetAccounts { get; set; }
+
+        public DbSet<InternetAccountType> InternetAccountTypes { get; set; }
+
+        public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<JobTitle> JobTitles { get; set; }
+
+        public DbSet<PaymentType> PaymentTypes { get; set; }
+
+        public DbSet<Phone> Phones { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<Sale> Sales { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<StatusFailure> StatusFailures { get; set; }
+
+        public DbSet<Town> Towns { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -47,6 +80,9 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<InternetPayment>()
+                .HasKey(x => new { x.AccountId, x.SaleId });
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
