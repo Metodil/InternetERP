@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using InternetERP.Data.Seeding.Data;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -27,6 +28,10 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new FailureTeamSeeder(),
+                              new InternetAccountTypeSeeder(),
+                              new PaymentTypeSeeder(),
+                              new StatusFailureSeeder(),
                           };
 
             foreach (var seeder in seeders)
