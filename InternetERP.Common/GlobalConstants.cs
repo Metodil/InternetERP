@@ -14,11 +14,11 @@
         {
             public const string PasswordHash = "AQAAAAEAACcQAAAAEOr5MhkFf5aTLQxqzFSfcqPFcoNXXsNWFfFG7xCzzgrPNJCFAlIZHh/WV8sBBZiMHw=="; // 123456;
             public const string AdminName = "Admin";
-            public const string AdminEmail = "interneterp.adm@gmail.com.com";
+            public const string AdminEmail = "interneterp.adm@gmail.com";
             public const string EmployeeManagerName = "EmployeeManager";
-            public const string EmployeeManagerEmail = "interneterp.employee.manager@gmailcom";
+            public const string EmployeeManagerEmail = "interneterp.employee.manager@gmail.com";
             public const string EmployeeSalesName = "EmployeeSales";
-            public const string EmployeeSalesEmail = "interneterp.employee.sales@gmailcom";
+            public const string EmployeeSalesEmail = "interneterp.employee.sales@gmail.com";
             public const string InternetAccountName = "InternetAccount";
             public const string InternetAccountEmail = "interneterp.user@gmail.com";
         }
