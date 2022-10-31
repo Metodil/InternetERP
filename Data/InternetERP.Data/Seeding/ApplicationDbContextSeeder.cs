@@ -32,6 +32,7 @@
                               new InternetAccountTypeSeeder(),
                               new PaymentTypeSeeder(),
                               new StatusFailureSeeder(),
+                              new AddUsersSeeder(),
                           };
 
             foreach (var seeder in seeders)
