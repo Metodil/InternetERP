@@ -1,0 +1,109 @@
+﻿@using InternetERP.Common
+@using InternetERP.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!-- ============================================================== -->
+<!-- User profile and search -->
+<!-- ============================================================== -->
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle waves-effect waves-dark"
+       href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src="~/lib/Monster/images/users/5.jpg" alt="user" width="30" class="profile-pic rounded-circle" />
+    </a>
+    <div class="dropdown-menu dropdown-menu-end user-dd animated flipInY">
+        @if (this.SignInManager.IsSignedIn(this.User))
+        {
+            <div class="d-flex no-block align-items-center p-3 bg-info text-white mb-2">
+                <div class="">
+                    <img src="~/lib/Monster/images/users/5.jpg" alt="user" class="rounded-circle" width="40" />
+                </div>
+                <div class="ms-2">
+                    <h5 class="mb-0 text-white">@User.Claims.FirstOrDefault(c => c.Type == "FirstName")?.Value @User.Claims.FirstOrDefault(c => c.Type == "LastName")?.Value</h5>
+                    <p style="font-size:smaller" class="mb-0">@this.User.Identity.Name</p>
+                </div>
+            </div>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
+                <i data-feather="user" class="feather-sm text-info me-1 ms-1"></i>
+                My Profile
+            </a>
+            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">
+                    <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
+                    Admin Dashboard
+                </a>
+            }
+            else if (this.User.IsInRole(GlobalConstants.EmployeeRoleName))
+            {
+                if (this.User.IsInRole(GlobalConstants.ManagerRoleName))
+                {
+                    <a class="nav-link text-dark" asp-area="Employee" asp-controller="DashboardManager" asp-action="Index" title="Employee Manager">
+                        <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
+                        Employee Manager
+                    </a>
+                }
+                else if (this.User.IsInRole(GlobalConstants.SalesRoleName))
+                {
+                    <a class="nav-link text-dark" asp-area="Employee" asp-controller="DashboardSales" asp-action="Index" title="Employee Sales">
+                        <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
+                        Employee Sales
+                    </a>
+                }
+            }
+            else if (this.User.IsInRole(GlobalConstants.InternetAccountRoleName))
+            {
+                <a class="nav-link text-dark" asp-area="InternetAccount" asp-controller="Dashboard" asp-action="Index" title="InternetAccount">
+                    <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
+                    InternetAccount
+                </a>
+            }
+
+            <a class="dropdown-item" href="#">
+                <i data-feather="mail" class="feather-sm text-success me-1 ms-1"></i>
+                Inbox
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+                <i data-feather="settings" class="feather-sm text-warning me-1 ms-1"></i>
+                Account Setting
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+                <form class="" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@this.Url.Action("Index", "Home", new { area = string.Empty })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">
+                        <i data-feather="log-out" class="feather-sm text-danger me-1 ms-1"></i>
+                        Logout
+                    </button>
+                </form>
+            </a>
+        }
+        else
+        {
+            <div class="d-flex no-block align-items-center p-3 bg-info text-white mb-2">
+                <div class="">
+                    <img src="~/lib/Monster/images/users/5.jpg" alt="user" class="rounded-circle" width="60" />
+                </div>
+                <div class="ms-2">
+                    <h4 class="mb-0 text-white">Vizitors</h4>
+                </div>
+            </div>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">
+                <i data-feather="user" class="feather-sm text-info me-1 ms-1"></i>
+                Register
+            </a>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">
+                <i data-feather="credit-card" class="feather-sm text-info me-1 ms-1"></i>
+                Login
+            </a>
+
+        }
+        <div class="dropdown-divider"></div>
+        <div class="pl-4 p-2">
+            <a href="#" class="btn d-block w-100 btn-info rounded-pill">View Profile</a>
+        </div>
+    </div>
+</li>
+<!-- ============================================================== -->
+<!-- User profile and search -->
+<!-- ============================================================== -->
