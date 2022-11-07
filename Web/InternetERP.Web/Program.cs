@@ -16,6 +16,7 @@
     using InternetERP.Web.Areas.Identity.Pages.Account;
     using InternetERP.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.Facebook;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -60,6 +61,13 @@
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            // Facebook login
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+            });
+
             services.AddSingleton(configuration);
 
             // Data repositories
@@ -72,7 +80,6 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ICustomUsersService, CustomUsersService>();
-
 
             // Add extra cliams when login
             services.AddTransient<IClaimsTransformation, AddExtraClaims>();

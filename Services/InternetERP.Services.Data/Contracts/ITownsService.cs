@@ -5,6 +5,6 @@
 
     public interface ITownsService
     {
-        public Task<IEnumerable<KeyValuePair<string, string>>> GetAllTownsAsKetValuePairsAsync();
+        public IEnumerable<KeyValuePair<string, string>> GetAllTownsAsKetValuePairs();
     }
 }

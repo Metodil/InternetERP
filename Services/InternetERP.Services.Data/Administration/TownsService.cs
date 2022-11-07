@@ -17,7 +17,7 @@
             this.townsRepository = townsRepository;
         }
 
-        public async Task<IEnumerable<KeyValuePair<string, string>>> GetAllTownsAsKetValuePairsAsync()
+        public IEnumerable<KeyValuePair<string, string>> GetAllTownsAsKetValuePairs()
         {
             var townsList = this.townsRepository.AllAsNoTracking().Select(x => new
             {

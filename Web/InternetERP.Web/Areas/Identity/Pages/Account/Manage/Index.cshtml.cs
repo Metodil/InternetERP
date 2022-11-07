@@ -16,8 +16,8 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
 
     public class IndexModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ICustomUsersService customUsersService;
         private readonly ITownsService townsService;
 
@@ -27,29 +27,17 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
             ICustomUsersService customUsersService,
             ITownsService townsService)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
             this.customUsersService = customUsersService;
             this.townsService = townsService;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string Username { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -59,10 +47,6 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -94,38 +78,12 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
             public IEnumerable<KeyValuePair<string, string>> Towns { get; set; }
         }
 
-        private async Task LoadAsync(ApplicationUser user)
-        {
-            var userName = await this._userManager.GetUserNameAsync(user);
-            var phoneNumber = await this._userManager.GetPhoneNumberAsync(user);
-            var firstName = await this.customUsersService.GetFirstNameAsync(user.Id);
-            var lastName = await this.customUsersService.GetLastNameAsync(user.Id);
-            var district = await this.customUsersService.GetDistrictAsync(user.Id);
-            var street = await this.customUsersService.GetStreetAsync(user.Id);
-            var note = await this.customUsersService.GetNoteAsync(user.Id);
-            var towns = await this.townsService.GetAllTownsAsKetValuePairsAsync();
-            var townId = await this.customUsersService.GetTownIdAsync(user.Id);
-            this.Username = userName;
-
-            this.Input = new InputModel
-            {
-                PhoneNumber = phoneNumber,
-                FirstName = firstName,
-                LastName = lastName,
-                District = district,
-                Street = street,
-                Note = note,
-                TownId = townId,
-                Towns = towns,
-            };
-        }
-
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await this._userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                return this.NotFound($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
             await this.LoadAsync(user);
@@ -134,10 +92,10 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await this._userManager.GetUserAsync(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                return this.NotFound($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
             if (!this.ModelState.IsValid)
@@ -147,10 +105,10 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
             }
 
             // TODO make one metod for all
-            var phoneNumber = await this._userManager.GetPhoneNumberAsync(user);
+            var phoneNumber = await this.userManager.GetPhoneNumberAsync(user);
             if (this.Input.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await this._userManager.SetPhoneNumberAsync(user, this.Input.PhoneNumber);
+                var setPhoneResult = await this.userManager.SetPhoneNumberAsync(user, this.Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
                     this.StatusMessage = "Unexpected error when trying to set phone number.";
@@ -229,9 +187,35 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            await this._signInManager.RefreshSignInAsync(user);
+            await this.signInManager.RefreshSignInAsync(user);
             this.StatusMessage = "Your profile has been updated";
             return this.RedirectToPage();
+        }
+
+        private async Task LoadAsync(ApplicationUser user)
+        {
+            var userName = await this.userManager.GetUserNameAsync(user);
+            var phoneNumber = await this.userManager.GetPhoneNumberAsync(user);
+            var firstName = await this.customUsersService.GetFirstNameAsync(user.Id);
+            var lastName = await this.customUsersService.GetLastNameAsync(user.Id);
+            var district = await this.customUsersService.GetDistrictAsync(user.Id);
+            var street = await this.customUsersService.GetStreetAsync(user.Id);
+            var note = await this.customUsersService.GetNoteAsync(user.Id);
+            var towns = this.townsService.GetAllTownsAsKetValuePairs();
+            var townId = await this.customUsersService.GetTownIdAsync(user.Id);
+            this.Username = userName;
+
+            this.Input = new InputModel
+            {
+                PhoneNumber = phoneNumber,
+                FirstName = firstName,
+                LastName = lastName,
+                District = district,
+                Street = street,
+                Note = note,
+                TownId = townId,
+                Towns = towns,
+            };
         }
     }
 }
