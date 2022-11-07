@@ -5,7 +5,7 @@
 
     using InternetERP.Data.Common.Repositories;
     using InternetERP.Data.Models;
-    using InternetERP.Services.Data;
+    using InternetERP.Services.Data.Contracts;
     using InternetERP.Web.ViewModels.Settings;
 
     using Microsoft.AspNetCore.Mvc;

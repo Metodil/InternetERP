@@ -32,6 +32,5 @@ namespace InternetERP.Data.Models
         public decimal Salary { get; set; }
 
         public virtual ICollection<FailureTeam> FailuresTeams { get; set; }
-
     }
 }

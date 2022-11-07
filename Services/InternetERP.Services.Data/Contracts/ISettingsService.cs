@@ -1,4 +1,4 @@
-﻿namespace InternetERP.Services.Data
+﻿namespace InternetERP.Services.Data.Contracts
 {
     using System.Collections.Generic;
 

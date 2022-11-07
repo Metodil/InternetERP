@@ -1,6 +1,6 @@
 ﻿namespace InternetERP.Web.Areas.Administration.Controllers
 {
-    using InternetERP.Services.Data;
+    using InternetERP.Services.Data.Contracts;
     using InternetERP.Web.ViewModels.Administration.Dashboard;
 
     using Microsoft.AspNetCore.Mvc;

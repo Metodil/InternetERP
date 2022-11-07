@@ -40,6 +40,5 @@ namespace InternetERP.Data.Models
         public virtual ICollection<Failure> Failures { get; set; }
 
         public virtual ICollection<InternetPayment> Payments { get; set; }
-
     }
 }

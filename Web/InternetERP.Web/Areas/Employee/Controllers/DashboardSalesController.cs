@@ -1,6 +1,6 @@
 ﻿namespace InternetERP.Web.Areas.Employee.Controllers
 {
-    using InternetERP.Services.Data;
+    using InternetERP.Services.Data.Contracts;
     using InternetERP.Web.ViewModels.Employee.DashboardSales;
     using Microsoft.AspNetCore.Mvc;
 

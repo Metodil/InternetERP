@@ -33,6 +33,7 @@
                               new PaymentTypeSeeder(),
                               new StatusFailureSeeder(),
                               new AddUsersSeeder(),
+                              new TownsSeeder(),
                           };
 
             foreach (var seeder in seeders)
