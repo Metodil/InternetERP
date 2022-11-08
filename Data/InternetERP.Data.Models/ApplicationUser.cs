@@ -26,6 +26,8 @@ namespace InternetERP.Data.Models
         [MaxLength(30)]
         public string? LastName { get; set; } = null!;
 
+        public string? ProfilePictureUrl { get; set; }
+
         public int? TownId { get; set; }
 
 #nullable disable

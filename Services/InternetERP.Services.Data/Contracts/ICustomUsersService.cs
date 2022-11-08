@@ -43,5 +43,7 @@
         public Task<ApplicationUser> GetUserByIdAsync(string id);
 
         public Task<T> GetUserByIdAsync<T>(string id);
+
+        public bool CheckForEmailsAsync(string email);
     }
 }

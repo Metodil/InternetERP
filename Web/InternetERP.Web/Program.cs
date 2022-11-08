@@ -68,6 +68,14 @@
                 facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
             });
 
+            // Google login
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = configuration["Authentication:Google:client_id"];
+                    options.ClientSecret = configuration["Authentication:Google:client_secret"];
+                });
+
             services.AddSingleton(configuration);
 
             // Data repositories

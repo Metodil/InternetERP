@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using InternetERP.Data.Models;
+    using InternetERP.Services.Data.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
@@ -19,27 +20,21 @@
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailSender emailSender;
-
-        // private readonly ICardsService cardsService;
-        // private readonly INotificationsService notificationsService;
+        private readonly ICustomUsersService customUsersService;
         private readonly ILogger<ExternalLoginModel> logger;
 
         public ExternalLoginModel(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
-
-        // ICardsService cardsService,
-        // INotificationsService notificationsService)
+            IEmailSender emailSender,
+            ICustomUsersService customUsersService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.logger = logger;
             this.emailSender = emailSender;
-
-            // this.cardsService = cardsService;
-            // this.notificationsService = notificationsService;
+            this.customUsersService = customUsersService;
         }
 
         [BindProperty]
@@ -111,15 +106,44 @@
                     var lastName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(" ").Last();
                     var identifier = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
                     var picture = $"https://graph.facebook.com/{identifier}/picture?type=large";
+                    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                    if (this.customUsersService.CheckForEmailsAsync(email))
+                    {
+                        this.ErrorMessage = $"Error : Email {email} already exists.";
+                        return this.RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+                    }
 
                     user = new ApplicationUser
                     {
-                        UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        UserName = email,
+                        Email = email,
                         FirstName = firstName,
                         LastName = lastName,
+                        ProfilePictureUrl = picture,
+                        EmailConfirmed = true,
+                    };
+                }
+                else if (info.LoginProvider == "Google")
+                {
+                    var firstName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(" ")[0];
+                    var lastName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(" ").Last();
+                    var identifier = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                        // ProfilePictureUrl = picture,
+                    // var picture = $"https://graph.facebook.com/{identifier}/picture?type=large";
+                    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                    if (this.customUsersService.CheckForEmailsAsync(email))
+                    {
+                        this.ErrorMessage = $"Error: Email {email} already exists.";
+                        return this.RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+                    }
+
+                    user = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        //ProfilePictureUrl = picture,
                         EmailConfirmed = true,
                     };
                 }
@@ -132,16 +156,9 @@
                     };
                 }
 
-                // var card = await this.cardsService.GenerateCardAsync(user);
-                // user.Card = card;
-                // user.CardId = card.Id;
                 var loginResult = await this.userManager.CreateAsync(user);
                 if (loginResult.Succeeded)
                 {
-                    // await this.notificationsService.CreateNotificationAsync(
-                    //    $"You have your fitness card generated in your profile.",
-                    //    $"/Users/MyCard",
-                    //    user.Id);
                     loginResult = await this.userManager.AddLoginAsync(user, info);
                     if (loginResult.Succeeded)
                     {
@@ -191,8 +208,31 @@
                         Email = this.Input.Email,
                         FirstName = firstName,
                         LastName = lastName,
+                        ProfilePictureUrl = picture,
+                        EmailConfirmed = true,
+                    };
+                }
+                else if (info.LoginProvider == "Google")
+                {
+                    var firstName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(" ")[0];
+                    var lastName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(" ").Last();
+                    var identifier = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                        // ProfilePictureUrl = picture,
+                    // var picture = $"https://graph.facebook.com/{identifier}/picture?type=large";
+                    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                    if (this.customUsersService.CheckForEmailsAsync(email))
+                    {
+                        this.ErrorMessage = $"Error: Email {email} already exists.";
+                        return this.RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+                    }
+
+                    user = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        //ProfilePictureUrl = picture,
                         EmailConfirmed = true,
                     };
                 }
@@ -205,16 +245,9 @@
                     };
                 }
 
-                // var card = await this.cardsService.GenerateCardAsync(user);
-                // user.Card = card;
-                // user.CardId = card.Id;
                 var result = await this.userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    // await this.notificationsService.CreateNotificationAsync(
-                    //    $"You have your fitness card generated in your profile.",
-                    //    $"/Users/MyCard",
-                    //    user.Id);
                     result = await this.userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {

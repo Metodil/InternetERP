@@ -119,7 +119,13 @@
                 .ToListAsync();
         }
 
+        public bool CheckForEmailsAsync(string email)
+        {
+            return this.userRepository
+                .All()
+                .Any(x => x.Email == email);
 
+        }
 
         public async Task<IEnumerable<T>> GetAllUsersAsync<T>(string employee = null)
         {
