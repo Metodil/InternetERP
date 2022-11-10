@@ -2,10 +2,12 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System;
 #nullable disable
 
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Text;
     using System.Threading.Tasks;
 
     using InternetERP.Data.Models;
@@ -20,17 +22,20 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ICustomUsersService customUsersService;
         private readonly ITownsService townsService;
+        private readonly IProfileService profileService;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ICustomUsersService customUsersService,
-            ITownsService townsService)
+            ITownsService townsService,
+            IProfileService profileService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.customUsersService = customUsersService;
             this.townsService = townsService;
+            this.profileService = profileService;
         }
 
         public string Username { get; set; }
@@ -104,87 +109,18 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
                 return this.Page();
             }
 
-            // TODO make one metod for all
-            var phoneNumber = await this.userManager.GetPhoneNumberAsync(user);
-            if (this.Input.PhoneNumber != phoneNumber)
+            var returnMessage = new StringBuilder();
+            returnMessage.AppendLine(await this.profileService.UpdatePhoneNumber(user, this.Input.PhoneNumber));
+            returnMessage.AppendLine(await this.profileService.UpdateFirstName(user.Id, this.Input.FirstName));
+            returnMessage.AppendLine(await this.profileService.UpdateLastName(user.Id, this.Input.LastName));
+            returnMessage.AppendLine(await this.profileService.UpdateTownId(user.Id, this.Input.TownId));
+            returnMessage.AppendLine(await this.profileService.UpdateDistrictr(user.Id, this.Input.District));
+            returnMessage.AppendLine(await this.profileService.UpdateStreet(user.Id, this.Input.Street));
+            returnMessage.AppendLine(await this.profileService.UpdateNote(user.Id, this.Input.Note));
+            if (!string.IsNullOrEmpty(returnMessage.ToString().Trim()))
             {
-                var setPhoneResult = await this.userManager.SetPhoneNumberAsync(user, this.Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    this.StatusMessage = "Unexpected error when trying to set phone number.";
-                    return this.RedirectToPage();
-                }
-            }
-
-            var firstName = await this.customUsersService.GetFirstNameAsync(user.Id);
-            if (this.Input.FirstName != firstName)
-            {
-                var setFirstNameResult = await this.customUsersService.SetFirstNameAsync(user.Id, this.Input.FirstName);
-                if (setFirstNameResult == 0)
-                {
-                    this.StatusMessage = "Unexpected error when trying to set first name.";
-                    return this.RedirectToPage();
-                }
-            }
-
-            var lastName = await this.customUsersService.GetLastNameAsync(user.Id);
-            if (this.Input.LastName != lastName)
-            {
-                var setLastNameResult = await this.customUsersService.SetFirstNameAsync(user.Id, this.Input.LastName);
-                if (setLastNameResult == 0)
-                {
-                    this.StatusMessage = "Unexpected error when trying to set last name.";
-                    return this.RedirectToPage();
-                }
-            }
-
-            var townId = await this.customUsersService.GetTownIdAsync(user.Id);
-            if (this.Input.TownId == 0)
-            {
-                this.StatusMessage = "Town is not selected.";
+                this.StatusMessage += returnMessage + Environment.NewLine;
                 return this.RedirectToPage();
-            }
-            else if (this.Input.TownId != townId)
-            {
-                var setTownIdResult = await this.customUsersService.SetTownIdAsync(user.Id, this.Input.TownId);
-                if (setTownIdResult == 0)
-                {
-                    this.StatusMessage = "Unexpected error when trying to set town.";
-                    return this.RedirectToPage();
-                }
-            }
-
-            var district = await this.customUsersService.GetDistrictAsync(user.Id);
-            if (this.Input.District != district)
-            {
-                var setDistrictResult = await this.customUsersService.SetDistrictAsync(user.Id, this.Input.District);
-                if (setDistrictResult == 0)
-                {
-                    this.StatusMessage = "Unexpected error when trying to set district.";
-                    return this.RedirectToPage();
-                }
-            }
-
-            var street = await this.customUsersService.GetStreetAsync(user.Id);
-            if (this.Input.Street != street)
-            {
-                var setStreetResult = await this.customUsersService.SetStreetAsync(user.Id, this.Input.Street);
-                if (setStreetResult == 0)
-                {
-                    this.StatusMessage = "Unexpected error when trying to set street.";
-                    return this.RedirectToPage();
-                }
-            }
-
-            var note = await this.customUsersService.GetNoteAsync(user.Id);
-            if (this.Input.Note != note)
-            {
-                var setNoteResult = await this.customUsersService.SetNoteAsync(user.Id, this.Input.Note);
-                if (setNoteResult == 0)
-                {
-                    this.StatusMessage = "Unexpected error when trying to set note.";
-                    return this.RedirectToPage();
-                }
             }
 
             await this.signInManager.RefreshSignInAsync(user);

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Services\InternetERP.Services.Mapping\InternetERP.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Administration\Towns\" />
+  </ItemGroup>
+
 </Project>

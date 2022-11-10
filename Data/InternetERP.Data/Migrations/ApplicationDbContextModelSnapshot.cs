@@ -34,7 +34,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PhonesId");
 
-                    b.ToTable("CustomerPhone");
+                    b.ToTable("CustomerPhone", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeFailureTeam", b =>
@@ -49,7 +49,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("FailuresTeamsId");
 
-                    b.ToTable("EmployeeFailureTeam");
+                    b.ToTable("EmployeeFailureTeam", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.ApplicationRole", b =>
@@ -262,7 +262,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Employee", b =>
@@ -310,7 +310,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PhoneId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Failure", b =>
@@ -357,7 +357,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("StatusFailureId");
 
-                    b.ToTable("Failures");
+                    b.ToTable("Failures", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.FailurePart", b =>
@@ -406,7 +406,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("FailureParts");
+                    b.ToTable("FailureParts", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.FailureTeam", b =>
@@ -441,7 +441,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("FailureTeams");
+                    b.ToTable("FailureTeams", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Image", b =>
@@ -468,7 +468,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.InternetAccount", b =>
@@ -522,7 +522,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PhoneId");
 
-                    b.ToTable("InternetAccounts");
+                    b.ToTable("InternetAccounts", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.InternetAccountType", b =>
@@ -558,7 +558,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("InternetAccountTypes");
+                    b.ToTable("InternetAccountTypes", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.InternetPayment", b =>
@@ -591,7 +591,7 @@ namespace InternetERP.Data.Migrations
                     b.HasIndex("SaleId")
                         .IsUnique();
 
-                    b.ToTable("InternetPayments");
+                    b.ToTable("InternetPayments", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Invoice", b =>
@@ -631,7 +631,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PaymentTypeId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.JobTitle", b =>
@@ -666,7 +666,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("JobTitles");
+                    b.ToTable("JobTitles", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.PaymentType", b =>
@@ -701,7 +701,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("PaymentTypes");
+                    b.ToTable("PaymentTypes", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Phone", b =>
@@ -736,7 +736,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Phones");
+                    b.ToTable("Phones", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Product", b =>
@@ -780,7 +780,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Sale", b =>
@@ -842,7 +842,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Sales");
+                    b.ToTable("Sales", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Setting", b =>
@@ -875,7 +875,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Settings");
+                    b.ToTable("Settings", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.StatusFailure", b =>
@@ -911,7 +911,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("StatusFailures");
+                    b.ToTable("StatusFailures", (string)null);
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Town", b =>
@@ -943,7 +943,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Towns");
+                    b.ToTable("Towns", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

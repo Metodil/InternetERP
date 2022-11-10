@@ -40,9 +40,11 @@
 
         public Task<IEnumerable<T>> GetAllUsersAsync<T>(string trainerId = null);
 
-        public Task<ApplicationUser> GetUserByIdAsync(string id);
+        public Task<IEnumerable<string>> GetUserRolesNameAsync(string userId);
 
         public Task<T> GetUserByIdAsync<T>(string id);
+
+        public Task<ApplicationUser> GetUserByIdAsync(string id);
 
         public bool CheckForEmailsAsync(string email);
     }

@@ -18,13 +18,14 @@
         public async Task<IActionResult> Add(ChangeRoleInputModel inputModel)
         {
             await this.rolesService.AddUserToRoleAsync(inputModel.UserId, inputModel.RoleName);
-            return this.Redirect("/Administration/Users/All");
+
+            return this.Redirect($"/Administration/Users/Profile?userId={inputModel.UserId}");
         }
 
         public async Task<IActionResult> Remove(ChangeRoleInputModel inputModel)
         {
             await this.rolesService.RemoveUserToRoleAsync(inputModel.UserId, inputModel.RoleName);
-            return this.Redirect("/Administration/Users/All");
+            return this.Redirect($"/Administration/Users/Profile?userId={inputModel.UserId}");
         }
     }
 }

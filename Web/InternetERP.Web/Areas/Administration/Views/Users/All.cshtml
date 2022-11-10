@@ -1,0 +1,108 @@
+﻿@model InternetERP.Web.ViewModels.Administration.Users.AllUsersViewModel
+
+@using InternetERP.Common
+@using InternetERP.Services.Data.Contracts
+@using Microsoft.AspNetCore.Identity
+@using InternetERP.Data.Models
+
+@inject UserManager<ApplicationUser> UserManager
+@inject ICustomUsersService usersService
+@inject IRolesService rolesService
+
+@{
+    ViewData["Title"] = "Admin dashboard";
+}
+
+
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- -------------------------------------------------------------- -->
+    <!-- Start Page Content -->
+    <!-- -------------------------------------------------------------- -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-8 col-xl-9 col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex no-block align-items-center mb-4">
+                        <h4 class="card-title">All Contacts - (@Model.Users.Count() Total Users) </h4>
+                        <div class="ms-auto">
+                            
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="file_export"
+                               class="table table-bordered nowrap display">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Role</th>
+                                    <th>Joining date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model.Users)
+                                {
+                                    var picUrl = string.IsNullOrEmpty(@user.ProfilePictureUrl) ? "~/images/Monster/assets/images/users/2.jpg" : @user.ProfilePictureUrl;
+                                    <tr>
+                                        <td>
+                                            <img src="~/images/Monster/assets/images/users/2.jpg" alt="user" class="rounded-circle" width="30" />
+                                            @user.FirstName @user.LastName
+                                        </td>
+                                        <td class="small">@user.Email</td>
+                                        <td class="small">@user.PhoneNumber</td>
+                                        <td>
+                                            @foreach (var role in user.Roles)
+                                            {
+                                                string roleName = await rolesService.GetRoleNameByIdAsync(role.RoleId);
+                                                string roleClass = string.Empty; 
+                                                switch (roleName)
+                                                {
+                                                    case "Administrator" :
+                                                        roleClass = "badge bg-light-danger text-danger font-weight-medium";
+                                                        break;
+                                                    case "Manager":
+                                                        roleClass = "badge bg-light-info text-info font-weight-medium";
+                                                        break;
+                                                    case "Sales":
+                                                        roleClass = "badge bg-light-warning text-danger font-weight-medium";
+                                                        break;
+                                                    case "Employee":
+                                                        roleClass = "badge bg-light-success text-warning font-weight-medium";
+                                                        break;
+                                                    case "InternetAccount":
+                                                        roleClass = "badge bg-light-primary text-dark font-weight-medium";
+                                                        break;
+                                                    default:
+                                                        roleClass = "badge bg-light-info text-danger font-weight-medium";
+                                                        break;
+                                                }
+                                                <span class="@roleClass">@roleName</span>
+                                            }
+                                        </td>
+                                        <td class="small">@user.CreatedOn.ToString("dd-MM-yyyy")</td>
+                                        <td>
+                                            <a asp-area="Administration" asp-controller="Users" asp-action="Profile" asp-route-userId="@user.Id" class="sidebar-link">
+                                                <i class="mdi mdi-account-network"></i><span class="hide-menu"> User Profile</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+
+    </div>
+    <!-- -------------------------------------------------------------- -->
+    <!-- End Page Content -->
+    <!-- -------------------------------------------------------------- -->
+</div>

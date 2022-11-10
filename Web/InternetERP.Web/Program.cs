@@ -1,5 +1,7 @@
 ﻿namespace InternetERP.Web
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
 
     using InternetERP.Data;
@@ -20,6 +22,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Routing;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -88,6 +91,8 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ICustomUsersService, CustomUsersService>();
+            services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IRolesService, RolesService>();
 
             // Add extra cliams when login
             services.AddTransient<IClaimsTransformation, AddExtraClaims>();
@@ -121,6 +126,12 @@
             app.UseCookiePolicy();
 
             app.UseRouting();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapGet("/debug/routes", (IEnumerable<EndpointDataSource> endpointSources) =>
+                    string.Join("\n", endpointSources.SelectMany(source => source.Endpoints)));
+            }
 
             app.UseAuthentication();
             app.UseAuthorization();

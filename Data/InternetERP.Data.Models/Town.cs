@@ -9,8 +9,15 @@ namespace InternetERP.Data.Models
 
     public class Town : BaseDeletableModel<int>
     {
+        public Town()
+        {
+            this.Users = new HashSet<ApplicationUser>();
+        }
+
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }
+
+        public ICollection<ApplicationUser> Users { get; set; }
     }
 }

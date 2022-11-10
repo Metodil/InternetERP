@@ -1,8 +1,10 @@
 ﻿namespace InternetERP.Services.Data.Administration
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using InternetERP.Data.Common.Repositories;
     using InternetERP.Data.Models;
     using InternetERP.Services.Data.Contracts;
@@ -12,13 +14,16 @@
 
     public class CustomUsersService : ICustomUsersService
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly Microsoft.AspNetCore.Identity.RoleManager<ApplicationRole> roleManager;
 
         public CustomUsersService(
+            UserManager<ApplicationUser> userManager,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             RoleManager<ApplicationRole> roleManager)
         {
+            this.userManager = userManager;
             this.userRepository = userRepository;
             this.roleManager = roleManager;
         }
@@ -52,7 +57,7 @@
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             user.LastName = lastName;
- 
+
             return await this.userRepository.SaveChangesAsync();
         }
 
@@ -124,7 +129,6 @@
             return this.userRepository
                 .All()
                 .Any(x => x.Email == email);
-
         }
 
         public async Task<IEnumerable<T>> GetAllUsersAsync<T>(string employee = null)
@@ -144,6 +148,13 @@
                 .All()
                 .To<T>()
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> GetUserRolesNameAsync(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+
+            return await this.userManager.GetRolesAsync(user);
         }
 
         public async Task<string> GetDistrictAsync(string id)
@@ -200,13 +211,6 @@
             return (int)townId;
         }
 
-        public async Task<ApplicationUser> GetUserByIdAsync(string id)
-        {
-            return await this.userRepository
-                .All()
-                .FirstOrDefaultAsync(x => x.Id == id);
-        }
-
         public async Task<T> GetUserByIdAsync<T>(string id)
         {
             return await this.userRepository
@@ -214,6 +218,13 @@
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstAsync();
+        }
+
+        public async Task<ApplicationUser> GetUserByIdAsync(string id)
+        {
+            return await this.userRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<int> GetUsersCountAsync(string trainerId = null)

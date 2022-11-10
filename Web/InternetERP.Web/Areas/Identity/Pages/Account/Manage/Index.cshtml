@@ -3,18 +3,6 @@
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
-    //List<SelectListItem> townNames = new List<SelectListItem>();
-    //foreach (var town in this.Model.Input.Towns)
-    //{
-    //    if (this.Model.Input.TownId.ToString() == town.Key)
-    //    {
-    //        townNames.Add(new SelectListItem { town.Value, town.Key, Selected = true });
-    //    }
-    //    else
-    //    {
-    //        townNames.Add(new SelectListItem(town.Value, town.Key));
-    //    }
-    //}
     var townNames = this.Model.Input.Towns.Select(t => new SelectListItem(t.Value, t.Key));
 }
 
