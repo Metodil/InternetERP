@@ -1,0 +1,129 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Manager.ProductInputModelView
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<h1>Delete Product</h1>
+<div>
+    <a class="text-white btn btn-primary m-2" asp-action="All">Back to All Products</a>
+</div>
+<hr />
+
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" asp-area="Employee" asp-controller="Products" asp-action="Delete">
+                    <div class="form-body">
+                        <div class="form-actions mt-3 mb-3">
+                            <button type="submit"
+                                    class="btn btn-danger rounded-pill px-4">
+                                Delete
+                            </button>
+                            @*<button type="button"
+                                    class="btn btn-dark rounded-pill px-4">
+                                Cancel
+                            </button>*@
+                        </div>
+                        <h5 class="card-title">About Product</h5>
+                        <hr />
+                        <input type="hidden" asp-for="Id" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input type="text" class="form-control" placeholder="Product Name" asp-for="Name" value="@Model.Name" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="SellPrice" class="control-label"></label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="ti-money"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="SellPrice" aria-label="SellPrice" asp-for="SellPrice" aria-describedby="basic-addon1" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="BayPrice" class="control-label"></label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="ti-money"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="BayPrice" aria-label="BayPrice" asp-for="BayPrice" aria-describedby="basic-addon1" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="StockQuantity" class="control-label"></label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fas fa-align-justify"></i>
+                                        </span>
+                                        <input type="text" class="form-control"
+                                               placeholder="StockQuantity"
+                                               aria-label="StockQuantity"
+                                               asp-for="StockQuantity"
+                                               aria-describedby="basic-addon1"
+                                               value="@Model.StockQuantity" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="card-title mt-2">Product Description</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <textarea class="form-control" asp-for="Description" rows="4" disabled>@Model.Description</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5 class="card-title mt-3">Galery</h5>
+                            @foreach (var image in Model.ImageUrlList)
+                            {
+                                <div class="col-md-3">
+                                    <div class="el-element-overlay">
+                                        <div class="el-card-item float-left">
+                                            <div class="el-card-avatar el-overlay-1">
+                                                <img src="@image.Value" alt="Product image" class="img-thumbnail" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="form-actions mt-3">
+                            <button type="submit"
+                                    class="btn btn-danger rounded-pill px-4">
+                                Delete
+                            </button>
+                            @*<button type="button"
+                                    class="btn btn-dark rounded-pill px-4">
+                                Cancel
+                            </button>*@
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

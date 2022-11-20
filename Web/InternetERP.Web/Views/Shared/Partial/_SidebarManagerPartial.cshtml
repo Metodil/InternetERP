@@ -1,21 +1,35 @@
 ﻿<li class="sidebar-item">
     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-        <i data-feather="grid" class="feather-icon"></i><span class="hide-menu">Administration </span>
+        <i data-feather="grid" class="feather-icon"></i><span class="hide-menu">Manager </span>
     </a>
-    <ul aria-expanded="false" class="collapse first-level">
+    <ul aria-expanded="true" class="collapse first-level">
         <li class="sidebar-item">
-            <a class="sidebar-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">
+            <a class="sidebar-link" asp-area="Employee" asp-controller="DashboardManager" asp-action="Index">
                 <i class="mdi mdi-email"></i><span class="hide-menu"> Dashboard </span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" asp-area="Administration" asp-controller="Roles" asp-action="All">
-                <i class="mdi mdi-email-alert"></i><span class="hide-menu"> Manage Roles </span>
+            <a class="sidebar-link has-arrow waves-effect waves-dark"
+               href="javascript:void(0)"
+               aria-expanded="false">
+                <i class="mdi mdi-collage"></i><span class="hide-menu"> Products </span>
             </a>
+            <ul aria-expanded="false" class="collapse second-level">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-area="Employee" asp-controller="Products" asp-action="Create">
+                        <i class="mdi mdi-email-alert"></i><span class="hide-menu"> Create </span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-area="Employee" asp-controller="Products" asp-action="All">
+                        <i class="mdi mdi-email-alert"></i><span class="hide-menu"> Manage </span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" asp-area="Administration" asp-controller="Users" asp-action="All">
-                <i class="mdi mdi-email-secure"></i><span class="hide-menu"> Manage Users </span>
+            <a class="sidebar-link" asp-area="Employee" asp-controller="FailureTeams" asp-action="Index">
+                <i class="mdi mdi-email-secure"></i><span class="hide-menu"> Failure Teams </span>
             </a>
         </li>
     </ul>

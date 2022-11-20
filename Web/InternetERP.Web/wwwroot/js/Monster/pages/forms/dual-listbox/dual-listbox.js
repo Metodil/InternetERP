@@ -26,11 +26,11 @@ $(".duallistbox-multi-selection").bootstrapDualListbox({
 //With Filter Options
 //********************************//
 $(".duallistbox-with-filter").bootstrapDualListbox({
-  nonSelectedListLabel: "Non-selected Dual",
-  selectedListLabel: "Selected",
+  nonSelectedListLabel: "<b>Free Employees for Team</b>",
+  selectedListLabel: "<b>Employees in Team</b>",
   preserveSelectionOnMove: "moved",
   moveOnSelect: false,
-  nonSelectedFilter: "Berlin|Frankfurt",
+  nonSelectedFilter: "",
 });
 
 //********************************//

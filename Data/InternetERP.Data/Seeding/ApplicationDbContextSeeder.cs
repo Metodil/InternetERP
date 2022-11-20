@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using InternetERP.Data.Seeding.Data;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -34,6 +33,7 @@
                               new StatusFailureSeeder(),
                               new AddUsersSeeder(),
                               new TownsSeeder(),
+                              new ProductsSeeder(),
                           };
 
             foreach (var seeder in seeders)

@@ -7,9 +7,23 @@
         public const string AdministratorRoleName = "Administrator";
         public const string EmployeeRoleName = "Employee";
         public const string ManagerRoleName = "Manager";
+        public const string TechnicianRoleName = "Technician";
         public const string SalesRoleName = "Sales";
         public const string InternetAccountRoleName = "InternetAccount";
 
+        // Paging defaults
+        public const int ItemsPerPageGrid = 8;
+        public const int ItemsPerPageList = 5;
+
+        // InputViewModel Error
+        public const string TextError = "The {0} must be at least {1} and at max {2} characters long.";
+        public const string RangeErrorPrice = "Value for {0} must be at least {1} and max {2}.";
+
+        // Path for Products image
+        public const string RootPathForImages = "images";
+        public const string ProductsPathForImages = "Products";
+
+        // Users data for Seeding
         public static class DataForSeeding
         {
             public const string PasswordHash = "AQAAAAEAACcQAAAAEOr5MhkFf5aTLQxqzFSfcqPFcoNXXsNWFfFG7xCzzgrPNJCFAlIZHh/WV8sBBZiMHw=="; // 123456;

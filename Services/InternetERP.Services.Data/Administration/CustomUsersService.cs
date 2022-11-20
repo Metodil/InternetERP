@@ -1,6 +1,5 @@
 ﻿namespace InternetERP.Services.Data.Administration
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -131,21 +130,21 @@
                 .Any(x => x.Email == email);
         }
 
-        public async Task<IEnumerable<T>> GetAllUsersAsync<T>(string employee = null)
+        public async Task<IEnumerable<T>> GetAllUsersAsync<T>()
         {
-            if (employee != null)
-            {
-                var role = await this.roleManager.Roles.SingleAsync(r => r.Name == employee);
-
-                return await this.userRepository
-                .All()
-                .Where(u => u.Roles.Any(r => r.RoleId == role.Id))
-                .To<T>()
-                .ToListAsync();
-            }
-
             return await this.userRepository
                 .All()
+                .To<T>()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllUsersPagingAsync<T>(int page, int itemsPerPage)
+        {
+            return await this.userRepository
+                .All()
+                .OrderBy(x => x.UserName)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
                 .To<T>()
                 .ToListAsync();
         }
@@ -227,22 +226,11 @@
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<int> GetUsersCountAsync(string trainerId = null)
+        public async Task<int> CountAsync()
         {
-            if (trainerId == null)
-            {
                 return await this.userRepository
                     .All()
                     .CountAsync();
-            }
-            else
-            {
-                return await this.userRepository
-                    .All()
-
-                    // .Where(x => x.Trainers.Any(y => y.TrainerId == trainerId))
-                    .CountAsync();
-            }
         }
     }
 }

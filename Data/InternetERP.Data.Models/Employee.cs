@@ -13,7 +13,6 @@ namespace InternetERP.Data.Models
     {
         public Employee()
         {
-            this.FailuresTeams = new HashSet<FailureTeam>();
         }
 
         public string EmployeeUserId { get; set; }
@@ -21,16 +20,13 @@ namespace InternetERP.Data.Models
         public virtual ApplicationUser EmployeeUser { get; set; }
 
         [Required]
-        public int JobTitleId { get; set; }
-
-        public virtual JobTitle JobbTitle { get; set; }
-
-        [Required]
         public DateTime HireDate { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Salary { get; set; }
 
-        public virtual ICollection<FailureTeam> FailuresTeams { get; set; }
+        public int? FailureTeamId { get; set; }
+
+        public virtual FailureTeam FailureTeams { get; set; }
     }
 }

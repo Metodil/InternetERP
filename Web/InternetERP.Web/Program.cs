@@ -13,6 +13,7 @@
     using InternetERP.Services.Data;
     using InternetERP.Services.Data.Administration;
     using InternetERP.Services.Data.Contracts;
+    using InternetERP.Services.Data.Employee;
     using InternetERP.Services.Mapping;
     using InternetERP.Services.Messaging;
     using InternetERP.Web.Areas.Identity.Pages.Account;
@@ -93,6 +94,9 @@
             services.AddTransient<ICustomUsersService, CustomUsersService>();
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<IRolesService, RolesService>();
+            services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IFileService, FileLocalService>();
+            services.AddTransient<IFailureTeamsService, FailureTeamsService>();
 
             // Add extra cliams when login
             services.AddTransient<IClaimsTransformation, AddExtraClaims>();

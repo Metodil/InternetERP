@@ -32,13 +32,15 @@
         public Task<int> SetNoteAsync(string id, string lastName);
 
         // TODO remove trainerID
-        public Task<int> GetUsersCountAsync(string trainerId = null);
+        public Task<int> CountAsync();
 
         public Task<ApplicationUser> SetEmailAsync(string userId, string newEmail);
 
         public Task<IEnumerable<string>> GetAllEmailsAsync();
 
-        public Task<IEnumerable<T>> GetAllUsersAsync<T>(string trainerId = null);
+        public Task<IEnumerable<T>> GetAllUsersPagingAsync<T>(int page, int itemsPerPage);
+
+        public Task<IEnumerable<T>> GetAllUsersAsync<T>();
 
         public Task<IEnumerable<string>> GetUserRolesNameAsync(string userId);
 

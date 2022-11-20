@@ -6,7 +6,7 @@
     var townNames = this.townsService.GetAllTownsAsKetValuePairs()
         .Select(t => new SelectListItem(t.Value, t.Key));
     var userRolesName = await this.usersService.GetUserRolesNameAsync(Model.Id);
-    var allRolesName = await this.rolesService.GetAllRolesAsync();
+    var allRolesName = await this.rolesService.GetAllRolesNamesAsync();
     var roleClass = string.Empty;
 }
 @using InternetERP.Common
@@ -17,7 +17,11 @@
 @{
     ViewData["Title"] = "User profile";
 }
-
+<h3>Edit User Profile</h3>
+<div>
+    <a class="text-white btn btn-primary m-2" asp-action="All">Back to All Users</a>
+</div>
+<hr />
 <div class="row">
     <div class="col-md-6">
         <form id="profile" method="post">
@@ -94,44 +98,24 @@
                     {
                         <tr>
                             <td>
-                                @switch (roleName)
-                                {
-                                    // TODO roleClass as field in Roles
-                                    case "Administrator":
-                                        roleClass = "btn bg-light-danger text-danger font-weight-medium";
-                                        break;
-                                    case "Manager":
-                                        roleClass = "btn bg-light-info text-info font-weight-medium";
-                                        break;
-                                    case "Sales":
-                                        roleClass = "btn bg-light-warning text-danger font-weight-medium";
-                                        break;
-                                    case "Employee":
-                                        roleClass = "btn bg-light-success text-warning font-weight-medium";
-                                        break;
-                                    case "InternetAccount":
-                                        roleClass = "btn bg-light-primary text-dark font-weight-medium";
-                                        break;
-                                    default:
-                                        roleClass = "btn bg-light-info text-danger font-weight-medium";
-                                        break;
-                                }
-                                <span class="@roleClass m-2">@roleName</span>
+                                <span class="@rolesService.GetRolesStyles(roleName) m-2">@roleName</span>
                             </td>
                             <td>
                                 @if (userRolesName.Contains(roleName))
                                 {
-                                <a class="text-white btn btn-primary m-2" href="/Administration/Roles/Remove?userId=@Model.Id&roleName=@roleName">
-                                    Remove @roleName
-                                </a>
+                                    <i class="mdi mdi-account-network bg-light-success"></i>
+                                    <a class="text-white btn btn-primary m-2" href="/Administration/Roles/RemoveRoleToUser?userId=@Model.Id&roleName=@roleName">
+                                        Remove @roleName
+                                    </a>
                                 }
                                 else
                                 {
-                                <a class="text-white btn btn-primary m-2" href="/Administration/Roles/Add?userId=@Model.Id&roleName=@roleName">
-                                    Make @roleName
-                                </a>
+                                    <a class="text-white btn btn-primary m-2" href="/Administration/Roles/AddRoleToUser?userId=@Model.Id&roleName=@roleName">
+                                        Make @roleName
+                                    </a>
                                 }
                             </td>
+
                         </tr>
                     }
                 </tbody>

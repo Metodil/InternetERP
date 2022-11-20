@@ -5,47 +5,91 @@
 
 <h1 class="text-center">@this.ViewData["Title"]</h1>
 <hr />
-<div class="row">
-    <div class="col main pt-5 mt-3 border">
-        <h1 class="display-4 d-none d-sm-block">
-            Administration Dashboard
-        </h1>
-        <p class="lead d-none d-sm-block">Check and Manage</p>
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col main pt-5 mt-3 border">
+            <h1 class="display-4 d-none d-sm-block">
+                Administration Dashboard
+            </h1>
+            <p class="lead d-none d-sm-block">Check and Manage</p>
 
-        <div class="row mb-3">
-            <a asp-action="All" asp-controller="Users" asp-area="Administration" title="Users" class="col-xl-3 col-sm-6 py-2">
-                <div class="card bg-success text-white h-100">
-                    <div class="card-body bg-success">
-                        <div class="rotate">
-                            <i class="fa fa-user fa-4x"></i>
+            <div class="row mb-3">
+                <a asp-action="All" asp-controller="Users" asp-area="Administration" title="Users" class="col-xl-3 col-sm-6 py-2">
+                    <div class="card bg-success text-white h-100">
+                        <div class="card-body bg-success">
+                            <div class="rotate">
+                                <i class="fa fa-users fa-4x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Users</h6>
+                            <h1 class="display-4"></h1>
                         </div>
-                        <h6 class="text-uppercase">Users</h6>
-                        <h1 class="display-4"></h1>
+                    </div>
+                </a>
+                <a asp-action="Index" asp-controller="Roles" asp-area="Administration" title="Manage Roles" class="col-xl-3 col-sm-6 py-2">
+                    <div class="card text-white bg-danger h-100">
+                        <div class="card-body bg-danger">
+                            <div class="rotate">
+                                <i class="fas fa-address-card fa-4x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Roles</h6>
+                            <h1 class="display-4"></h1>
+                        </div>
+                    </div>
+                </a>
+                <a asp-action="Index" asp-controller="Towns" asp-area="Administration" title="Manage Towns" class="col-xl-3 col-sm-6 py-2">
+                    <div class="card text-white bg-info h-100">
+                        <div class="card-body bg-info">
+                            <div class="rotate">
+                                <i class="fas fa-home fa-4x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Towns</h6>
+                            <h1 class="display-4"></h1>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="row">
+                <p class="lead d-none d-sm-block">Statistic</p>
+                <!-- Column -->
+                <div class="col-md-6 col-lg-3 col-xlg-3">
+                    <div class="card">
+                        <div class="box p-2 rounded bg-info text-center">
+                            <h1 class="fw-light text-white">2,064</h1>
+                            <h6 class="text-white">Sessions</h6>
+                        </div>
                     </div>
                 </div>
-            </a>
-            <a asp-action="Index" asp-controller="Roles" asp-area="Administration" title="Manage Roles" class="col-xl-3 col-sm-6 py-2">
-                <div class="card text-white bg-danger h-100">
-                    <div class="card-body bg-danger">
-                        <div class="rotate">
-                            <i class="fas fa-bicycle fa-4x"></i>
+                <!-- Column -->
+                <div class="col-md-6 col-lg-3 col-xlg-3">
+                    <div class="card">
+                        <div class="box p-2 rounded bg-primary text-center">
+                            <h1 class="fw-light text-white">1,738</h1>
+                            <h6 class="text-white">Users</h6>
                         </div>
-                        <h6 class="text-uppercase">Roles</h6>
-                        <h1 class="display-4"></h1>
                     </div>
                 </div>
-            </a>
-            <a asp-action="Index" asp-controller="Towns" asp-area="Administration" title="Manage Towns" class="col-xl-3 col-sm-6 py-2">
-                <div class="card text-white bg-info h-100">
-                    <div class="card-body bg-info">
-                        <div class="rotate">
-                            <i class="fas fa-dumbbell fa-4x"></i>
+                <!-- Column -->
+                <div class="col-md-6 col-lg-3 col-xlg-3">
+                    <div class="card">
+                        <div class="box p-2 rounded bg-success text-center">
+                            <h1 class="fw-light text-white">5963</h1>
+                            <h6 class="text-white">Page Views</h6>
                         </div>
-                        <h6 class="text-uppercase">Towns</h6>
-                        <h1 class="display-4"></h1>
                     </div>
                 </div>
-            </a>
+                <!-- Column -->
+                <div class="col-md-6 col-lg-3 col-xlg-3">
+                    <div class="card">
+                        <div class="box p-2 rounded bg-warning text-center">
+                            <h1 class="fw-light text-white">10%</h1>
+                            <h6 class="text-white">Bounce Rate</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

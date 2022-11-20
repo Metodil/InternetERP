@@ -13,6 +13,7 @@
     using InternetERP.Data.Repositories;
     using InternetERP.Data.Seeding;
     using InternetERP.Services.Data;
+    using InternetERP.Services.Data.Contracts;
     using InternetERP.Services.Messaging;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;

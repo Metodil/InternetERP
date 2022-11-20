@@ -1,0 +1,107 @@
+﻿@using InternetERP.Common
+@using System.IO;
+@model InternetERP.Web.ViewModels.Employee.Manager.AllProductsViewModel
+
+@{
+    this.ViewData["Title"] = "Employee Sales dashboard";
+}
+<div class="row">
+    <!-- Column -->
+    <div class="col-md-9 col-lg-9">
+        <div class="card">
+            <div class="ms-auto mt-5 mb-2 mt-md-0">
+                <form method="get" asp-action="all">
+                    <table>
+                        <tr>
+                            <td>
+                                <input placeholder="Filter by" id="filterBy" name="filterBy" type="text" class="form-control" value="@Model.FilterBy" />
+                            </td>
+                            <td>
+                                <button asp-action="all" asp-route-id="1" class=" btn btn-info float-right">Search</button>
+                            </td>
+                        </tr>
+
+                    </table>
+                </form>
+            </div>
+            <div class="card-header bg-info">
+                <h5 class="mb-0 text-white">Your Products (@Model.ItemsCount items)</h5>
+                <br />
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table product-overview">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product info</th>
+                                <th>Sale Price</th>
+                                <th>Bay Price</th>
+                                <th style="text-align: center">Quantity</th>
+                                <th style="text-align: center">Edit</th>
+                                <th style="text-align: center">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+
+                                <tr>
+                                    <td width="150">
+                                        @{
+                                            // TODO move Create path of product images to service
+                                            var image = product.Images.FirstOrDefault();
+                                            if (image == null)
+                                            {
+                                                    <img src="" alt="No image" width="80" />
+                                            }
+                                            else
+                                            {
+                                                var src = "/"+
+                                                GlobalConstants.RootPathForImages+"/" +
+                                                GlobalConstants.ProductsPathForImages+"/";
+                                                if (image.Name != null)
+                                                {
+                                                    src += image.Name;
+                                                }
+                                                else
+                                                {
+                                                    src += image.Id + "." + image.Extension;
+                                                }
+                                                    <img src="@src" alt="image" width="80" />
+                                            }
+                                        }
+                                    </td>
+                                    <td width="550">
+                                        <h5 class="font-500">
+                                            <a asp-area="Employee" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">
+                                                @product.Name
+                                            </a>
+                                        </h5>
+                                        <p></p>
+                                    </td>
+                                    <td width="120">@product.SellPrice</td>
+                                    <td width="120" align="center" class="font-500">@product.BayPrice</td>
+                                    <td width="60" align="right">@product.StockQuantity</td>
+                                    <td align="center">
+                                        <a asp-area="Employee" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id"
+                                       class="text-inverse" title="" data-bs-toggle="tooltip" data-original-title="Edit">
+                                            <i class="fas fa-edit display-9"></i>
+                                        </a>
+                                    </td>
+                                    <td align="center">
+                                        <a asp-area="Employee" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id"
+                                       class="text-inverse" title="" data-bs-toggle="tooltip" data-original-title="Delete">
+                                            <i class="me-2 mdi mdi-delete-empty text-danger display-8"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_PagingPartial" model="@Model" />

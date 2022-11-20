@@ -1,27 +1,37 @@
 ﻿namespace InternetERP.Web.Areas.Administration.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
-    using InternetERP.Data.Common.Repositories;
+    using InternetERP.Common;
     using InternetERP.Data.Models;
+    using InternetERP.Services.Data.Contracts;
+    using InternetERP.Web.ViewModels.Administration.Towns;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
     public class TownsController : AdministrationController
     {
-        private readonly IDeletableEntityRepository<Town> dataRepository;
+        private readonly ITownsService townsService;
 
-        public TownsController(IDeletableEntityRepository<Town> dataRepository)
+        public TownsController(ITownsService townsService)
         {
-            this.dataRepository = dataRepository;
+            this.townsService = townsService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id = 1)
         {
-            var towns = await this.dataRepository.AllWithDeleted().ToListAsync();
-            return this.View(towns);
+            var model = new AllTownsViewModel
+            {
+                Towns = await this.townsService.GetAllTownsPagingAsync<TownListViewModel>(
+                    id, GlobalConstants.ItemsPerPageList),
+                ItemsPerPage = GlobalConstants.ItemsPerPageList,
+                PageNumber = id,
+                AspAction = nameof(this.Index),
+                ItemsCount = await this.townsService.CountAsync(),
+            };
+
+            return this.View(model);
         }
 
         [HttpGet]
@@ -32,64 +42,47 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Town town)
+        public async Task<IActionResult> Create([Bind("Name")] TownInputModel town)
         {
             if (this.ModelState.IsValid)
             {
-                await this.dataRepository.AddAsync(town);
-                await this.dataRepository.SaveChangesAsync();
-                return this.RedirectToAction(nameof(this.Index));
+                var newTown = await this.townsService.CreateAsync(town);
+                return this.View(newTown);
+            }
+
+            // TODO show mess on success
+            return this.View(town);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (await this.townsService.CountAsync() == 0)
+            {
+                return this.NotFound();
+            }
+
+            var town = await this.townsService.GetTownByIdAsync(id);
+            if (town == null)
+            {
+                return this.NotFound();
             }
 
             return this.View(town);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || this.dataRepository.All() == null)
-            {
-                return this.NotFound();
-            }
-
-            var category = await this.dataRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-            if (category == null)
-            {
-                return this.NotFound();
-            }
-
-            return this.View(category);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Town town)
+        public async Task<IActionResult> Edit(int? id, [Bind("Id, Name")] TownInputModel town)
         {
-            if (id != town.Id)
+            if (id == null || !await this.townsService.TownExist((int)id))
             {
                 return this.NotFound();
             }
 
             if (this.ModelState.IsValid)
             {
-                try
-                {
-                    this.dataRepository.Update(town);
-                    await this.dataRepository.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!this.TownExists(town.Id))
-                    {
-                        return this.NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return this.RedirectToAction(nameof(this.Index));
+                await this.townsService.Update(town);
             }
 
             return this.View(town);
@@ -98,19 +91,15 @@
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || this.dataRepository.All() == null)
+            if (id == null || !await this.townsService.TownExist((int)id))
             {
                 return this.NotFound();
             }
 
-            var category = await this.dataRepository.All()
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return this.NotFound();
-            }
+            var town = await this.townsService
+                .GetTownByIdAsync((int)id);
 
-            return this.View(category);
+            return this.View(town);
         }
 
         [HttpPost]
@@ -118,25 +107,14 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (this.dataRepository.All() == null)
+            if (await this.townsService.CountAsync() == 0)
             {
-                return this.Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
+                return this.Problem("Entity Town is empty.");
             }
 
-            var category = this.dataRepository.All().FirstOrDefault(x => x.Id == id);
-            if (category != null)
-            {
-                this.dataRepository.Delete(category);
-            }
+            await this.townsService.Delete(id);
 
-            await this.dataRepository.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
-        }
-
-
-        private bool TownExists(int id)
-        {
-            return this.dataRepository.All().Any(e => e.Id == id);
         }
     }
 }

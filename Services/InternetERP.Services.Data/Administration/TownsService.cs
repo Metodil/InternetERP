@@ -7,6 +7,9 @@
     using InternetERP.Data.Common.Repositories;
     using InternetERP.Data.Models;
     using InternetERP.Services.Data.Contracts;
+    using InternetERP.Services.Mapping;
+    using InternetERP.Web.ViewModels.Administration.Towns;
+    using Microsoft.EntityFrameworkCore;
 
     public class TownsService : ITownsService
     {
@@ -29,6 +32,85 @@
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
 
             return townsList;
+        }
+
+        public async Task<IEnumerable<T>> GetAllTownsPagingAsync<T>(int page, int itemsPerPage)
+        {
+            return await this.townsRepository
+                .AllAsNoTrackingWithDeleted()
+                .OrderBy(x => x.Name)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToListAsync();
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await this.townsRepository
+                .AllAsNoTracking()
+                .CountAsync();
+        }
+
+        public async Task<Town> GetTownByIdAsync(int id)
+        {
+            return await this.townsRepository
+                .AllAsNoTrackingWithDeleted()
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+        public async Task<bool> Update(TownInputModel town)
+        {
+            var townToUpdate = await this.townsRepository
+                            .AllWithDeleted()
+                            .FirstOrDefaultAsync(t => t.Id == town.Id);
+            townToUpdate.Name = town.Name;
+            var result = true;
+            try
+            {
+                this.townsRepository.Update(townToUpdate);
+                await this.townsRepository.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public async Task<Town> CreateAsync(TownInputModel townInput)
+        {
+            var town = new Town
+            {
+                Name = townInput.Name,
+            };
+
+            if (!await this.TownExist(townInput.Id))
+            {
+                await this.townsRepository.AddAsync(town);
+                await this.townsRepository.SaveChangesAsync();
+            }
+
+            return town;
+        }
+
+        public async Task<bool> TownExist(int id)
+        {
+            return await this.townsRepository
+                .AllAsNoTrackingWithDeleted()
+                .AnyAsync(t => t.Id == id);
+        }
+
+        public async Task<Town> Delete(int id)
+        {
+            var town = await this.townsRepository
+             .All()
+             .FirstAsync(x => x.Id == id);
+
+            this.townsRepository.Delete(town);
+            await this.townsRepository.SaveChangesAsync();
+            return town;
         }
     }
 }

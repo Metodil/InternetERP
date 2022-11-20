@@ -13,6 +13,8 @@ namespace InternetERP.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
 
+        public string Name { get; set; }
+
         public string Path { get; set; }
 
         public int? ProductId { get; set; }

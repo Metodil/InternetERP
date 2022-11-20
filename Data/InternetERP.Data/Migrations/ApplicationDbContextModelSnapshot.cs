@@ -34,22 +34,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PhonesId");
 
-                    b.ToTable("CustomerPhone", (string)null);
-                });
-
-            modelBuilder.Entity("EmployeeFailureTeam", b =>
-                {
-                    b.Property<int>("EmployeesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FailuresTeamsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeesId", "FailuresTeamsId");
-
-                    b.HasIndex("FailuresTeamsId");
-
-                    b.ToTable("EmployeeFailureTeam", (string)null);
+                    b.ToTable("CustomerPhone");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.ApplicationRole", b =>
@@ -262,7 +247,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Employee", b =>
@@ -282,14 +267,14 @@ namespace InternetERP.Data.Migrations
                     b.Property<string>("EmployeeUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("FailureTeamId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("JobTitleId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -304,13 +289,13 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("EmployeeUserId");
 
-                    b.HasIndex("IsDeleted");
+                    b.HasIndex("FailureTeamId");
 
-                    b.HasIndex("JobTitleId");
+                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("PhoneId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Failure", b =>
@@ -357,7 +342,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("StatusFailureId");
 
-                    b.ToTable("Failures", (string)null);
+                    b.ToTable("Failures");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.FailurePart", b =>
@@ -406,7 +391,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("FailureParts", (string)null);
+                    b.ToTable("FailureParts");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.FailureTeam", b =>
@@ -441,7 +426,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("FailureTeams", (string)null);
+                    b.ToTable("FailureTeams");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Image", b =>
@@ -458,6 +443,9 @@ namespace InternetERP.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
@@ -468,7 +456,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.InternetAccount", b =>
@@ -522,7 +510,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PhoneId");
 
-                    b.ToTable("InternetAccounts", (string)null);
+                    b.ToTable("InternetAccounts");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.InternetAccountType", b =>
@@ -558,7 +546,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("InternetAccountTypes", (string)null);
+                    b.ToTable("InternetAccountTypes");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.InternetPayment", b =>
@@ -591,7 +579,7 @@ namespace InternetERP.Data.Migrations
                     b.HasIndex("SaleId")
                         .IsUnique();
 
-                    b.ToTable("InternetPayments", (string)null);
+                    b.ToTable("InternetPayments");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Invoice", b =>
@@ -631,42 +619,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PaymentTypeId");
 
-                    b.ToTable("Invoices", (string)null);
-                });
-
-            modelBuilder.Entity("InternetERP.Data.Models.JobTitle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("JobTitles", (string)null);
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.PaymentType", b =>
@@ -701,7 +654,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("PaymentTypes", (string)null);
+                    b.ToTable("PaymentTypes");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Phone", b =>
@@ -736,7 +689,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Phones", (string)null);
+                    b.ToTable("Phones");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Product", b =>
@@ -780,7 +733,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Sale", b =>
@@ -842,7 +795,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Sales", (string)null);
+                    b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Setting", b =>
@@ -875,7 +828,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Settings", (string)null);
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.StatusFailure", b =>
@@ -911,7 +864,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("StatusFailures", (string)null);
+                    b.ToTable("StatusFailures");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Town", b =>
@@ -943,7 +896,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Towns", (string)null);
+                    b.ToTable("Towns");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1067,25 +1020,10 @@ namespace InternetERP.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EmployeeFailureTeam", b =>
-                {
-                    b.HasOne("InternetERP.Data.Models.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("InternetERP.Data.Models.FailureTeam", null)
-                        .WithMany()
-                        .HasForeignKey("FailuresTeamsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("InternetERP.Data.Models.ApplicationUser", b =>
                 {
                     b.HasOne("InternetERP.Data.Models.Town", "Town")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("TownId");
 
                     b.Navigation("Town");
@@ -1105,14 +1043,12 @@ namespace InternetERP.Data.Migrations
             modelBuilder.Entity("InternetERP.Data.Models.Employee", b =>
                 {
                     b.HasOne("InternetERP.Data.Models.ApplicationUser", "EmployeeUser")
-                        .WithMany()
+                        .WithMany("Employees")
                         .HasForeignKey("EmployeeUserId");
 
-                    b.HasOne("InternetERP.Data.Models.JobTitle", "JobbTitle")
-                        .WithMany()
-                        .HasForeignKey("JobTitleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.HasOne("InternetERP.Data.Models.FailureTeam", "FailureTeams")
+                        .WithMany("Employees")
+                        .HasForeignKey("FailureTeamId");
 
                     b.HasOne("InternetERP.Data.Models.Phone", null)
                         .WithMany("Employees")
@@ -1120,7 +1056,7 @@ namespace InternetERP.Data.Migrations
 
                     b.Navigation("EmployeeUser");
 
-                    b.Navigation("JobbTitle");
+                    b.Navigation("FailureTeams");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Failure", b =>
@@ -1303,6 +1239,8 @@ namespace InternetERP.Data.Migrations
                 {
                     b.Navigation("Claims");
 
+                    b.Navigation("Employees");
+
                     b.Navigation("Logins");
 
                     b.Navigation("Roles");
@@ -1311,6 +1249,11 @@ namespace InternetERP.Data.Migrations
             modelBuilder.Entity("InternetERP.Data.Models.Failure", b =>
                 {
                     b.Navigation("FailuresParts");
+                });
+
+            modelBuilder.Entity("InternetERP.Data.Models.FailureTeam", b =>
+                {
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.InternetAccount", b =>
@@ -1345,6 +1288,11 @@ namespace InternetERP.Data.Migrations
             modelBuilder.Entity("InternetERP.Data.Models.StatusFailure", b =>
                 {
                     b.Navigation("Failures");
+                });
+
+            modelBuilder.Entity("InternetERP.Data.Models.Town", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

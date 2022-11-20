@@ -43,8 +43,6 @@
 
         public DbSet<Invoice> Invoices { get; set; }
 
-        public DbSet<JobTitle> JobTitles { get; set; }
-
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
         public DbSet<Phone> Phones { get; set; }

@@ -1,0 +1,96 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Manager.FailureTeamsViewModel
+@{
+    this.ViewData["Title"] = "Manage Failure teams";
+    var count = 0;
+    var activeTeam = string.Empty;
+    var fullName = string.Empty;
+    var selectedEmployee = string.Empty;
+}
+<div class="row">
+    <div class="col-4">
+        <h5 class="card-title mt-3">Failure teams</h5>
+        <div class="list-group" id="list-tab" role="tablist">
+            @*<a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>*@
+            @foreach (var team in Model.FailureTeams)
+            {
+                if (!string.IsNullOrEmpty(Model.ManagedTeam) && Model.ManagedTeam == team.Name)
+                {
+                    activeTeam = "active";
+                }
+                else
+                {
+                    activeTeam = string.Empty;
+                }
+                count++;
+                <a class="list-group-item list-group-item-action @activeTeam" id="list-@count-list"
+               asp-area="Employee" asp-controller="FailureTeams" asp-action="Index" asp-route-managedTeam="@team.Name"
+               role="tab" aria-controls="profile">@team.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-3">
+        <h5 class="card-title mt-3">Selected team</h5>
+        <div class="tab-content" id="nav-tabContent">
+            @if (!string.IsNullOrEmpty(Model.ManagedTeam))
+            {
+                <div class="bg-primary text-center p-2">
+                    <p><h4 class="text-white"><b>@Model.ManagedTeam</b></h4></p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="row p-3">
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">
+                    Select from the list
+                </h4>
+            </div>
+            <div class="card-body">
+                <form metod="post" asp-action="Index">
+                    <span class="text-success">@Model.SuccessfullyMsg</span>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" asp-for="ManagedTeam" value="@Model.ManagedTeam" />
+                    <select asp-for="SelectedEmployee" multiple="multiple"
+                            size="10"
+                            class="duallistbox-with-filter" id="SelectedEmployee">
+                        @count=0;
+                        @foreach (var employee in Model.FreeEmployees)
+                        {
+                            count++;
+                            fullName = employee.FirstName + " " + employee.LastName;
+                            if (Model.EmployeesInTeam != null &&
+                            Model.EmployeesInTeam.Any(e => e.UserName == employee.UserName))
+                            {
+                                selectedEmployee = @" selected = 'selected'";
+                            }
+                            else
+                            {
+                                selectedEmployee = string.Empty;
+                            }
+                            <!option value="@employee.Id" @selectedEmployee>@fullName</!option>
+                        }
+
+                    </select>
+                    <div class="form-actions mt-3">
+                        <button type="submit"
+                                class="btn btn-success rounded-pill px-4">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        // TODO move dual list to main js
+        <script src="~/images/Monster/assets/libs/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js"></script>
+        <script src="~/js/Monster/pages/forms/dual-listbox/dual-listbox.js"></script>
+    }
+    }

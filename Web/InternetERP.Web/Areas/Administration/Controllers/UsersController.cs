@@ -3,6 +3,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using InternetERP.Common;
     using InternetERP.Services.Data.Contracts;
     using InternetERP.Web.ViewModels.Administration.Users;
     using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,16 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int id = 1)
         {
             var model = new AllUsersViewModel
             {
-                Users = await this.usersService.GetAllUsersAsync<UserListItemViewModel>(),
+                Users = await this.usersService.GetAllUsersPagingAsync<UserListItemViewModel>(
+                    id, GlobalConstants.ItemsPerPageList),
+                ItemsPerPage = GlobalConstants.ItemsPerPageList,
+                PageNumber = id,
+                AspAction = nameof(this.All),
+                ItemsCount = await this.usersService.CountAsync(),
             };
 
             return this.View(model);
@@ -39,6 +45,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile(ProfileInputModel input)
         {
             if (!this.ModelState.IsValid)

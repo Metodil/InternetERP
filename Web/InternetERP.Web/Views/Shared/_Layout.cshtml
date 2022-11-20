@@ -7,7 +7,10 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" />
-
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/lib/Monster/libs/apexcharts/dist/apexcharts.css" />
     <!-- Custom CSS -->
@@ -59,20 +62,12 @@
     <script src="~/js/Monster/app-style-switcher.horizontal.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="~/lib/monster/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
- @*   <script src="~/lib/monster/libs/jquery-sparkline/jquery.sparkline.min.js"></script>*@
-    <!--wave effects -->
-    @*   <script src="~/js/Monster/waves.js"></script>*@
     <!--Menu sidebar -->
     <script src="~/js/Monster/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="~/js/Monster/feather.min.js"></script>
     <script src="~/js/Monster/custom.min.js"></script>
-    <!-- ############################################################### -->
-    <!-- This Page Js Files Here -->
-    <!-- ############################################################### -->
-    @*    <script src="~/lib/Monster/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="~/js/Monster/pages/dashboards/dashboard1.js"></script>
-    *@
+ 
 
 
     @await this.RenderSectionAsync("Scripts", required: false)
