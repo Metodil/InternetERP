@@ -228,9 +228,47 @@
 
         public async Task<int> CountAsync()
         {
+            return await this.userRepository
+                .All()
+                .CountAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetFilteredUsersPagingAsync<T>(
+           int page,
+           int itemsPerPage,
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+           string? filterBy = null,
+           string? categoryFilter = null)
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        {
+            // TODO Users manage paging
+            if (filterBy == null)
+            {
                 return await this.userRepository
-                    .All()
-                    .CountAsync();
+                                .All()
+                                .OrderBy(x => x.FirstName)
+                                .ThenBy(x => x.LastName)
+                                .Skip((page - 1) * itemsPerPage)
+                                .Take(itemsPerPage)
+                                .To<T>()
+                                .ToListAsync();
+            }
+            else
+            {
+                var filterList = filterBy
+                    .Split(' ', System.StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
+                return await this.userRepository
+                                .All()
+                                .OrderBy(x => x.FirstName)
+                                .ThenBy(x => x.LastName)
+                                .Where(p => p.FirstName.Contains(filterBy) ||
+                                    p.LastName.Contains(filterBy))
+                                .Skip((page - 1) * itemsPerPage)
+                                .Take(itemsPerPage)
+                                .To<T>()
+                                .ToListAsync();
+            }
         }
     }
 }

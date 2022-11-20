@@ -1,6 +1,84 @@
 ﻿@model InternetERP.Web.ViewModels.Employee.Sales.SaleGoodsViewModel
 @{
     this.ViewData["Title"] = "New Sale";
+    var disabledNext = "disabled";
 }
 
-<partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+@section AddToHead{
+    <link href="@Url.Content("~/css/select2/select2.min.css")" rel="stylesheet" type="text/css" />
+}
+
+    <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+
+<div class="container-fluid">
+    <div class="row">
+        <h4 class="card-title mt-3 mb-2">
+            Select user from the menu
+        </h4>
+        <form method="post" asp-action="NewSale">
+            <input type="hidden" asp-for="Step" value="@Model.Step" />
+            <select asp-for="SelectedUser" class="select2 form-control custom-select" style="width: 100%; height: 36px">
+                <optgroup label="Internet accounts">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.Id">@user.FirstName @user.LastName</option>
+                }
+                </optgroup>
+            </select>
+            <div class="form-actions mt-3 mb-3">
+                <button type="submit"
+                        class="btn btn-success rounded-pill px-4">
+                    Choose
+                </button>
+            </div>
+        </form>
+    </div>
+    @if (Model.SaleId != null)
+    {
+        <div class="row mt-3">
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card rounded-3 card-hover">
+                    <a href="#" class="stretched-link"></a>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <span class="flex-shrink-0">
+                                <i class="mdi mdi-folder-account display-6 text-success"></i>
+                            </span>
+                            <div class="ms-4">
+                                <h4 class="card-title text-dark">Selected customer</h4>
+                                <h4 class="card-subtitle mb-0 fs-2 fw-normal mb-1">
+                                    @Model.SaleId.FirstName @Model.SaleId.LastName
+                                </h4>
+                                <span class="fs-2 mt-1 font-weight-medium">Address: @Model.SaleId.Address</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-light">
+            @if (Model.SaleId != null)
+            {
+                disabledNext = string.Empty;
+            }
+            <a href="#" class="btn btn-lg btn-primary float-end m-lg-1" @disabledNext>
+                Next
+            </а>
+                <a href="#" class="btn-secondary btn-lg float-end m-lg-1" disabled>
+                Previous
+            </a>
+                <span class="float-end m-lg-3">Click any button to proceed : </span>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        <script src="~/js/select2/select2.full.min.js"></script>
+        <script src="~/js/select2/select2.min.js"></script>
+        <script src="~/js/Monster/pages/forms/select2/select2.init.js"></script>
+    }
+    }

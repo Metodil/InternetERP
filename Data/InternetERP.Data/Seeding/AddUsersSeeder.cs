@@ -63,6 +63,18 @@
 
             roles = new string[] { GlobalConstants.InternetAccountRoleName };
             await SeedUserAsync(userManager, GlobalConstants.DataForSeeding.InternetAccountEmail, GlobalConstants.DataForSeeding.InternetAccountName, roles, dbContext);
+
+            roles = new string[] { GlobalConstants.InternetAccountRoleName };
+            await SeedUserAsync(userManager, "EmailIAccount1@internetERP.com", "IAccountName1", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount2@internetERP.com", "IAccountName2", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount3@internetERP.com", "IAccountName3", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount4@internetERP.com", "IAccountName4", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount5@internetERP.com", "IAccountName5", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount6@internetERP.com", "IAccountName6", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount7@internetERP.com", "IAccountName7", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount8@internetERP.com", "IAccountName8", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount9@internetERP.com", "IAccountName9", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount10@internetERP.com", "IAccountName10", roles, dbContext);
         }
 
         private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager, string userEmail, string firstName, string[] roles, ApplicationDbContext dbContext)

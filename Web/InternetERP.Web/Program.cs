@@ -97,6 +97,10 @@
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IFileService, FileLocalService>();
             services.AddTransient<IFailureTeamsService, FailureTeamsService>();
+            services.AddTransient<ISaleGoodsService, SaleGoodsService>();
+
+            // Add HttpContextAccessor to access cookies
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Add extra cliams when login
             services.AddTransient<IClaimsTransformation, AddExtraClaims>();
