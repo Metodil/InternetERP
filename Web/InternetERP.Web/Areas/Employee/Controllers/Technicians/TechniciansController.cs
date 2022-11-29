@@ -1,5 +1,6 @@
 ﻿namespace InternetERP.Web.Areas.Employee.Controllers.Technician
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using InternetERP.Common;
@@ -48,6 +49,47 @@
             };
 
             return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditFailure(int Id = 0)
+        {
+            if (Id == 0)
+            {
+                return this.RedirectToAction("AllFailures");
+            }
+
+            var model = await this.techniciansService.GetFailuresByIdAsync<FailureEditInputModel>(Id);
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFailure(FailureEditInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.techniciansService.SaveFailure(input);
+            var editedModel = await this.techniciansService.GetFailuresByIdAsync<FailureEditInputModel>(input.Id);
+            return this.View(editedModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeFailureStatus(FailureEditInputModel input, int selectedStatus)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction("EditFailure", input);
+            }
+
+            var createUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await this.techniciansService.ChangeFailureStatus(input, createUserId, selectedStatus);
+            var editedModel = await this.techniciansService.GetFailuresByIdAsync<FailureEditInputModel>(input.Id);
+            return this.RedirectToAction("EditFailure", editedModel);
         }
     }
 }

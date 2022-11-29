@@ -1,0 +1,76 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Technicians.FailureEditInputModel
+@{
+    ViewData["Title"] = "Edit Failure";
+}
+
+<h1>Edit Failure</h1>
+<div>
+    <a class="text-white btn btn-primary m-2" asp-action="AllFailures">Back to All Failure</a>
+</div>
+<hr />
+<form class="mt-3" method="post" asp-area="Employee" asp-controller="Technicians" asp-action="EditFailure">
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <div>
+        <a class="text-white btn btn-info m-1">Status: @Model.StatusFailure.Name</a>
+    </div>
+    <div class="form-group m-2">
+        <h4>Short description</h4>
+        <textarea asp-for="ShortDescription" class="form-control" rows="2"></textarea>
+    </div>
+    <div class="form-group m-2">
+        <h4>Note</h4>
+        <textarea asp-for="Note" class="form-control" rows="3"></textarea>
+        <small id="textHelp" class="form-text text-muted">Please input some notes</small>
+    </div>
+    <div class="form-actions mt-3 mb-3">
+        <button type="submit"
+                class="btn btn-primary rounded-pill px-4">
+            Save
+        </button>
+    </div>
+</form>
+
+
+<div class="row">
+    <div class="mt-3">
+        <h4 class="card-title mb-0"><b>Change failure status</b></h4>
+    </div>
+</div>
+
+
+<form method="post" asp-area="Employee" asp-controller="Technicians" asp-action="ChangeFailureStatus">
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="ShortDescription" value="@Model.ShortDescription" />
+    
+    <div class="card-body">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="selectedStatus" id="status1" value="1" @(Model.StatusFailureId >= 1 ? "disabled=''" : "")>
+            <label class="form-check-label" for="status1">
+                Registered
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="selectedStatus" id="status2" value="2" @(Model.StatusFailureId >= 2 ? "disabled=''" : "")>
+            <label class="form-check-label" for="status2">
+                In propgress
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="selectedStatus" id="status3" value="3" @(Model.StatusFailureId >= 3 ? "disabled=''" : "")>
+            <label class="form-check-label" for="status3">
+                Finished
+            </label>
+        </div>
+        <div class="form-group m-2">
+            <h4>Note</h4>
+            <textarea asp-for="NoteNewStatus" class="form-control" rows="3"></textarea>
+            <small id="textHelp" class="form-text text-muted">Please input some notes</small>
+        </div>
+        <div class="form-actions mt-3 mb-3">
+            <button type="submit"
+                    class="btn btn-success rounded-pill px-4">
+                Change status
+            </button>
+        </div>
+    </div>
+</form>

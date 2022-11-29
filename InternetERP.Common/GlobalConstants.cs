@@ -27,6 +27,8 @@
         public const string BillFinishedStatus = "Finished";
         public const int BillNewStatusId = 1; // New Sale
         public const int FailureNewStatusId = 1; // Register
+        public const string FailureFinishedStatus = "Finished";
+        public const int FailureFinishedStatusId = 3;
 
         // Users data for Seeding
         public static class DataForSeeding

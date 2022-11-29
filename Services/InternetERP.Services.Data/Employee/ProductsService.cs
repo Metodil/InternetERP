@@ -87,13 +87,13 @@
 
         public async Task<T> GetProductByIdAsync<T>(int id)
         {
-#pragma warning disable CS8603 // Possible null reference return.
+            #pragma warning disable CS8603 // Possible null reference return.
             return await this.productsRepository
                 .AllWithDeleted()
                 .Where(p => p.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
-#pragma warning restore CS8603 // Possible null reference return.
+            #pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<bool> ProductExist(int id)
