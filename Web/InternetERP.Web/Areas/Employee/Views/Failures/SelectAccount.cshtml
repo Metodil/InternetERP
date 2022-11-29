@@ -1,0 +1,34 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Failure.SelectUserInputModel
+@section AddToHead {
+    <link href="~/css/select2/select2.min.css" rel="stylesheet" type="text/css" />
+    }
+    @{
+    ViewData["Title"] = "Select account";
+}
+
+<h1>Create new failure</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card-body m-5">
+            <form metod="post" asp-action="SelectAccount">
+                <div class="form-group mb-3">
+                    <select asp-for="SelectedAccountId" asp-items="@Model.InternetAccounts" class="select2 form-control custom-select" style="width: 100%; height: 36px">
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Select internet account" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <script src="~/js/select2/select2.full.min.js"></script>
+        <script src="~/js/select2/select2.min.js"></script>
+        <script src="~/js/Monster/pages/forms/select2/select2.init.js"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

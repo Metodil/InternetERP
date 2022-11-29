@@ -1,6 +1,7 @@
 ﻿namespace InternetERP.Data.Seeding
 {
     using System;
+    using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             string[] roles = new string[] { GlobalConstants.AdministratorRoleName };
-            await SeedUserAsync(userManager, GlobalConstants.DataForSeeding.AdminEmail, GlobalConstants.DataForSeeding.AdminName,  roles, dbContext);
+            await SeedUserAsync(userManager, GlobalConstants.DataForSeeding.AdminEmail, GlobalConstants.DataForSeeding.AdminName, roles, dbContext);
 
             roles = new string[] { GlobalConstants.EmployeeRoleName, GlobalConstants.ManagerRoleName };
             await SeedUserAsync(userManager, GlobalConstants.DataForSeeding.EmployeeManagerEmail, GlobalConstants.DataForSeeding.EmployeeManagerName, roles, dbContext);
@@ -66,11 +67,11 @@
 
             roles = new string[] { GlobalConstants.InternetAccountRoleName };
             await SeedUserAsync(userManager, "EmailIAccount1@internetERP.com", "IAccountName1", roles, dbContext);
-            await SeedUserAsync(userManager, "EmailIAccount2@internetERP.com", "IAccountName2", roles, dbContext);
             await SeedUserAsync(userManager, "EmailIAccount3@internetERP.com", "IAccountName3", roles, dbContext);
             await SeedUserAsync(userManager, "EmailIAccount4@internetERP.com", "IAccountName4", roles, dbContext);
             await SeedUserAsync(userManager, "EmailIAccount5@internetERP.com", "IAccountName5", roles, dbContext);
             await SeedUserAsync(userManager, "EmailIAccount6@internetERP.com", "IAccountName6", roles, dbContext);
+            await SeedUserAsync(userManager, "EmailIAccount2@internetERP.com", "IAccountName2", roles, dbContext);
             await SeedUserAsync(userManager, "EmailIAccount7@internetERP.com", "IAccountName7", roles, dbContext);
             await SeedUserAsync(userManager, "EmailIAccount8@internetERP.com", "IAccountName8", roles, dbContext);
             await SeedUserAsync(userManager, "EmailIAccount9@internetERP.com", "IAccountName9", roles, dbContext);
@@ -98,11 +99,77 @@
                     user = await userManager.Users.FirstOrDefaultAsync(x => x.Email == userEmail);
                     await UpdateRole(userManager, userEmail, roles, dbContext, user);
                 }
+
+                if (roles.Contains(GlobalConstants.InternetAccountRoleName))
+                {
+                    await UpdateInternetAccount(dbContext, user);
+                }
+
+                if (roles.Contains(GlobalConstants.TechnicianRoleName))
+                {
+                    await UpdateTechnician(dbContext, user);
+                }
             }
             else
             {
                 await UpdateRole(userManager, userEmail, roles, dbContext, user);
+                if (roles.Contains(GlobalConstants.InternetAccountRoleName))
+                {
+                    await UpdateInternetAccount(dbContext, user);
+                }
+
+                if (roles.Contains(GlobalConstants.TechnicianRoleName))
+                {
+                    await UpdateTechnician(dbContext, user);
+                }
             }
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        private static async Task UpdateTechnician(ApplicationDbContext dbContext, ApplicationUser user)
+        {
+            var technician = await dbContext.Employees
+                .Where(u => u.EmployeeUserId == user.Id)
+                .FirstOrDefaultAsync();
+            if (technician.FailureTeamId == null)
+            {
+                Random rand = new Random();
+                int toSkip = rand.Next(0, dbContext.FailureTeams.Count());
+                var newTeamId = dbContext.FailureTeams
+                    .Select(ft => ft.Id)
+                    .OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1)
+                    .First();
+                technician.FailureTeamId = newTeamId;
+            }
+        }
+
+        private static async Task UpdateInternetAccount(ApplicationDbContext dbContext, ApplicationUser user)
+        {
+            var internetAccount = await dbContext.InternetAccounts
+                .Where(a => a.InternetUserId == user.Id)
+                .FirstOrDefaultAsync();
+            if (internetAccount == null)
+            {
+                Random rnd = new Random();
+                int internerAccountTypeId = rnd.Next(1, 4);
+                decimal montlyPayment = await dbContext.InternetAccountTypes
+                    .Where(at => at.Id == internerAccountTypeId)
+                    .Select(p => p.MontlyPrice)
+                    .FirstAsync();
+                var newInternetAccount = new InternetAccount
+                {
+                    InternetUserId = user.Id,
+                    InternetName = "Nic-" + user.FirstName,
+                    AccountTypeId = internerAccountTypeId,
+                    МonthlyPayment = montlyPayment,
+                    ExparedDate = DateTime.Now,
+                };
+                await dbContext.InternetAccounts.AddAsync(newInternetAccount);
+ //               await dbContext.SaveChangesAsync();
+            }
+
+            UpdateAddess(user);
         }
 
         private static async Task UpdateRole(UserManager<ApplicationUser> userManager, string userEmail, string[] roles, ApplicationDbContext dbContext, ApplicationUser user)
@@ -135,16 +202,44 @@
                 .FirstOrDefault();
             if (employee == null)
             {
-                 var newEmployee = new Employee
+                var newEmployee = new Employee
                 {
-                     EmployeeUserId = user.Id,
-                     HireDate = DateTime.Now,
-                     Salary = 5000,
+                    EmployeeUserId = user.Id,
+                    HireDate = DateTime.Now,
+                    Salary = 5000,
                 };
-                 await dbContext
-                    .Employees.AddAsync(newEmployee);
-                 await dbContext.SaveChangesAsync();
+                await dbContext
+                   .Employees.AddAsync(newEmployee);
             }
+        }
+
+        private static void UpdateAddess(ApplicationUser user)
+        {
+            if (user.TownId == null)
+            {
+                user.TownId = 1;
+                user.Street = GetAddresSeeder();
+            }
+        }
+
+        private static string GetAddresSeeder()
+        {
+            var addresses = new string[]
+            {
+            "ul. YERUSALIM, 1 BL.24",
+            "ul. YANKO SAKAZOV, 56",
+            "ul. GRAF IGNATIEV, 7",
+            "ul. TOTLEBEN, 8",
+            "ul. G.M.DIMITROV 94",
+            "ul. P. YAVOROV, 2",
+            "ul. TSARIGRADSKO SHOSE 117",
+            "ul. SERDIKA, 4",
+            "ul. TSAR BORIS III, 1",
+            "ul. HAYDUSHKA POLYANA, 8",
+            };
+            Random random = new Random();
+            int index = random.Next(0, addresses.Length);
+            return addresses[index];
         }
     }
 }

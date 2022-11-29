@@ -14,7 +14,6 @@ namespace InternetERP.Data.Models
         public InternetAccount()
         {
             this.Failures = new HashSet<Failure>();
-            this.Payments = new HashSet<InternetPayment>();
         }
 
         public string InternetUserId { get; set; }
@@ -35,10 +34,8 @@ namespace InternetERP.Data.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal? МonthlyPayment { get; set; }
+        public decimal МonthlyPayment { get; set; }
 
         public virtual ICollection<Failure> Failures { get; set; }
-
-        public virtual ICollection<InternetPayment> Payments { get; set; }
     }
 }

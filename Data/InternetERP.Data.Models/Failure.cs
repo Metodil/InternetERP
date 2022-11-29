@@ -12,7 +12,7 @@ namespace InternetERP.Data.Models
     {
         public Failure()
         {
-            this.FailuresParts = new HashSet<FailurePart>();
+            this.FailurePhases = new HashSet<FailurePhase>();
         }
 
         [Required]
@@ -24,6 +24,11 @@ namespace InternetERP.Data.Models
         public virtual InternetAccount Account { get; set; }
 
         [Required]
+        public string CreateUserId { get; set; }
+
+        public virtual ApplicationUser CreateUser { get; set; }
+
+        [Required]
         public int StatusFailureId { get; set; }
 
         public StatusFailure StatusFailure { get; set; }
@@ -32,6 +37,6 @@ namespace InternetERP.Data.Models
 
         public string Note { get; set; }
 
-        public virtual ICollection<FailurePart> FailuresParts { get; set; }
+        public virtual ICollection<FailurePhase> FailurePhases { get; set; }
     }
 }

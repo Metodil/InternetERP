@@ -29,13 +29,11 @@
 
         public DbSet<Failure> Failures { get; set; }
 
-        public DbSet<FailurePart> FailureParts { get; set; }
+        public DbSet<FailurePhase> FailurePhases { get; set; }
 
         public DbSet<FailureTeam> FailureTeams { get; set; }
 
         public DbSet<Image> Images { get; set; }
-
-        public DbSet<InternetPayment> InternetPayments { get; set; }
 
         public DbSet<InternetAccount> InternetAccounts { get; set; }
 
@@ -50,6 +48,10 @@
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Sale> Sales { get; set; }
+
+        public DbSet<StatusBill> StatusBills { get; set; }
+
+        public DbSet<Bill> Bills { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
 
@@ -78,9 +80,6 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<InternetPayment>()
-                .HasKey(x => new { x.AccountId, x.SaleId });
-
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

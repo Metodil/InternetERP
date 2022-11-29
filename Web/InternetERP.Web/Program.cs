@@ -98,6 +98,8 @@
             services.AddTransient<IFileService, FileLocalService>();
             services.AddTransient<IFailureTeamsService, FailureTeamsService>();
             services.AddTransient<ISaleGoodsService, SaleGoodsService>();
+            services.AddTransient<IFailuresService, FailuresService>();
+            services.AddTransient<ITechniciansService, TechniciansService>();
 
             // Add HttpContextAccessor to access cookies
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

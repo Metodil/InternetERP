@@ -6,9 +6,8 @@
     using AutoMapper;
     using InternetERP.Data.Models;
     using InternetERP.Services.Mapping;
-    using Microsoft.AspNetCore.Http;
 
-    public class ProductListModelView : IMapFrom<Product>
+    public class ProductListModelView : IMapFrom<Product>, IHaveCustomMappings
     {
         public ProductListModelView()
         {
@@ -28,5 +27,19 @@
         public string Description { get; set; } = string.Empty;
 
         public virtual ICollection<Image> Images { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Product, ProductInputModelView>()
+                .ForMember(x => x.ImageUrl, opt =>
+                opt.MapFrom(i =>
+                    "/images/" + i.Images.FirstOrDefault().Path + "/" +
+                    (i.Images.FirstOrDefault().Name != null ?
+                    i.Images.FirstOrDefault().Name :
+                    i.Images.FirstOrDefault().Id +
+                    "." + i.Images.FirstOrDefault().Extension)));
+        }
     }
 }

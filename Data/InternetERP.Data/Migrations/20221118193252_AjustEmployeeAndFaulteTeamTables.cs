@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿#nullable disable
 
 namespace InternetERP.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AjustEmployeeAndFaulteTeamTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,7 +51,7 @@ namespace InternetERP.Data.Migrations
                 columns: table => new
                 {
                     EmployeesId = table.Column<int>(type: "int", nullable: false),
-                    FailuresTeamsId = table.Column<int>(type: "int", nullable: false)
+                    FailuresTeamsId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {

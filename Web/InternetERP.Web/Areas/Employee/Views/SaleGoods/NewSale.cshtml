@@ -5,33 +5,41 @@
 }
 
 @section AddToHead{
-    <link href="@Url.Content("~/css/select2/select2.min.css")" rel="stylesheet" type="text/css" />
+    <link href="~/css/select2/select2.min.css" rel="stylesheet" type="text/css" />
 }
 
     <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+@if (Model.SaleId != null)
+{
+    Model.SaleId.BillInfo = Model.BillInfo;
+    <partial name="./Partial/_SaleGoodsCustomer.cshtml" model="Model.SaleId" />
+}
+
 
 <div class="container-fluid">
     <div class="row">
         <h4 class="card-title mt-3 mb-2">
             Select user from the menu
         </h4>
-        <form method="post" asp-action="NewSale">
-            <input type="hidden" asp-for="Step" value="@Model.Step" />
-            <select asp-for="SelectedUser" class="select2 form-control custom-select" style="width: 100%; height: 36px">
-                <optgroup label="Internet accounts">
-                @foreach (var user in Model.Users)
-                {
-                    <option value="@user.Id">@user.FirstName @user.LastName</option>
-                }
-                </optgroup>
-            </select>
-            <div class="form-actions mt-3 mb-3">
-                <button type="submit"
-                        class="btn btn-success rounded-pill px-4">
-                    Choose
-                </button>
-            </div>
-        </form>
+        <div class="col-6">
+            <form method="post" asp-action="NewSale">
+                <input type="hidden" asp-for="Step" value="@Model.Step" />
+                <select asp-for="SelectedUser" class="select2 form-control custom-select" style="width: 100%; height: 36px">
+                    <optgroup label="Internet accounts">
+                        @foreach (var user in Model.Users)
+                        {
+                            <option value="@user.Id">@user.FirstName @user.LastName</option>
+                        }
+                    </optgroup>
+                </select>
+                <div class="form-actions mt-3 mb-3">
+                    <button type="submit"
+                            class="btn btn-success rounded-pill px-4">
+                        Choose
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
     @if (Model.SaleId != null)
     {
@@ -47,9 +55,9 @@
                             <div class="ms-4">
                                 <h4 class="card-title text-dark">Selected customer</h4>
                                 <h4 class="card-subtitle mb-0 fs-2 fw-normal mb-1">
-                                    @Model.SaleId.FirstName @Model.SaleId.LastName
+                                    @Model.SaleId.UserFullName
                                 </h4>
-                                <span class="fs-2 mt-1 font-weight-medium">Address: @Model.SaleId.Address</span>
+                                <span class="fs-2 mt-1 font-weight-medium">Address: @Model.SaleId.UserAddress</span>
                             </div>
                         </div>
                     </div>
@@ -65,12 +73,12 @@
             {
                 disabledNext = string.Empty;
             }
-            <a href="#" class="btn btn-lg btn-primary float-end m-lg-1" @disabledNext>
+            <a href="/Employee/SaleGoods/SaleProducts" class="btn btn-lg btn-primary float-end m-lg-1">
                 Next
-            </а>
+                </а>
                 <a href="#" class="btn-secondary btn-lg float-end m-lg-1" disabled>
-                Previous
-            </a>
+                    Previous
+                </a>
                 <span class="float-end m-lg-3">Click any button to proceed : </span>
         </div>
     </div>

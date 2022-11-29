@@ -1,7 +1,8 @@
 ﻿namespace InternetERP.Services.Data.Contracts
 {
-    using InternetERP.Data.Models;
     using System.Threading.Tasks;
+
+    using InternetERP.Data.Models;
 
     public interface IProfileService
     {

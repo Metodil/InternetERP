@@ -130,6 +130,15 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> Details(int productId)
+        {
+            var product = await this.productsService
+                .GetProductByIdAsync<ProductInputModelView>(productId);
+            product.ImageUrlList = this.productsService.CreateImageUrlList(product.Images);
+            return this.View(product);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var productForDelete = await this.productsService

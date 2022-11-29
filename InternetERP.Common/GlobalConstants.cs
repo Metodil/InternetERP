@@ -16,12 +16,17 @@
         public const int ItemsPerPageList = 5;
 
         // InputViewModel Error
-        public const string TextError = "The {0} must be at least {1} and at max {2} characters long.";
+        public const string TextError = "The {0} must be at least {2} and at max {1} characters long.";
         public const string RangeErrorPrice = "Value for {0} must be at least {1} and max {2}.";
 
         // Path for Products image
         public const string RootPathForImages = "images";
         public const string ProductsPathForImages = "Products";
+
+        // Init status
+        public const string BillFinishedStatus = "Finished";
+        public const int BillNewStatusId = 1; // New Sale
+        public const int FailureNewStatusId = 1; // Register
 
         // Users data for Seeding
         public static class DataForSeeding

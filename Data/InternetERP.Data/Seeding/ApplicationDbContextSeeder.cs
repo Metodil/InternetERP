@@ -30,10 +30,11 @@
                               new FailureTeamSeeder(),
                               new InternetAccountTypeSeeder(),
                               new PaymentTypeSeeder(),
-                              new StatusFailureSeeder(),
+                              new StatusSeeder(),
                               new AddUsersSeeder(),
                               new TownsSeeder(),
                               new ProductsSeeder(),
+                              new FailuresSeeder(),
                           };
 
             foreach (var seeder in seeders)

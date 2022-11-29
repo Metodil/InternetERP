@@ -121,6 +121,7 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account
                     var isInRoleEmployee = await this._signInManager.UserManager.IsInRoleAsync(user, GlobalConstants.EmployeeRoleName);
                     var isInRoleManager = await this._signInManager.UserManager.IsInRoleAsync(user, GlobalConstants.ManagerRoleName);
                     var isInRoleSales = await this._signInManager.UserManager.IsInRoleAsync(user, GlobalConstants.SalesRoleName);
+                    var isInRoleTechnicians = await this._signInManager.UserManager.IsInRoleAsync(user, GlobalConstants.TechnicianRoleName);
                     var isInRoleInternetAccount = await this._signInManager.UserManager.IsInRoleAsync(user, GlobalConstants.InternetAccountRoleName);
 
                     if (isInRoleAdmin)
@@ -136,6 +137,10 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account
                         else if (isInRoleSales)
                         {
                             return this.LocalRedirect("~/Employee/DashboardSales");
+                        }
+                        else if (isInRoleTechnicians)
+                        {
+                            return this.LocalRedirect("~/Employee/DashboardTechnicians");
                         }
                     }
                     else if (isInRoleInternetAccount)

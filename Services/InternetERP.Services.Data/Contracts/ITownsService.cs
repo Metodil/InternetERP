@@ -22,6 +22,6 @@
 
         public Task<bool> TownExist(int id);
 
-        public Task<Town> Delete(int Id);
+        public Task<Town> Delete(int id);
     }
 }

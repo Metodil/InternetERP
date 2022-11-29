@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Data\InternetERP.Data.Models\InternetERP.Data.Models.csproj" />
     <ProjectReference Include="..\..\InternetERP.Common\InternetERP.Common.csproj" />
     <ProjectReference Include="..\..\Services\InternetERP.Services.Mapping\InternetERP.Services.Mapping.csproj" />
+    <ProjectReference Include="..\InternetERP.Web.Infrastructure\InternetERP.Web.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

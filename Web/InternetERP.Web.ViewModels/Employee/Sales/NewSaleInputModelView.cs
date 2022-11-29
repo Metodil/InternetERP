@@ -1,6 +1,7 @@
 ﻿namespace InternetERP.Web.ViewModels.Employee.Sales
 {
     using System.Collections.Generic;
+
     using InternetERP.Web.ViewModels.Administration.Users;
 
     public class NewSaleInputModelView

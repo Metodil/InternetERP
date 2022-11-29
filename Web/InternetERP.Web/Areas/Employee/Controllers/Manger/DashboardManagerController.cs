@@ -15,8 +15,8 @@
 
         public IActionResult Index()
         {
-            var viewModel = new DashboardIndexViewModel { SettingsCount = settingsService.GetCount(), };
-            return View(viewModel);
+            var viewModel = new DashboardIndexViewModel { SettingsCount = this.settingsService.GetCount(), };
+            return this.View(viewModel);
         }
     }
 }

@@ -1,34 +1,33 @@
-﻿using AutoMapper;
-using InternetERP.Data.Models;
-using InternetERP.Services.Mapping;
-using InternetERP.Web.ViewModels.Administration.Users;
-
-namespace InternetERP.Web.ViewModels.Employee.Sales
+﻿namespace InternetERP.Web.ViewModels.Employee.Sales
 {
-    public class SaleSelectedUser : IMapTo<ApplicationUser>, IHaveCustomMappings
+    using InternetERP.Data.Models;
+    using InternetERP.Services.Mapping;
+
+    public class SaleSelectedUser : IMapFrom<Bill>
     {
+        public SaleSelectedUser()
+        {
+            this.BillInfo = new BillInfo
+            {
+                Quantity = 0,
+                Totals = 0.00m,
+            };
+        }
+
         public string Id { get; set; }
 
-        public string FirstName { get; set; }
+        public string SaleUserId { get; set; }
 
-        public string LastName { get; set; }
+        public string SelectedUserId { get; set; }
 
-        public string Address { get; set; }
+        public string UserFullName { get; set; }
 
-        public string Phone { get; set; }
+        public string UserAddress { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<ApplicationUser, SaleSelectedUser>()
-                .ForMember(
-                    m => m.Phone,
-                    opt => opt.MapFrom(x => x.PhoneNumber))
-                .ForMember(
-                    m => m.Address,
-                    opt => opt.MapFrom(x =>
-                    x.Town.Name + ", " +
-                    x.District + ", " +
-                    x.Street));
-        }
+        public string CustomerId { get; set; }
+
+        public string StatusId { get; set; }
+
+        public BillInfo BillInfo { get; set; }
     }
 }

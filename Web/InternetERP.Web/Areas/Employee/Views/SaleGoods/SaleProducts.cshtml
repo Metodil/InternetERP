@@ -1,0 +1,97 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Manager.AllProductsSalesViewModel
+@{
+    var imageUrl = string.Empty;
+    var nameProduct = string.Empty;
+}
+@section AddToHead{
+    <link href="~/images/Monster/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet" type="text/css" />
+}
+
+    <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+
+@if (Model.SaleId != null)
+{
+    Model.SaleId.BillInfo = Model.BillInfo;
+    <partial name="./Partial/_SaleGoodsCustomer.cshtml" model="Model.SaleId" />
+}
+
+<div class="container-fluid">
+    <form metod="post" asp-action="SaleProducts">
+        <div class="row el-element-overlay">
+            <input type="hidden" asp-for="SaleUserId" value="@Model.SaleId.SaleUserId" />
+            <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
+            <input type="hidden" asp-for="PageNumber" value="@Model.PageNumber" />
+            <input type="hidden" asp-for="ProductFilterBy" value="@Model.FilterBy" />
+            @foreach (var product in Model.Products)
+            {
+                nameProduct = InternetERP.Common.Utils.TruncateAtWord(product.Name, 50);
+                if (product.ImageUrl == null)
+                {
+                    imageUrl = "/images/products/" + product.Images.Select(i => i.Name).FirstOrDefault();
+                }
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <input type="hidden" asp-for="ProductId" value="@product.Id" />
+                        <div class="el-card-item pb-3">
+                            <div class="el-card-avatar mb-3 el-overlay-1 w-100 overflow-hidden position-relative text-center">
+                                <img style="width:150px;height:150px;object-fit:cover;" src="@imageUrl" class="d-block position-relative" alt="no Image" />
+                                <div class="el-overlay w-100 overflow-hidden">
+                                    <ul class="list-style-none el-info text-white text-uppercase d-inline-block p-0">
+                                        <li class="el-item d-inline-block my-0 mx-1">
+                                            <a class="btn default btn-outline image-popup-vertical-fit el-link text-white border-white"
+                                           href="@imageUrl">
+                                                <i class="icon-magnifier"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="d-flex no-block align-items-center">
+                                <div style="height:100px;" class="ms-3">
+                                    <h4 class="mb-0">
+                                        <a asp-area="Employee" asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id" target="_blank">
+                                            @nameProduct
+                                        </a>
+                                    </h4>
+                                    <span class="text-muted">Description</span>
+                                </div>
+                                <div class="ms-auto me-3">
+                                    <a href="#" class="btn btn-dark">
+                                        $@product.SellPrice
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex no-block align-items-center  form-inline">
+                                <div class="ms-auto me-2">
+                                    <input class="text-end  ms-3" type="text" asp-for="ProductQuantity" value="1" />
+                                </div>
+                                <div class="ms-auto me-1">
+                                    <input type="submit" value="Sale" class="text-white btn btn-primary m-2" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+</div>
+<partial name="_PagingPartial" model="@Model" />
+
+<div class="row">
+    <div class="col-md-12 bg-light">
+        <a href="/Employee/SaleGoods/SaleServices" class="btn btn-lg btn-primary float-end m-lg-1">
+            Next
+            </а>
+            <a href="/Employee/SaleGoods/SaleProducts" class="btn-secondary btn-lg float-end m-lg-1">
+                Previous
+            </a>
+            <span class="float-end m-lg-3">Click any button to proceed : </span>
+    </div>
+</div>
+@section Scripts {
+    @{
+        <script src="~/images/Monster/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+        <script src="~/images/Monster/assets/libs/magnific-popup/meg.init.js"></script>
+    }
+    }

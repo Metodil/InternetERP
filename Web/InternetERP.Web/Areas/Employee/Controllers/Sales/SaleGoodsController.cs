@@ -1,34 +1,45 @@
 ﻿namespace InternetERP.Web.Areas.Employee.Controllers.Sales
 {
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using InternetERP.Common;
+    using InternetERP.Data.Models;
     using InternetERP.Services.Data.Contracts;
     using InternetERP.Web.ViewModels.Administration.Users;
     using InternetERP.Web.ViewModels.Employee.Manager;
     using InternetERP.Web.ViewModels.Employee.Sales;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ViewFeatures;
-    using Newtonsoft.Json;
 
     public class SaleGoodsController : EmployeeController
     {
         private readonly ISaleGoodsService saleGoodsService;
-        private readonly IHttpContextAccessor httpContextAccessor;
 
         public SaleGoodsController(
-            ISaleGoodsService saleGoodsService,
-            IHttpContextAccessor httpContextAccessor)
+            ISaleGoodsService saleGoodsService)
         {
             this.saleGoodsService = saleGoodsService;
-            this.httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
         public async Task<IActionResult> NewSale()
         {
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+            if (saleId != null)
+            {
+                // there is allready began bill/sale
+                var newModel = new SaleGoodsViewModel
+                {
+                    Step = 1,
+                    SaleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId),
+                    BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
+                };
+
+                return this.View(newModel);
+            }
+
             var model = new SaleGoodsViewModel
             {
                 Step = 1,
@@ -47,33 +58,138 @@
                 return this.View();
             }
 
-            var userId = input.SelectedUser.First();
-            var saleIdObj = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(userId);
-            this.TempData.Put(
-                "SaleIdObj",
-                saleIdObj);
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var selectedUserId = input.SelectedUser.First();
+            await this.saleGoodsService.NewSaleId(saleUserId, selectedUserId);
+            var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
             var newModel = new SaleGoodsViewModel
             {
                 Step = 1,
-                SaleId = this.TempData.Get<SaleSelectedUser>("saleIdObj"),
+                SaleId = saleId,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
             };
 
             return this.View(newModel);
         }
-    }
 
-    public static class TempDataExtensions
-    {
-        public static void Put<T>(this ITempDataDictionary tempData, string key, T value) where T : class
+        [HttpGet]
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        public async Task<IActionResult> SaleProducts(int id = 1, string? filterBy = null)
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
-            tempData[key] = JsonConvert.SerializeObject(value);
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+            var model = new AllProductsSalesViewModel
+            {
+                Products = await this.saleGoodsService.GetFilteredProductsPagingAsync<ProductListModelView>(
+                    id, GlobalConstants.ItemsPerPageGrid, filterBy),
+                ItemsPerPage = GlobalConstants.ItemsPerPageGrid,
+                PageNumber = id,
+                AspAction = nameof(this.SaleProducts),
+                ItemsCount = await this.saleGoodsService.CountAsync(filterBy),
+                FilterBy = filterBy,
+                Step = 2,
+                SaleId = saleId,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
+            };
+
+            return this.View(model);
         }
 
-        public static T Get<T>(this ITempDataDictionary tempData, string key) where T : class
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaleProducts(AllProductsSalesViewModel input)
         {
-            object o;
-            tempData.TryGetValue(key, out o);
-            return o == null ? null : JsonConvert.DeserializeObject<T>((string)o);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var result = await this.saleGoodsService.SellProduct(input);
+
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var model = new AllProductsSalesViewModel
+            {
+                Products = await this.saleGoodsService.GetFilteredProductsPagingAsync<ProductListModelView>(
+                    input.PageNumber, GlobalConstants.ItemsPerPageGrid, input.ProductFilterBy),
+                ItemsPerPage = GlobalConstants.ItemsPerPageGrid,
+                PageNumber = input.PageNumber,
+                AspAction = nameof(this.SaleProducts),
+                ItemsCount = await this.saleGoodsService.CountAsync(input.ProductFilterBy),
+                FilterBy = input.ProductFilterBy,
+                Step = 2,
+                SaleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId),
+                BillInfo = await this.saleGoodsService.GetBillInfo(input.BillId),
+            };
+
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SaleServices()
+        {
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+            var model = new SaleServicesViewModel
+            {
+                Step = 3,
+                SaleId = saleId,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
+                Services = await this.saleGoodsService.GetServices(),
+                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(),
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaleServices(SaleServicesViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+                input.Step = 3;
+                input.SaleId = saleId;
+                input.BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id);
+                input.Services = await this.saleGoodsService.GetServices();
+                input.InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+                return this.View(input);
+            }
+
+            var result = await this.saleGoodsService.SellService(input);
+
+            var saleUserIdN = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleIdN = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserIdN);
+            var model = new SaleServicesViewModel
+            {
+                Step = 3,
+                SaleId = saleIdN,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleIdN.Id),
+                Services = await this.saleGoodsService.GetServices(),
+                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(),
+                SuccessMsg = "Successfuly pay montrly payment to this internet account!",
+            };
+
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PayFailure()
+        {
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+            var model = new PayFailureViewModel
+            {
+                Step = 4,
+                SaleId = saleId,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
+                Services = await this.saleGoodsService.GetServices(),
+                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(),
+            };
+
+            return this.View(model);
         }
     }
 }

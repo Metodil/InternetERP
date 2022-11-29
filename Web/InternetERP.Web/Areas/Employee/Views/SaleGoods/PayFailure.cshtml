@@ -1,0 +1,37 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Sales.PayFailureViewModel
+@{
+    this.ViewData["Title"] = "Pay Failure";
+}
+
+@section AddToHead{
+}
+
+<partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+
+@if (Model.SaleId != null)
+{
+    Model.SaleId.BillInfo = Model.BillInfo;
+    <partial name="./Partial/_SaleGoodsCustomer.cshtml" model="Model.SaleId" />
+}
+
+<div class="row">
+
+</div>
+
+<div class="row">
+    <div class="col-md-12 bg-light">
+        <a href="/Employee/SaleGoods/Checkout" class="btn btn-lg btn-primary float-end m-lg-1">
+            Next
+            </а>
+            <a href="/Employee/SaleGoods/SaleServices" class="btn-secondary btn-lg float-end m-lg-1">
+                Previous
+            </a>
+            <span class="float-end m-lg-3">Click any button to proceed : </span>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+

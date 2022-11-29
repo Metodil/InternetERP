@@ -143,7 +143,8 @@
                         Email = email,
                         FirstName = firstName,
                         LastName = lastName,
-                        //ProfilePictureUrl = picture,
+
+                        // ProfilePictureUrl = picture,
                         EmailConfirmed = true,
                     };
                 }
@@ -232,7 +233,8 @@
                         Email = email,
                         FirstName = firstName,
                         LastName = lastName,
-                        //ProfilePictureUrl = picture,
+
+                        // ProfilePictureUrl = picture,
                         EmailConfirmed = true,
                     };
                 }

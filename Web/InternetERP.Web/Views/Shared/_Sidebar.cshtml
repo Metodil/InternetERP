@@ -57,6 +57,10 @@
                 {
                     <partial name="./Partial/_SidebarSellsPartial.cshtml" />
                 }              
+                @if (this.User.IsInRole(GlobalConstants.TechnicianRoleName))
+                {
+                    <partial name="./Partial/_SidebarTechniciansPartial.cshtml" />
+                }
                 @if (this.User.IsInRole(GlobalConstants.InternetAccountRoleName))
                 {
                     <partial name="./Partial/_SidebarInternetAccountsPartial.cshtml" />

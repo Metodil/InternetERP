@@ -1,0 +1,155 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Sales.SaleServicesViewModel
+@{
+    this.ViewData["Title"] = "Sale Services";
+}
+
+@section AddToHead{
+    <link href="~/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/pickdate/themes/default.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/pickdate/themes/default.date.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/pickdate/themes/default.time.css" rel="stylesheet" type="text/css" />
+}
+
+    <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+
+@if (Model.SaleId != null)
+{
+    Model.SaleId.BillInfo = Model.BillInfo;
+    <partial name="./Partial/_SaleGoodsCustomer.cshtml" model="Model.SaleId" />
+}
+<div class="row">
+    <div class="col-md-4 d-flex align-items-stretch float-start">
+        <form method="post" asp-area="Employee" asp-controller="SaleGoods" asp-action="SaleServices">
+            <input type="hidden" asp-for="Step" value="@Model.Step" />
+            <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
+            <input type="hidden" asp-for="SaleInternetAccountId" value="@Model.InternetAccountInfo.InternetUserId" />
+            <div class="card">
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.SuccessMsg))
+                    {
+                        <div class="p-3 mb-2 bg-success text-white">@Model.SuccessMsg</div>
+                    }
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <h4 class="card-title border-bottom">Internet taxes</h4>
+                    <div class="card">
+                        <div class="border-bottom title-part-padding">
+                            <h5 class="card-title mb-0">Account Name: <i><u>@Model.InternetAccountInfo.InternetName</u></i></h5>
+                        </div>
+                        <div class="border-bottom title-part-padding">
+                            <h5 class="card-title mb-0">Account Type: <i><u>@Model.InternetAccountInfo.AccountType.Name</u></i></h5>
+                        </div>
+                        <div class="border-bottom title-part-padding">
+                            <h5 class="card-title mb-0">Account Amount: <i><u>$@Model.InternetAccountInfo.МonthlyPayment</u></i></h5>
+                        </div>
+                        @*
+                        <div class="card-body ms-auto">
+                        <input id="months" type="text" value="-1" name="months" />
+                        </div>
+                        *@
+                        <div class="card-body ms-auto">
+                            <label asp-for="MontlyPayment" class="control-label"></label>
+                            <input asp-for="MontlyPayment" type="text" class="text-end" value="@Model.InternetAccountInfo.МonthlyPayment" />
+                            <span asp-validation-for="MontlyPayment" class="text-danger"></span>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-1">
+                                <label class="font-weight-medium mb-1">Expired date:</label>
+                                <h6 class="card-subtitle">
+                                    Date until which the account will be valid.
+                                </h6>
+                                <div class="input-group">
+                                    <input asp-for="ExparedDate" value="@Model.InternetAccountInfo.ExparedDate.ToString("yyyy-MM-dd")" class="form-control pickadate-monyear-dropdown" placeholder="Date expired" />
+                                </div>
+                                <div class="input-group">
+                                    <span asp-validation-for="ExparedDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions mt-3 mb-3">
+                        <button type="submit"
+                                class="btn btn-success rounded-pill px-4">
+                            Sale service
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8 align-items-stretch">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-start">
+                    <div>
+                        <h4 class="card-title">Internet Account Types</h4>
+                        <h6 class="card-subtitle">14450 accounts</h6>
+                    </div>
+                    <div class="ms-auto">
+                        <div class="dropdown">
+                            <a href="#" class="link" id="new" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i data-feather="more-horizontal"
+                                   class="feather-sm"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="new">
+                                <li>
+                                    <a class="dropdown-item" href="#">Go to Account Types</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="earnings-month mt-1"></div>
+            <div class="card-body">
+                @foreach (var service in Model.Services)
+                {
+
+                    <div class="row pb-3 border-bottom">
+                        <div class="col-3 col-xl-2">
+                            <div class="bg-light-primary text-primary text-center py-2 rounded-3">
+                                <i class="mdi mdi-dribbble display-8"></i>
+                            </div>
+                        </div>
+                        <div class="col-8 col-xl-10 d-flex align-items-center">
+                            <div>
+                                <h5 class="card-title mb-1">@service.Name</h5>
+                                <p class="text-muted mb-0">
+                                    @service.Description
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 bg-light">
+        <a href="/Employee/SaleGoods/PayFailure" class="btn btn-lg btn-primary float-end m-lg-1">
+            Next
+            </а>
+            <a href="/Employee/SaleGoods/SaleProducts" class="btn-secondary btn-lg float-end m-lg-1">
+                Previous
+            </a>
+            <span class="float-end m-lg-3">Click any button to proceed : </span>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/jquery.bootstrap-touchspin.min.js"></script>
+        <script src="~/js/pickdate/picker.js"></script>
+        <script src="~/js/pickdate/picker.date.js"></script>
+        <script src="~/js/pickdate/picker.time.js"></script>
+        <script src="~/js/pickdate/legacy.js"></script>
+        <script src="~/js/moment/moment.js"></script>
+        <script src="~/js/daterangepicker.js"></script>
+        <script src="~/js/Monster/pages/forms/datetimepicker/datetimepicker.init.js"></script>
+
+        <script>
+            $("input[name='months']").TouchSpin();
+        </script>
+    }
+    }

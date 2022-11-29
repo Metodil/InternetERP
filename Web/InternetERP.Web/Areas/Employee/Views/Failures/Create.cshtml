@@ -1,0 +1,107 @@
+﻿@using Microsoft.Extensions.Configuration
+@model InternetERP.Web.ViewModels.Employee.Failure.FailureInputModel
+@inject IConfiguration configuration
+
+@{
+    ViewData["Title"] = "Create new failure";
+    string apiKey = configuration["Google:Maps:Key"];
+}
+
+<h1>Create new failure</h1>
+
+<div>
+    <a class="btn btn-primary" asp-action="All">Back to All Failures</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        @if (!string.IsNullOrEmpty(Model.Address))
+        {
+            <div class="card-body">
+                <small class="text-dark">Full Name </small>
+                <h4>@Model.FullName</h4>
+                <small class="text-dark">Email address </small>
+                <h4>@Model.Email</h4>
+                <small class="text-dark pt-4 db">Phone</small>
+                <h4>@Model.Phone</h4>
+                <small class="text-dark pt-4 db">Address</small>
+                <input type="text" id="address" style="min-width:100%" value="@Model.Address" />
+                <input type="button" class="mb-3 mt-2 float-end" value="Search" onclick="getmap()" />
+                <div id="googleMap" style="width:100%;height:400px;"></div>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.SuccessMsg))
+        {
+            <div class="p-3 mb-2 bg-success text-white">@Model.SuccessMsg</div>
+        }
+        else
+        {
+
+            <form method="post" asp-action="Create">
+                <input type="hidden" asp-for="FullName" value="@Model.FullName" />
+                <input type="hidden" asp-for="Email" value="@Model.Email" />
+                <input type="hidden" asp-for="Phone" value="@Model.Phone" />
+                <input type="hidden" asp-for="Address" value="@Model.Address" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="ShortDescription" class="control-label"></label>
+                    <textarea class="form-control" asp-for="ShortDescription" rows="2">@Model.ShortDescription</textarea>
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h5 class="card-title mt-2">Note</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <textarea class="form-control" asp-for="Note" rows="4">@Model.Note</textarea>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        }
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=@apiKey"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        var mapcode;
+        var diag;
+        function initialize() {
+            mapcode = new google.maps.Geocoder();
+            var lnt = new google.maps.LatLng(42.70, 23.32);
+            var diagChoice = {
+                zoom: 15,
+                center: lnt,
+                diagId: google.maps.MapTypeId.ROADMAP
+            }
+            diag = new google.maps.Map(document.getElementById('googleMap'), diagChoice);
+        }
+        function getmap() {
+            var completeaddress = document.getElementById('address').value;
+            mapcode.geocode({ 'address': completeaddress }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    diag.setCenter(results[0].geometry.location);
+                    var hint = new google.maps.Marker({
+                        diag: diag,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Location Not Tracked. ' + status);
+                }
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
+    }
