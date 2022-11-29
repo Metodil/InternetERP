@@ -20,21 +20,31 @@
             this.techniciansService = techniciansService;
         }
 
-        public async Task<IActionResult> AllFailures(
-            int id = 1,
-            string filterByStatus = null)
+        [HttpGet]
+        public async Task<IActionResult> AllFailures(int page = 0, int id = 1, int selectedStatus = 0, string filterBy = null)
         {
+            if (filterBy != null)
+            {
+                int.TryParse(filterBy, out selectedStatus);
+            }
+
+            if (page != 0)
+            {
+                id = page;
+            }
+
             var model = new AllFailuresViewModel
             {
                 Failures = await this.techniciansService.GetAllFailuresAsync<FailureListViewModel>(
                     id,
                     GlobalConstants.ItemsPerPageList,
-                    filterByStatus),
+                    selectedStatus),
                 ItemsPerPage = GlobalConstants.ItemsPerPageList,
                 PageNumber = id,
                 AspAction = nameof(this.AllFailures),
-                ItemsCount = await this.techniciansService.CountAsync(filterByStatus),
-                FilterBy = filterByStatus,
+                ItemsCount = await this.techniciansService.CountAsync(selectedStatus),
+                FilterBy = selectedStatus.ToString(),
+                SelectedStatus = selectedStatus,
             };
 
             return this.View(model);

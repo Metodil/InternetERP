@@ -7,8 +7,8 @@
 
     public interface ITechniciansService
     {
-        Task<int> CountAsync(string filterByStatus);
+        Task<int> CountAsync(int filterByStatus);
 
-        Task<ICollection<T>> GetAllFailuresAsync<T>(int page, int itemsPerPage, string filterByStatus);
+        Task<ICollection<T>> GetAllFailuresAsync<T>(int page, int itemsPerPage, int filterByStatus);
     }
 }

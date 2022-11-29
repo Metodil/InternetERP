@@ -35,6 +35,8 @@
 
         public string Note { get; set; }
 
+        public virtual int FailurePhaseId { get; set; }
+
         public virtual ICollection<FailurePhase> FailurePhases { get; set; }
     }
 }

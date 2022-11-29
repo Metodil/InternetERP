@@ -5,21 +5,22 @@
     using System.Threading.Tasks;
 
     using InternetERP.Data.Models;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
 
     public class FailuresSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            //if (!dbContext.Failures.Any())
-            //{
-            for (int i = 0; i < 20; i++)
+            if (!dbContext.Failures.Any())
             {
-                await AddFailure(dbContext);
-            }
+                for (int i = 0; i < 20; i++)
+                {
+                    await AddFailure(dbContext);
+                }
 
-            await dbContext.SaveChangesAsync();
-            //}
+                await dbContext.SaveChangesAsync();
+            }
         }
 
         private static async Task AddFailure(ApplicationDbContext dbContext)
@@ -29,6 +30,7 @@
             var internetUser = dbContext.InternetAccounts
                 .OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1)
                 .First();
+
             rand = new Random();
             toSkip = rand.Next(0, dbContext.Users
                 .Where(u => u.UserName.Contains("Sale"))
@@ -37,11 +39,13 @@
                 .Where(u => u.UserName.Contains("Sale"))
                 .OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1)
                 .First();
+
             rand = new Random();
             toSkip = rand.Next(0, dbContext.StatusFailures.Count());
             var statusFailure = dbContext.StatusFailures
                 .OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1)
                 .First();
+
             var newFailure = new Failure
             {
                 ShortDescription = GetRandFailureDesc(),
@@ -53,48 +57,62 @@
             await dbContext.Failures.AddAsync(newFailure);
             await dbContext.SaveChangesAsync();
 
-            newFailure.CreatedOn = GetRandDate();
+            var registerDate = GetRandDate();
+            newFailure.CreatedOn = registerDate;
             await dbContext.SaveChangesAsync();
 
-            if (statusFailure.Name != "Registered")
+            if (statusFailure.Name == "Registered")
             {
-                rand = new Random();
-                toSkip = rand.Next(0, dbContext.Users
-                    .Where(u => u.UserName.Contains("Technician"))
-                    .Count());
-                var user = await dbContext.Users
-                   .Where(u => u.UserName.Contains("Technician"))
-                   .OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1)
-                   .FirstAsync();
-                var technicianUser = await dbContext.Employees
-                    .Include(e => e.FailureTeams)
-                    .Where(a => a.EmployeeUserId == user.Id)
-                    .FirstAsync();
-                var newFailurePhase = new FailurePhase
-                {
-                    FailureId = newFailure.Id,
-                    UserId = technicianUser.EmployeeUserId,
-                    FailureTeamId = (int)technicianUser.FailureTeamId,
-                    StatusFailureId = statusFailure.Id,
-                };
-                newFailurePhase.Note = "Started on: " + DateTime.Now.ToString("HH:mm");
-                await dbContext.FailurePhases.AddAsync(newFailurePhase);
-                await dbContext.SaveChangesAsync();
-
-                if (statusFailure.Name == "Finished")
-                {
-                    var newFailurePhaseFinished = new FailurePhase
-                    {
-                        FailureId = newFailure.Id,
-                        UserId = technicianUser.EmployeeUserId,
-                        FailureTeamId = (int)technicianUser.FailureTeamId,
-                        StatusFailureId = statusFailure.Id,
-                    };
-                    newFailurePhaseFinished.Note = "Finished on: " + DateTime.Now.ToString("HH:mm");
-                    await dbContext.FailurePhases.AddAsync(newFailurePhaseFinished);
-                    await dbContext.SaveChangesAsync();
-                }
+                await NewFailurePhase(dbContext, newFailure.Id, 1, "Started on: ", registerDate.AddDays(2));
             }
+
+            if (statusFailure.Name == "In propgress")
+            {
+                await NewFailurePhase(dbContext, newFailure.Id, 1, "Started on: ", registerDate.AddDays(2));
+                await NewFailurePhase(dbContext, newFailure.Id, 2, "Visited on: ", registerDate.AddDays(3));
+            }
+
+            if (statusFailure.Name == "Finished")
+            {
+                await NewFailurePhase(dbContext, newFailure.Id, 1, "Started on: ", registerDate.AddDays(2));
+                await NewFailurePhase(dbContext, newFailure.Id, 2, "Visited on: ", registerDate.AddDays(3));
+                await NewFailurePhase(dbContext, newFailure.Id, 3, "Finished on: ", registerDate.AddDays(5));
+                newFailure.FinishDate = registerDate.AddDays(5);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        private static async Task NewFailurePhase(
+            ApplicationDbContext dbContext,
+            int failureId,
+            int statusFailureId,
+            string noteText,
+            DateTime createDate)
+        {
+            var rand = new Random();
+            int toSkip = rand.Next(0, dbContext.Users
+                .Where(u => u.UserName.Contains("Technician"))
+                .Count());
+            var user = await dbContext.Users
+               .Where(u => u.UserName.Contains("Technician"))
+               .OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1)
+               .FirstAsync();
+            var technicianUser = await dbContext.Employees
+                .Include(e => e.FailureTeams)
+                .Where(a => a.EmployeeUserId == user.Id)
+                .FirstAsync();
+            var newFailurePhase = new FailurePhase
+            {
+                FailureId = failureId,
+                UserId = technicianUser.EmployeeUserId,
+                FailureTeamId = (int)technicianUser.FailureTeamId,
+                StatusFailureId = statusFailureId,
+            };
+            newFailurePhase.Note = noteText + DateTime.Now.ToString("HH:mm");
+            await dbContext.FailurePhases.AddAsync(newFailurePhase);
+            await dbContext.SaveChangesAsync();
+            newFailurePhase.CreatedOn = createDate;
+            await dbContext.SaveChangesAsync();
         }
 
         private static string GetRandFailureDesc()
