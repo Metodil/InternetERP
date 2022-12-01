@@ -5,8 +5,10 @@ namespace InternetERP.Data.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using InternetERP.Data.Common.Models;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
     public class Failure : BaseDeletableModel<int>
     {
@@ -17,6 +19,12 @@ namespace InternetERP.Data.Models
 
         [Required]
         public string ShortDescription { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
+
+        public bool IsPaid { get; set; } = false;
 
         [Required]
         public int AccountId { get; set; }

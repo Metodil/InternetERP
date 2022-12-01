@@ -27,6 +27,8 @@
         private readonly IDeletableEntityRepository<Sale> saleRepository;
         private readonly IDeletableEntityRepository<InternetAccountType> internetAccountTypesRepository;
         private readonly IDeletableEntityRepository<InternetAccount> internetAccountRepository;
+        private readonly IDeletableEntityRepository<Failure> failuresRepository;
+        private readonly IDeletableEntityRepository<Sale> salesRepository;
 
         public SaleGoodsService(
             UserManager<ApplicationUser> userManager,
@@ -37,7 +39,9 @@
             IDeletableEntityRepository<Bill> billsRepository,
             IDeletableEntityRepository<Sale> saleRepository,
             IDeletableEntityRepository<InternetAccountType> internetAccountTypesRepository,
-            IDeletableEntityRepository<InternetAccount> internetAccountRepository)
+            IDeletableEntityRepository<InternetAccount> internetAccountRepository,
+            IDeletableEntityRepository<Failure> failuresRepository,
+            IDeletableEntityRepository<Sale> salesRepository)
         {
             this.userManager = userManager;
             this.userRepository = userRepository;
@@ -48,15 +52,17 @@
             this.saleRepository = saleRepository;
             this.internetAccountTypesRepository = internetAccountTypesRepository;
             this.internetAccountRepository = internetAccountRepository;
+            this.failuresRepository = failuresRepository;
+            this.salesRepository = salesRepository;
         }
 
         public async Task<IEnumerable<T>> GetFilteredProductsPagingAsync<T>(
            int page,
            int itemsPerPage,
-            #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
            string? filterBy = null,
            string? categoryFilter = null)
-            #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             if (filterBy == null)
             {
@@ -84,9 +90,9 @@
             }
         }
 
-        #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public async Task<int> CountAsync(string? filterBy = null)
-        #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             var role = await this.roleManaget.FindByNameAsync(GlobalConstants.InternetAccountRoleName);
 
@@ -179,7 +185,7 @@
             {
                 BillId = input.BillId,
                 ProductId = input.ProductId,
-                StockQuantity = input.ProductQuantity,
+                StockQuantity = input.StockQuantity,
                 Name = product.Name,
                 SellPrice = product.SellPrice,
                 BayPrice = product.BayPrice,
@@ -258,6 +264,98 @@
             }
 
             return result;
+        }
+
+        public async Task<ICollection<Failure>> GetFailures(int internetAccountUserId)
+        {
+            return await this.failuresRepository
+                .AllAsNoTracking()
+                .Include(f => f.StatusFailure)
+                .Include(f => f.FailurePhases)
+                .ThenInclude(fp => fp.FailureTeam)
+                .Include(f => f.FailurePhases)
+                .ThenInclude(fp => fp.User)
+                .Include(f => f.FailurePhases)
+                .ThenInclude(fp => fp.StatusFailure)
+                .OrderBy(f => f.CreatedOn)
+                .Where(f => f.AccountId == internetAccountUserId)
+                .Where(f => !f.IsPaid && f.Price > 0)
+                .ToListAsync();
+        }
+
+        public async Task<bool> SaleFailureAmount(PayFailureViewModel input)
+        {
+            var result = true;
+            var newSale = new Sale
+            {
+                BillId = input.BillId,
+                InernetAccountId = input.SaleInternetAccountId,
+                StockQuantity = 1,
+                Name = "Failure Payments for: " + input.FailureIdsForUpdate,
+                SellPrice = input.FailurePayment,
+                BayPrice = 0,
+            };
+            try
+            {
+                await this.saleRepository
+                    .AddAsync(newSale);
+                await this.saleRepository.SaveChangesAsync();
+                List<string> failureIdsForUpdate = input.FailureIdsForUpdate
+                    .Split(',', System.StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
+
+                var failureForUpdate = await this.failuresRepository
+                    .All()
+                    .Where(f => failureIdsForUpdate.Contains(f.Id.ToString()))
+                    .ToListAsync();
+                foreach (var failure in failureForUpdate)
+                {
+                    failure.IsPaid = true;
+                }
+
+                await this.failuresRepository.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {
+                // log error
+                result = false;
+            }
+
+            return result;
+        }
+
+        public async Task<ICollection<Sale>> GetSales(string billId)
+        {
+            return await this.salesRepository
+                .AllAsNoTracking()
+                .OrderBy(s => s.CreatedOn)
+                .Where(s => s.BillId == billId)
+                .ToListAsync();
+        }
+
+        public async Task UpdateCheckout(CheckoutViewModel input)
+        {
+            var index = 0;
+            foreach (var stockId in input.StockIds)
+            {
+                var stock = await this.saleRepository
+                    .All()
+                    .Where(s => s.Id == stockId)
+                    .FirstAsync();
+                var newQuantity = input.Quantities[index];
+                if (newQuantity == 0)
+                {
+                    this.saleRepository.Delete(stock);
+                }
+                else
+                {
+                    stock.StockQuantity = input.Quantities[index];
+                }
+
+                index++;
+            }
+
+            await this.saleRepository.SaveChangesAsync();
         }
     }
 }

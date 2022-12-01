@@ -5,6 +5,7 @@
 
     using InternetERP.Data.Models;
     using InternetERP.Services.Mapping;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
     public class FailureListViewModel : IMapFrom<Failure>
     {
@@ -16,6 +17,8 @@
         public int Id { get; set; }
 
         public string ShortDescription { get; set; }
+
+        public decimal Price { get; set; }
 
         public int AccountId { get; set; }
 

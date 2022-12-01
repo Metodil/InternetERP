@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Security.Claims;
     using System.Threading.Tasks;
+
     using InternetERP.Common;
     using InternetERP.Data.Common.Repositories;
     using InternetERP.Data.Models;
@@ -116,6 +115,7 @@
             if (failure != null)
             {
                 failure.ShortDescription = input.ShortDescription;
+                failure.Price = input.Price;
                 failure.Note = input.Note;
                 await this.failureRepository.SaveChangesAsync();
             }
@@ -153,6 +153,7 @@
             {
                 failure.FinishDate = DateTime.Now;
             }
+
             await this.failureRepository.SaveChangesAsync();
         }
     }

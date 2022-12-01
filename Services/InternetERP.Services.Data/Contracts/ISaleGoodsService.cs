@@ -17,16 +17,28 @@
 
         Task<T> GetCurrentSaleId<T>(string id);
 
-        Task<IEnumerable<T>> GetFilteredProductsPagingAsync<T>(int page, int itemsPerPage, string filterBy = null, string categoryFilter = null);
+        Task<ICollection<Failure>> GetFailures(int internetAccountUserId);
+
+        Task<IEnumerable<T>> GetFilteredProductsPagingAsync<T>(
+            int page,
+            int itemsPerPage,
+            string filterBy = null,
+            string categoryFilter = null);
 
         Task<InternetAccount> GetInternetAccountInfo();
+
+        Task<ICollection<Sale>> GetSales(string saleId);
 
         Task<ICollection<InternetAccountType>> GetServices();
 
         Task<bool> NewSaleId(string saleUserId, string selectedUserId);
 
+        Task<bool> SaleFailureAmount(PayFailureViewModel input);
+
         Task<bool> SellProduct(AllProductsSalesViewModel input);
 
         Task<bool> SellService(SaleServicesViewModel input);
+
+        Task UpdateCheckout(CheckoutViewModel input);
     }
 }

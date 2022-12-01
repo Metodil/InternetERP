@@ -30,7 +30,7 @@
 
         [Required]
         [Range(typeof(int), "0", "999999", ErrorMessage = GlobalConstants.RangeErrorPrice)]
-        public int ProductQuantity { get; set; }
+        public int StockQuantity { get; set; }
 
         [Required]
         public string SaleUserId { get; set; }

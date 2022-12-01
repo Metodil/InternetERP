@@ -1,12 +1,14 @@
 ﻿@model InternetERP.Web.ViewModels.Employee.Sales.PayFailureViewModel
 @{
     this.ViewData["Title"] = "Pay Failure";
+    decimal failurePayment = 0;
+    string failureIdsForUpdate = string.Empty;
 }
 
 @section AddToHead{
 }
 
-<partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+    <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
 
 @if (Model.SaleId != null)
 {
@@ -15,12 +17,95 @@
 }
 
 <div class="row">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table product-overview table-hover">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Note</th>
+                        <th>Create on</th>
+                        <th>Finish on</th>
+                        <th>Status</th>
+                        <th>Status details</th>
+                        <th style="text-align: right">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var failure in Model.Failures)
+                    {
 
+                        <tr>
+                            <td width="250">@failure.ShortDescription</td>
+                            <td width="350">@failure.Note</td>
+                            <td width="120">@failure.CreatedOn.ToString("dd-MM-yy")</td>
+                            <td width="120">@(failure.FinishDate != null ? failure.FinishDate.Value.ToString("dd-MM-yy") : "")</td>
+                            <td width="200" class="font-500">@failure.StatusFailure.Name</td>
+                            <td width="300" class="font-500">
+                                <ul>
+
+                                    @foreach (var phase in failure.FailurePhases)
+                                    {
+                                        <li><h6>Team: @phase.FailureTeam.Name On: @phase.CreatedOn.ToString("dd-MM-yy")</h6></li>
+                                        <li><h6>@phase.User.FirstName @phase.User.LastName</h6></li>
+                                        <li><h6>Status: @phase.StatusFailure.Name</h6></li>
+                                        <li style="list-style-type: none;"><hr /></li>
+                                    }
+                                </ul>
+
+                            </td>
+                            @if (failure.Price > 0)
+                            {
+                                failurePayment += failure.Price;
+                                failureIdsForUpdate += failure.Id.ToString() + ",";
+                            }
+                            <td width="100" align="right">@failure.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <form method="post" asp-area="Employee" asp-controller="SaleGoods" asp-action="PayFailure">
+            <input type="hidden" asp-for="Step" value="@Model.Step" />
+            <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
+            <input type="hidden" asp-for="SaleInternetAccountId" value="@Model.InternetAccountInfo.InternetUserId" />
+            <input type="hidden" asp-for="FailureIdsForUpdate" value="@(failureIdsForUpdate.TrimEnd(','))" />
+            <div class="card">
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.SuccessMsg))
+                    {
+                        <div class="p-3 mb-2 bg-success text-white">@Model.SuccessMsg</div>
+                    }
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <h4 class="card-title border-bottom">Failure taxes</h4>
+                    <div class="card">
+                        <div class="border-bottom title-part-padding">
+                            <h5 class="card-title mb-0">Nickname: <i><u>@Model.InternetAccountInfo.InternetName</u></i></h5>
+                        </div>
+                        <div class="border-bottom title-part-padding">
+                            <h5 class="card-title mb-0">Account Type: <i><u>@Model.InternetAccountInfo.AccountType.Name</u></i></h5>
+                        </div>
+                        <div class="card-body ms-auto">
+                            <label asp-for="FailurePayment" class="control-label"></label>
+                            <input asp-for="FailurePayment" type="text" class="text-end" value="@failurePayment" />
+                            <span asp-validation-for="FailurePayment" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-actions mt-1 mb-1 float-end">
+                        <button type="submit"
+                                class="btn btn-success rounded-pill px-4" @(failurePayment == 0 ? " disabled" : "")>
+                            Sale failure payments
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="row">
     <div class="col-md-12 bg-light">
-        <a href="/Employee/SaleGoods/Checkout" class="btn btn-lg btn-primary float-end m-lg-1">
+        <a asp href="/Employee/SaleGoods/Checkout" class="btn btn-lg btn-primary float-end m-lg-1">
             Next
             </а>
             <a href="/Employee/SaleGoods/SaleServices" class="btn-secondary btn-lg float-end m-lg-1">

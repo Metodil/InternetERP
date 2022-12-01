@@ -1,4 +1,4 @@
-﻿namespace InternetERP.Web.Infrastructure
+﻿namespace InternetERP.Web.Infrastructure.CustomValidate
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -13,7 +13,7 @@
                 return ValidationResult.Success;
             }
 
-            return new ValidationResult(this.ErrorMessage ?? $"Make sure your date is > than today {DateTime.Now.ToString("dd-MM-yyyy")}");
+            return new ValidationResult(ErrorMessage ?? $"Make sure your date is > than today {DateTime.Now.ToString("dd-MM-yyyy")}");
         }
     }
 }

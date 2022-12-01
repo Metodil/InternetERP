@@ -10,6 +10,8 @@
     using InternetERP.Data.Models;
     using InternetERP.Data.Repositories;
     using InternetERP.Data.Seeding;
+    using InternetERP.Services;
+    using InternetERP.Services.Contracts;
     using InternetERP.Services.Data;
     using InternetERP.Services.Data.Administration;
     using InternetERP.Services.Data.Contracts;
@@ -100,6 +102,7 @@
             services.AddTransient<ISaleGoodsService, SaleGoodsService>();
             services.AddTransient<IFailuresService, FailuresService>();
             services.AddTransient<ITechniciansService, TechniciansService>();
+            services.AddTransient<IPaypalService, PaypalService>();
 
             // Add HttpContextAccessor to access cookies
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

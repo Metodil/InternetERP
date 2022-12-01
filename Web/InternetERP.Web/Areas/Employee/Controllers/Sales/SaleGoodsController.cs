@@ -73,9 +73,9 @@
         }
 
         [HttpGet]
-#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public async Task<IActionResult> SaleProducts(int id = 1, string? filterBy = null)
-#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
@@ -180,13 +180,104 @@
         {
             var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+            var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
             var model = new PayFailureViewModel
             {
                 Step = 4,
                 SaleId = saleId,
                 BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
-                Services = await this.saleGoodsService.GetServices(),
-                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(),
+                Failures = await this.saleGoodsService.GetFailures(internetAccountInfo.Id),
+                InternetAccountInfo = internetAccountInfo,
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PayFailure(PayFailureViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+                var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+                input.Step = 4;
+                input.SaleId = saleId;
+                input.BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id);
+                input.Failures = await this.saleGoodsService.GetFailures(internetAccountInfo.Id);
+                input.InternetAccountInfo = internetAccountInfo;
+
+                return this.View(input);
+            }
+
+            var result = await this.saleGoodsService.SaleFailureAmount(input);
+
+            var saleUserIdN = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleIdN = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserIdN);
+            var internetAccountInfoN = await this.saleGoodsService.GetInternetAccountInfo();
+            var model = new PayFailureViewModel
+            {
+                Step = 4,
+                SaleId = saleIdN,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleIdN.Id),
+                Failures = await this.saleGoodsService.GetFailures(internetAccountInfoN.Id),
+                InternetAccountInfo = internetAccountInfoN,
+                SuccessMsg = "Successfuly pay failure payments to this internet account!",
+            };
+
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Checkout()
+        {
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+            var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+            var model = new CheckoutViewModel
+            {
+                Step = 5,
+                SaleId = saleId,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
+                Sales = await this.saleGoodsService.GetSales(saleId.Id),
+                InternetAccountInfo = internetAccountInfo,
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Checkout(CheckoutViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
+                var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+                input.Step = 5;
+                input.SaleId = saleId;
+                input.BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id);
+                input.Sales = await this.saleGoodsService.GetSales(saleId.Id);
+                input.InternetAccountInfo = internetAccountInfo;
+
+                return this.View(input);
+            }
+
+            await this.saleGoodsService.UpdateCheckout(input);
+
+            var saleUserIdN = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleIdN = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserIdN);
+            var internetAccountInfoN = await this.saleGoodsService.GetInternetAccountInfo();
+            var model = new CheckoutViewModel
+            {
+                Step = 5,
+                SaleId = saleIdN,
+                BillInfo = await this.saleGoodsService.GetBillInfo(saleIdN.Id),
+                Sales = await this.saleGoodsService.GetSales(saleIdN.Id),
+                InternetAccountInfo = internetAccountInfoN,
+                SuccessMsg = "Successfuly update quantities!",
             };
 
             return this.View(model);

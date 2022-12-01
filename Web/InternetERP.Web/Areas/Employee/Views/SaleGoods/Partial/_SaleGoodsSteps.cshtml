@@ -26,7 +26,7 @@
         </a>
     </div>
     <div class="col-md-4 col-xl-2 d-flex align-items-stretch">
-        <a href="javascript:void(0)"
+        <a asp-area="Employee" asp-controller="SaleGoods" asp-action="SaleProducts"
            class="card bg-success text-white w-100 card-hover">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -38,7 +38,7 @@
                 <div class="mt-4">
                     <h4 class="card-title mb-1 text-white">Selling products</h4>
                     <h6 class="card-text fw-normal text-white-50">
-                        Shoes, Jeans, Party wear, Watchs
+                        Ruters and other stocks
                     </h6>
                     @if (Model == 2)
                     {
@@ -49,7 +49,7 @@
         </a>
     </div>
     <div class="col-md-4 col-xl-2 d-flex align-items-stretch">
-        <a href="javascript:void(0)"
+        <a asp-area="Employee" asp-controller="SaleGoods" asp-action="SaleServices"
            class="card bg-warning text-white w-100 card-hover">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -72,7 +72,7 @@
         </a>
     </div>
     <div class="col-md-4 col-xl-2 d-flex align-items-stretch">
-        <a href="javascript:void(0)"
+        <a asp-area="Employee" asp-controller="SaleGoods" asp-action="PayFailure"
            class="card bg-danger text-white w-100 card-hover">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -97,7 +97,7 @@
         </a>
     </div>
     <div class="col-md-4 col-xl-2 d-flex align-items-stretch">
-        <a href="javascript:void(0)"
+        <a asp-area="Employee" asp-controller="SaleGoods" asp-action="Checkout"
            class="card bg-primary text-white w-100 card-hover">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -108,10 +108,10 @@
                 </div>
                 <div class="mt-4">
                     <h4 class="card-title mb-1 text-white">
-                        Apple Accessories
+                        Checkout
                     </h4>
                     <h6 class="card-text fw-normal text-white-50">
-                        Magsafe charger, Solo Loop
+                        Manage all stock and final payment
                     </h6>
                     @if (Model == 5)
                     {
@@ -122,7 +122,7 @@
         </a>
     </div>
     <div class="col-md-4 col-xl-2 d-flex align-items-stretch">
-        <a href="javascript:void(0)"
+        <a asp-area="Employee" asp-controller="SaleGoods" asp-action="Invoice"
            class="card bg-info text-white w-100 card-hover">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -132,9 +132,9 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <h4 class="card-title mb-1 text-white">Manage Data</h4>
+                    <h4 class="card-title mb-1 text-white">Invoice</h4>
                     <h6 class="card-text fw-normal text-white-50">
-                        on mobile, on site
+                        create new invoice for customer
                     </h6>
                     @if (Model == 6)
                     {

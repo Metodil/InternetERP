@@ -1,0 +1,217 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Sales.CheckoutViewModel
+@{
+    this.ViewData["Title"] = "Checkout";
+    decimal totalAmount = 0.0m;
+}
+
+@section AddToHead{
+}
+
+    <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+
+@if (Model.SaleId != null)
+{
+    Model.SaleId.BillInfo = Model.BillInfo;
+    <partial name="./Partial/_SaleGoodsCustomer.cshtml" model="Model.SaleId" />
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">STOCK SUMMARY</h5>
+                <span class="text-success">@Model.SuccessMsg</span>
+                <form method="post" asp-area="Employee" asp-controller="SaleGoods" asp-action="Checkout">
+                    <input type="hidden" asp-for="Step" value="@Model.Step" />
+                    <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
+                    <input type="hidden" asp-for="SaleInternetAccountId" value="@Model.InternetAccountInfo.InternetUserId" />
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Photo</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sale in Model.Sales)
+                                {
+                                    totalAmount += sale.SellPrice * sale.StockQuantity;
+                                    <tr>
+                                        <td>no image</td>
+                                        <td>@sale.Name</td>
+                                        @if (sale.ProductId != null)
+                                        {
+                                            <td width="140">
+                                                <input type="hidden" asp-for="StockIds" value="@sale.Id">
+                                                <input type="number" style="text-align:center;" min="0" asp-for="Quantities"
+                                               class="form-control"
+                                               placeholder="@sale.StockQuantity" value="@sale.StockQuantity" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td width="140" align="center">
+                                                <span style="text-align:center;">
+                                                    @sale.StockQuantity &nbsp;&nbsp;&nbsp;&nbsp;
+                                                </span>
+                                            </td>
+                                        }
+                                        <td class="font-500">$@sale.SellPrice</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="3" class="font-500" align="right">
+                                        Total Amount
+                                    </td>
+                                    <td class="font-500">$@totalAmount</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="font-500" align="center">
+                                        <div class="form-actions mt-1 mb-1 float-end">
+                                            <button type="submit"
+                                                    class="btn btn-success rounded-pill px-4">
+                                                Update quantity
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+                <hr />
+                <h5 class="card-title">Choose payment Option</h5>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="nav-item">
+                        <a href="#iprofile"
+                           class="nav-link active"
+                           aria-controls="home"
+                           role="tab"
+                           data-bs-toggle="tab"
+                           aria-expanded="true">
+                            <span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Debit Card</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="nav-item">
+                        <a href="#ihome"
+                           class="nav-link"
+                           aria-controls="profile"
+                           role="tab"
+                           data-bs-toggle="tab"
+                           aria-expanded="false">
+                            <span class="visible-xs"><i class="ti-user"></i></span>
+                            <span class="hidden-xs">Paypal</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="ihome">
+                        <br />
+
+                        You can pay your money through paypal, for more info
+                        <a href="">click here</a>
+                        <br />
+                        <br />
+                        <button class="btn btn-info">
+                            <i class="fab fa-cc-paypal"></i> Pay with Paypal
+                        </button>
+
+                        <form method="post" asp-area="Employee" asp-controller="PayPal" asp-action="CreatePayment">
+                            <div class="modal-body text-center m-3">
+                                <span class="text-info">Price for one visit (without card) - 2 USD</span>
+                                <input type="text" asp-for="amount" value="@Model.Id" hidden />
+                                
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="btn pill btn-success">Buy with Paypal <i class="fab fa-paypal"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="iprofile">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <form>
+                                    <div class="mb-3 input-group mt-5">
+                                        <span class="input-group-text">
+                                            <i class="fab fa-cc-visa"></i>
+                                        </span>
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="Card Number"
+                                               aria-label="Amount (to the nearest dollar)" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-7 col-md-7">
+                                            <div class="mb-3">
+                                                <label>EXPIRATION DATE</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       name="Expiry"
+                                                       placeholder="MM / YY"
+                                                       required="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5 col-md-5 pull-right">
+                                            <div class="mb-3">
+                                                <label>CV CODE</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       name="CVC"
+                                                       placeholder="CVC"
+                                                       required="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label>NAME OF CARD</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       name="nameCard"
+                                                       placeholder="NAME AND SURNAME" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-info">Make Payment</button>
+                                </form>
+                            </div>
+                            <div class="col-md-4 ms-auto">
+                                <h4 class="card-title mt-4">General Info</h4>
+                                <h2>
+                                    <i class="fab fa-cc-visa text-info"></i>
+                                    <i class="fab fa-cc-mastercard text-danger"></i>
+                                    <i class="fab fa-cc-discover text-success"></i>
+                                    <i class="fab fa-cc-amex text-warning"></i>
+                                </h2>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing
+                                    elit, sed do eiusmod tempor incididunt ut labore et
+                                    dolore magna aliqua.
+                                </p>
+                                <p>
+                                    Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function CheckForNegative() {
+
+        }
+    </script>
+    }
