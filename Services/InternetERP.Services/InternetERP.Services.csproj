@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Web\InternetERP.Web.ViewModels\InternetERP.Web.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,12 +1,13 @@
-﻿namespace InternetERP.Web.Controllers
+﻿namespace InternetERP.Web.Areas.Employee.Controllers.Sales
 {
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc;
     using InternetERP.Services.Contracts;
+    using InternetERP.Web.Areas.Employee.Controllers;
+    using InternetERP.Web.ViewModels.Employee.Sales;
+    using Microsoft.AspNetCore.Mvc;
 
-    public class PaypalController : BaseController
+    public class PaypalController : EmployeeController
     {
         private readonly IPaypalService paypalService;
 
@@ -16,9 +17,17 @@
             this.paypalService = paypalService;
         }
 
-        public async Task<IActionResult> CreatePayment(decimal amount, string description)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePayment(decimal amount, string billId, string description)
         {
-            var result = await this.paypalService.CreatePayment(amount, description);
+            var input = new PayPalInputModel
+            {
+                Amount = amount,
+                BillId = billId,
+                Description = description,
+            };
+            var result = await this.paypalService.CreatePayment(input);
 
             foreach (var link in result.links)
             {
@@ -36,7 +45,6 @@
             var result = await this.paypalService.ExecutePayment(payerId, paymentId, token);
 
             // TODO Sale as payed
-
             return this.View(visits);
         }
     }

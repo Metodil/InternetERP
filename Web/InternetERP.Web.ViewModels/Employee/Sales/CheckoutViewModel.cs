@@ -36,5 +36,9 @@
         public InternetAccount InternetAccountInfo { get; set; }
 
         public string SuccessMsg { get; set; }
+
+        public decimal Amount { get; set; }
+
+        public string Description { get; set; }
     }
 }

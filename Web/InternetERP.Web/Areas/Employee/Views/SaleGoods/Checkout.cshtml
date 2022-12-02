@@ -92,7 +92,7 @@
                            role="tab"
                            data-bs-toggle="tab"
                            aria-expanded="true">
-                            <span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Debit Card</span>
+                            <span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Bank transfer</span>
                         </a>
                     </li>
                     <li role="presentation" class="nav-item">
@@ -110,94 +110,58 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane" id="ihome">
                         <br />
-
-                        You can pay your money through paypal, for more info
-                        <a href="">click here</a>
-                        <br />
-                        <br />
-                        <button class="btn btn-info">
-                            <i class="fab fa-cc-paypal"></i> Pay with Paypal
-                        </button>
-
-                        <form method="post" asp-area="Employee" asp-controller="PayPal" asp-action="CreatePayment">
-                            <div class="modal-body text-center m-3">
-                                <span class="text-info">Price for one visit (without card) - 2 USD</span>
-                                <input type="text" asp-for="amount" value="@Model.Id" hidden />
-                                
-                            </div>
-                            <div class="modal-footer d-flex justify-content-center">
-                                <button class="btn pill btn-success">Buy with Paypal <i class="fab fa-paypal"></i></button>
-                            </div>
-                        </form>
+                        <div class="col-md-6 ms-auto float-start">
+                            <br />
+                            <form method="post" asp-area="Employee" asp-controller="Paypal" asp-action="CreatePayment">
+                                <div class="modal-body m-3">
+                                    <span class="text-info">Make PayPal payment for this sale Sale : $@totalAmount</span>
+                                    <input type="hidden" asp-for="Amount" value="@totalAmount" />
+                                    <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
+                                    <input type="hidden" asp-for="Description" value="Make PayPal payment for this sale Sale : $@totalAmount" />
+                                </div>
+                                <div class="float-begin">
+                                    <button class="btn pill btn btn-info">Buy with Paypal <i class="fab fa-paypal"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4 ms-auto">
+                            <h4 class="card-title mt-4">General Info</h4>
+                            <h2>
+                                <i class="fab fa-paypal text-info"></i>
+                            </h2>
+                            <p>
+                                PayPal is the faster,
+                                safer way to send money,
+                                make an online payment,
+                                receive money or set up a merchant account.
+                                PayPal is for everyone who pays or gets paid.
+                                PayPal connects buyers and sellers.
+                            </p>
+                        </div>
                     </div>
                     <div role="tabpanel" class="tab-pane active" id="iprofile">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <form>
-                                    <div class="mb-3 input-group mt-5">
-                                        <span class="input-group-text">
-                                            <i class="fab fa-cc-visa"></i>
-                                        </span>
-                                        <input type="text"
-                                               class="form-control"
-                                               placeholder="Card Number"
-                                               aria-label="Amount (to the nearest dollar)" />
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-7 col-md-7">
-                                            <div class="mb-3">
-                                                <label>EXPIRATION DATE</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       name="Expiry"
-                                                       placeholder="MM / YY"
-                                                       required="" />
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-5 col-md-5 pull-right">
-                                            <div class="mb-3">
-                                                <label>CV CODE</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       name="CVC"
-                                                       placeholder="CVC"
-                                                       required="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="mb-3">
-                                                <label>NAME OF CARD</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       name="nameCard"
-                                                       placeholder="NAME AND SURNAME" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-info">Make Payment</button>
-                                </form>
-                            </div>
-                            <div class="col-md-4 ms-auto">
-                                <h4 class="card-title mt-4">General Info</h4>
-                                <h2>
-                                    <i class="fab fa-cc-visa text-info"></i>
-                                    <i class="fab fa-cc-mastercard text-danger"></i>
-                                    <i class="fab fa-cc-discover text-success"></i>
-                                    <i class="fab fa-cc-amex text-warning"></i>
-                                </h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                                    elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua.
-                                </p>
-                                <p>
-                                    Ut enim ad minim veniam, quis nostrud exercitation
-                                    ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat.
-                                </p>
-                            </div>
+                        <div class="col-md-7 ms-auto float-start">
+                            <br />
+                            <form method="post" asp-area="Employee" asp-controller="Invoices" asp-action="CreateInvoice">
+                                <div class="modal-body m-3">
+                                    <span class="text-info">Make PayPal payment for this sale Sale : $@totalAmount</span>
+                                    <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
+                                </div>
+                                <div class="float-begin">
+                                    <button class="btn pill btn btn-info">Create Invoice <i class="mdi mdi-bank"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4 ms-auto">
+                            <h4 class="card-title mt-4">General Info</h4>
+                            <h2>
+                                <i class="me-2 mdi mdi-bank text-info"></i>
+                            </h2>
+                            <p>
+                                A bank transfer is when money is sent from one bank account to another.
+                                Transferring money from your bank account is usually fast,
+                                free and safer than withdrawing and paying in cash.
+                            </p>
                         </div>
                     </div>
                 </div>

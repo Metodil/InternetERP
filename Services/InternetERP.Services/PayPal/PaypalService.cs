@@ -2,11 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.IO;
+    using System.Net;
     using System.Threading.Tasks;
 
     using InternetERP.Services.Contracts;
+    using InternetERP.Web.ViewModels.Employee.Sales;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
     using PayPal.Api;
 
     public class PaypalService : IPaypalService
@@ -18,7 +21,7 @@
             this.configuration = configuration;
         }
 
-        public async Task<Payment> CreatePayment(decimal value, string description)
+        public async Task<Payment> CreatePayment(PayPalInputModel input)
         {
             var config = new Dictionary<string, string>();
             config.Add("mode", this.configuration["Logging:Paypal:Mode"]);
@@ -49,24 +52,37 @@
                             amount = new Amount
                             {
                                 currency = "USD",
-                                total = value.ToString(),
+                                total = input.Amount.ToString(),
                             },
-                            description = "Products and Services from InternerERP.",
+                            description = "Products and Services from InternerERP. " + input.Description,
                         },
                     },
                     redirect_urls = new RedirectUrls
                     {
-                        cancel_url = @"https://localhost:44319/Paypal/FailedPayment",
-                        return_url = $@"https://localhost:44319/Paypal/SuccessedPayment?description={description}",
+                        cancel_url = @"localhost:44319/Employee/Paypal/FailedPayment",
+                        return_url = $@"localhost:44319/Employee/Paypal/SuccessedPayment?description={input.Description}",
+                        //return_url = "nativexo://paypalpay",
                     },
                 };
+                var result = payment.Create(apiContext);
 
                 var createdPayment = await Task.Run(() => payment.Create(apiContext));
                 return createdPayment;
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                Console.WriteLine(ex.Message);
+                if (ex.Response is HttpWebResponse)
+                {
+                    HttpStatusCode statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                    using (WebResponse wResponse = (HttpWebResponse)ex.Response)
+                    {
+                        using (Stream data = wResponse.GetResponseStream())
+                        {
+                            string text = new StreamReader(data).ReadToEnd();
+                        }
+                    }
+                }
+
                 return null;
             }
         }
