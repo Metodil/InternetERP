@@ -14,8 +14,10 @@
     using InternetERP.Services.Contracts;
     using InternetERP.Services.Data;
     using InternetERP.Services.Data.Administration;
+    using InternetERP.Services.Data.Administration.Contracts;
     using InternetERP.Services.Data.Contracts;
     using InternetERP.Services.Data.Employee;
+    using InternetERP.Services.Data.Employee.Contracts;
     using InternetERP.Services.Mapping;
     using InternetERP.Services.Messaging;
     using InternetERP.Web.Areas.Identity.Pages.Account;
@@ -103,6 +105,8 @@
             services.AddTransient<IFailuresService, FailuresService>();
             services.AddTransient<ITechniciansService, TechniciansService>();
             services.AddTransient<IPaypalService, PaypalService>();
+            services.AddTransient<IBillService, BillService>();
+            services.AddTransient<IInvoiceService, InvoiceService>();
 
             // Add HttpContextAccessor to access cookies
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

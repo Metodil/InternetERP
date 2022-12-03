@@ -1,5 +1,5 @@
 ﻿@model int
-<div class="row">
+<div class="row" style="margin-left:150px;">
     <div class="col-md-4 col-xl-2 d-flex align-items-stretch">
         <a href="javascript:void(0)"
            class="card bg-secondary text-white w-100 card-hover">
@@ -53,7 +53,7 @@
            class="card bg-warning text-white w-100 card-hover">
             <div class="card-body">
                 <div class="d-flex align-items-center">
-                    <span class="mdi mdi-food display-6 fw-bold"></span>
+                    <span class="me-2 mdi mdi-wan display-6 fw-bold"></span>
                     <div class="ms-auto">
                         <i data-feather="arrow-right" class="fill-white"></i>
                     </div>
@@ -101,9 +101,9 @@
            class="card bg-primary text-white w-100 card-hover">
             <div class="card-body">
                 <div class="d-flex align-items-center">
-                    <span class="mdi mdi-apple display-6 fw-bold"></span>
+                    <span class="me-2 mdi mdi-checkbox-marked-outline display-6 fw-bold"></span>
                     <div class="ms-auto">
-                        <i data-feather="arrow-right" class="fill-white"></i>
+                        
                     </div>
                 </div>
                 <div class="mt-4">
@@ -121,27 +121,4 @@
             </div>
         </a>
     </div>
-    <div class="col-md-4 col-xl-2 d-flex align-items-stretch">
-        <a asp-area="Employee" asp-controller="SaleGoods" asp-action="Invoice"
-           class="card bg-info text-white w-100 card-hover">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <span class="mdi mdi-folder-multiple display-6 fw-bold"></span>
-                    <div class="ms-auto">
-                        <i data-feather="arrow-right" class="fill-white"></i>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <h4 class="card-title mb-1 text-white">Invoice</h4>
-                    <h6 class="card-text fw-normal text-white-50">
-                        create new invoice for customer
-                    </h6>
-                    @if (Model == 6)
-                    {
-                        <h5 class="bg-white text-danger text-bolt p-1 rounded-3">Current step</h5>
-                    }
-                </div>
-            </div>
-        </a>
-    </div>
-</div>
+ </div>

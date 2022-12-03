@@ -26,18 +26,15 @@ namespace InternetERP.Data.Models
 
         public virtual Town Town { get; set; }
 
-        [MaxLength(30)]
-        public string District { get; set; }
-
         [Required]
         [MaxLength(50)]
-        public string Street { get; set; }
+        public string Address { get; set; }
 
         [Required]
         public string VATNumber { get; set; }
 
         [Required]
-        public int BulstatNumber { get; set; }
+        public string BulstatNumber { get; set; }
 
         [Required]
         [MaxLength(80)]
@@ -46,10 +43,6 @@ namespace InternetERP.Data.Models
         [Required]
         [MaxLength(80)]
         public string ReceivedFrom { get; set; }
-
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal BayPrice { get; set; }
 
         public virtual ICollection<Phone> Phones { get; set; }
     }

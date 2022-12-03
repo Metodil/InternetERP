@@ -6,7 +6,7 @@
 
     using InternetERP.Data.Common.Repositories;
     using InternetERP.Data.Models;
-    using InternetERP.Services.Data.Contracts;
+    using InternetERP.Services.Data.Administration.Contracts;
     using InternetERP.Services.Mapping;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;

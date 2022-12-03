@@ -1,0 +1,132 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Invoices.InvoiceViewModel
+@{
+    this.ViewData["Title"] = "Show Invoice";
+    var dueDate = Model.InvoiceInfo.CreatedOn.AddDays(7);
+    int index = 0;
+    decimal sellPriceWithoutVAT = 0.0m;
+    decimal saleTotal = 0.0m;
+    decimal invoiceTotalWithoutVAT = 0.0m;
+    decimal invoiceVAT = 0.0m;
+    decimal invoiceTotal = 0.0m;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-body printableArea">
+            <h3><b>INVOICE</b> <span class="pull-right">#@Model.InvoiceInfo.Id</span></h3>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-6 float-start">
+                        <address>
+                            <h3>From,</h3>
+                            <h4>&nbsp;<b class="text-danger">InternetERP</b></h4>
+                            <p class="text-muted m-l-5">
+                                София, ж.к. Младост 4<br />
+                                бул. Александър<br />
+                                Малинов 78<br />
+                            </p>
+                            @if (Model.InvoiceInfo.PaymentTypeId != 0)
+                                {
+                                   <p>
+                                       for bank transfer<br />
+                                    BG18RZBB91550123456789
+                                   </p> 
+                                }
+                        </address>
+                    </div>
+                    <div class="col-6 float-end text-end">
+                        <address>
+                            <h3>To,</h3>
+                            <h4 class="fw-bold">@Model.Customer.Name</h4>
+                            <p class="text-muted m-l-30">
+                                @Model.Customer.Address,<br />
+                                @Model.Customer.BulstatNumber<br />
+                                @Model.Customer.VATNumber<br />
+                                @Model.Customer.MOL
+                            </p>
+                            <p class="m-t-30">
+                                <b>Invoice Date :</b>
+                                <i class="fa fa-calendar"></i> @Model.InvoiceInfo.CreatedOn
+                            </p>
+                            <p>
+                                <b>Due Date :</b> <i class="fa fa-calendar"></i> @dueDate
+                            </p>
+                        </address>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive m-t-40" style="clear: both">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Description</th>
+                                    <th class="text-end">Quantity</th>
+                                    <th class="text-end">Unit Cost</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sale in Model.InvoiceInfo.Sales)
+                                {
+                                    sellPriceWithoutVAT = Math.Round(sale.SellPrice / 1.2m, 2);
+                                    saleTotal = Math.Round(sale.StockQuantity * sellPriceWithoutVAT, 2);
+                                    invoiceTotalWithoutVAT += saleTotal;
+                                    <tr>
+                                        <td class="text-center">@index</td>
+                                        <td>@sale.Name</td>
+                                        <td class="text-end">@sale.StockQuantity</td>
+                                        <td class="text-end">@sellPriceWithoutVAT</td>
+                                        <td class="text-end">@saleTotal</td>
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="pull-right m-t-30 text-end">
+                        @{
+                            invoiceTotal = Math.Round(invoiceTotalWithoutVAT * 1.2m, 2);
+                            invoiceVAT = invoiceTotal - invoiceTotalWithoutVAT;
+                        }
+                        <p>Sub - Total amount: $@invoiceTotalWithoutVAT</p>
+                        <p>vat (20%) : $@invoiceVAT</p>
+                        <hr />
+                        <h3><b>Total :</b> $@invoiceTotal</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr />
+                    <div class="text-end">
+                        <button id="print"
+                                class="btn btn-default btn-outline"
+                                type="button">
+                            <span><i class="fa fa-print"></i> Print</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <script src="~/js/Monster/pages/samplepages/jquery.PrintArea.js"></script>
+        <script>
+            $(function () {
+                $("#print").click(function () {
+                    var mode = "iframe"; //popup
+                    var close = mode == "popup";
+                    var options = {
+                        mode: mode,
+                        popClose: close,
+                    };
+                    $("div.printableArea").printArea(options);
+                });
+            });
+        </script>
+    }
+    }

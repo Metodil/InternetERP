@@ -12,7 +12,11 @@ namespace InternetERP.Data.Models
 
         public Customer Customer { get; set; }
 
-        public int PaymentId { get; set; }
+        public string BillId { get; set; }
+
+        public Bill Bill { get; set; }
+
+        public int PaymentTypeId { get; set; }
 
         public PaymentType PaymentType { get; set; }
 

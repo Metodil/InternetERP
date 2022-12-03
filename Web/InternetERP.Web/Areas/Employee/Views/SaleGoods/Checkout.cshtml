@@ -91,7 +91,7 @@
                            aria-controls="home"
                            role="tab"
                            data-bs-toggle="tab"
-                           aria-expanded="true">
+                           aria-expanded="false">
                             <span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs"> Bank transfer</span>
                         </a>
                     </li>
@@ -110,11 +110,10 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane" id="ihome">
                         <br />
-                        <div class="col-md-6 ms-auto float-start">
-                            <br />
+                        <div class="col-md-7 ms-auto float-start">
                             <form method="post" asp-area="Employee" asp-controller="Paypal" asp-action="CreatePayment">
                                 <div class="modal-body m-3">
-                                    <span class="text-info">Make PayPal payment for this sale Sale : $@totalAmount</span>
+                                    <span class="text-info">Make PayPal payment for this sale: $@totalAmount</span>
                                     <input type="hidden" asp-for="Amount" value="@totalAmount" />
                                     <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
                                     <input type="hidden" asp-for="Description" value="Make PayPal payment for this sale Sale : $@totalAmount" />
@@ -125,7 +124,7 @@
                             </form>
                         </div>
                         <div class="col-md-4 ms-auto">
-                            <h4 class="card-title mt-4">General Info</h4>
+                            <h4 class="card-title">General Info</h4>
                             <h2>
                                 <i class="fab fa-paypal text-info"></i>
                             </h2>
@@ -141,19 +140,19 @@
                     </div>
                     <div role="tabpanel" class="tab-pane active" id="iprofile">
                         <div class="col-md-7 ms-auto float-start">
-                            <br />
-                            <form method="post" asp-area="Employee" asp-controller="Invoices" asp-action="CreateInvoice">
-                                <div class="modal-body m-3">
-                                    <span class="text-info">Make PayPal payment for this sale Sale : $@totalAmount</span>
-                                    <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
-                                </div>
-                                <div class="float-begin">
-                                    <button class="btn pill btn btn-info">Create Invoice <i class="mdi mdi-bank"></i></button>
-                                </div>
-                            </form>
+                            <div class="modal-body m-3">
+
+                                <span class="text-info">Make Bank tranfer for this sale: $@totalAmount</span>
+                            </div>
+                            <div class="float-begin">
+                                <a class="btn pill btn btn-info" asp-area="Employee" asp-controller="Invoices" asp-action="Create"
+                                   asp-route-billId="@Model.SaleId.Id">
+                                    Create Invoice <i class="mdi mdi-bank"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="col-md-4 ms-auto">
-                            <h4 class="card-title mt-4">General Info</h4>
+                        <div class="col-md-4 mt-4 ms-auto">
+                            <h4 class="card-title">General Info</h4>
                             <h2>
                                 <i class="me-2 mdi mdi-bank text-info"></i>
                             </h2>

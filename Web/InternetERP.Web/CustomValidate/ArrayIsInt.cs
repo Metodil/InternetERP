@@ -12,7 +12,7 @@
                 int[] arrayInteger = (int[])val;
                 foreach (var num in arrayInteger)
                 {
-                    if (num <0)
+                    if (num < 0)
                     {
                         return false;
                     }

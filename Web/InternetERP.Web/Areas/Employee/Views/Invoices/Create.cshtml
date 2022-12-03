@@ -1,0 +1,66 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Invoices.CreateInvoiceInputModel
+@section AddToHead {
+    <link href="~/css/select2/select2.min.css" rel="stylesheet" type="text/css" />
+    }
+    @{
+    ViewData["Title"] = "Create Invoice";
+}
+
+<h1>Create new Invoice</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card-body m-5">
+            @if (!string.IsNullOrEmpty(Model.SuccessMsg))
+            {
+                <div class="p-3 mb-2 bg-success text-white">@Model.SuccessMsg</div>
+                <div class="float-begin">
+                    <a class="btn pill btn btn-info" asp-area="Employee" asp-controller="Invoices" asp-action="Show"
+                            asp-route-InvoiceId="@Model.InvoiceId">
+                        Show Invoice <i class="mdi mdi-file-document-box"></i>
+                    </a>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <form metod="post" asp-action="Create">
+                <input type="hidden" asp-route-BillId="@Model.BillId" />
+                <div class="row">
+                    <h3>Choose Customer</h3>
+                    <div class="form-group mb-3">
+                        <select asp-for="SelectedCustomerId" asp-items="@Model.Customers" class="select2 form-control custom-select" style="width: 100%; height: 36px">
+                        </select>
+                        <span asp-validation-for="SelectedCustomerId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <h3>Choose Bill</h3>
+                    <div class="form-group mb-3">
+                        <select asp-for="SelectedBillId" asp-items="@Model.Bills" class="select2 form-control custom-select" style="width: 100%; height: 36px">
+                        </select>
+                        <span asp-validation-for="SelectedBillId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <h3>Choose Payment Type</h3>
+                    <div class="form-group mb-3">
+                        <select asp-for="SelectedPaymentTypeId" asp-items="@Model.PaymentTypes" class="form-control" style="width: 100%; height: 36px">
+                        </select>
+                        <span asp-validation-for="SelectedPaymentTypeId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Create Invoice" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <script src="~/js/select2/select2.full.min.js"></script>
+        <script src="~/js/select2/select2.min.js"></script>
+        <script src="~/js/Monster/pages/forms/select2/select2.init.js"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

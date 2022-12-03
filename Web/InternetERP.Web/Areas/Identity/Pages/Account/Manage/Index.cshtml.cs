@@ -11,7 +11,7 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
     using System.Threading.Tasks;
 
     using InternetERP.Data.Models;
-    using InternetERP.Services.Data.Contracts;
+    using InternetERP.Services.Data.Administration.Contracts;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;

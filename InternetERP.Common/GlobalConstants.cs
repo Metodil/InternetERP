@@ -18,6 +18,7 @@
         // InputViewModel Error
         public const string TextError = "The {0} must be at least {2} and at max {1} characters long.";
         public const string RangeErrorPrice = "Value for {0} must be at least {1} and max {2}.";
+        public const string PositiveNumberError = "Only positive number allowed";
 
         // Path for Products image
         public const string RootPathForImages = "images";
@@ -26,6 +27,13 @@
         // Init status
         public const string BillFinishedStatus = "Finished";
         public const int BillNewStatusId = 1; // New Sale
+        public const int BillAddProductsId = 2;
+        public const int BillAddServicesId = 3;
+        public const int BillCheckoutId = 4;
+        public const int BillMakeInvoiceId = 5;
+        public const int BillFinishedId = 6;
+
+
         public const int FailureNewStatusId = 1; // Register
         public const string FailureFinishedStatus = "Finished";
         public const int FailureFinishedStatusId = 3;

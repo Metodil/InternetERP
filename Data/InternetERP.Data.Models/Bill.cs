@@ -11,6 +11,7 @@
         public Bill()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Sales = new HashSet<Sale>();
         }
 
         public string SaleUserId { get; set; }

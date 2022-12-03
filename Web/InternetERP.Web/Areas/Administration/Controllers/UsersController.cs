@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using InternetERP.Common;
-    using InternetERP.Services.Data.Contracts;
+    using InternetERP.Services.Data.Administration.Contracts;
     using InternetERP.Web.ViewModels.Administration.Users;
     using Microsoft.AspNetCore.Mvc;
 

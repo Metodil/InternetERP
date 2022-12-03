@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
 
     using InternetERP.Data.Models;
-    using InternetERP.Services.Data.Contracts;
+    using InternetERP.Services.Data.Administration.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;

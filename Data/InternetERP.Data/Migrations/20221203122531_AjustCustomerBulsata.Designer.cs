@@ -4,6 +4,7 @@ using InternetERP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetERP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221203122531_AjustCustomerBulsata")]
+    partial class AjustCustomerBulsata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -592,9 +594,6 @@ namespace InternetERP.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("BillId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -610,12 +609,13 @@ namespace InternetERP.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PaymentTypeId")
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PaymentTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BillId");
 
                     b.HasIndex("CustomerId");
 
@@ -623,7 +623,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PaymentTypeId");
 
-                    b.ToTable("Invoice");
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.PaymentType", b =>
@@ -1206,10 +1206,6 @@ namespace InternetERP.Data.Migrations
 
             modelBuilder.Entity("InternetERP.Data.Models.Invoice", b =>
                 {
-                    b.HasOne("InternetERP.Data.Models.Bill", "Bill")
-                        .WithMany()
-                        .HasForeignKey("BillId");
-
                     b.HasOne("InternetERP.Data.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
@@ -1218,11 +1214,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasOne("InternetERP.Data.Models.PaymentType", "PaymentType")
                         .WithMany()
-                        .HasForeignKey("PaymentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Bill");
+                        .HasForeignKey("PaymentTypeId");
 
                     b.Navigation("Customer");
 

@@ -13,7 +13,7 @@
                 return ValidationResult.Success;
             }
 
-            return new ValidationResult(ErrorMessage ?? $"Make sure your date is > than today {DateTime.Now.ToString("dd-MM-yyyy")}");
+            return new ValidationResult(this.ErrorMessage ?? $"Make sure your date is > than today {DateTime.Now.ToString("dd-MM-yyyy")}");
         }
     }
 }

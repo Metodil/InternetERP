@@ -4,6 +4,7 @@ using InternetERP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetERP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221202205317_AjustPaymentTable")]
+    partial class AjustPaymentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace InternetERP.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CustomerPhone", b =>
+                {
+                    b.Property<int>("CustomersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PhonesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomersId", "PhonesId");
+
+                    b.HasIndex("PhonesId");
+
+                    b.ToTable("CustomerPhone");
+                });
 
             modelBuilder.Entity("InternetERP.Data.Models.ApplicationRole", b =>
                 {
@@ -225,20 +242,21 @@ namespace InternetERP.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<decimal>("BayPrice")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("BulstatNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BulstatNumber")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("District")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -260,6 +278,11 @@ namespace InternetERP.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("TownId")
                         .HasColumnType("int");
@@ -306,6 +329,9 @@ namespace InternetERP.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("PhoneId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Salary")
                         .HasColumnType("decimal(18,2)");
 
@@ -316,6 +342,8 @@ namespace InternetERP.Data.Migrations
                     b.HasIndex("FailureTeamId");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PhoneId");
 
                     b.ToTable("Employees");
                 });
@@ -531,6 +559,9 @@ namespace InternetERP.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("PhoneId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("МonthlyPayment")
                         .HasColumnType("decimal(18,2)");
 
@@ -541,6 +572,8 @@ namespace InternetERP.Data.Migrations
                     b.HasIndex("InternetUserId");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PhoneId");
 
                     b.ToTable("InternetAccounts");
                 });
@@ -592,9 +625,6 @@ namespace InternetERP.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("BillId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -610,12 +640,13 @@ namespace InternetERP.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PaymentTypeId")
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PaymentTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BillId");
 
                     b.HasIndex("CustomerId");
 
@@ -623,7 +654,7 @@ namespace InternetERP.Data.Migrations
 
                     b.HasIndex("PaymentTypeId");
 
-                    b.ToTable("Invoice");
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.PaymentType", b =>
@@ -672,9 +703,6 @@ namespace InternetERP.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
@@ -693,8 +721,6 @@ namespace InternetERP.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("IsDeleted");
 
@@ -1060,6 +1086,21 @@ namespace InternetERP.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CustomerPhone", b =>
+                {
+                    b.HasOne("InternetERP.Data.Models.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("InternetERP.Data.Models.Phone", null)
+                        .WithMany()
+                        .HasForeignKey("PhonesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("InternetERP.Data.Models.ApplicationUser", b =>
                 {
                     b.HasOne("InternetERP.Data.Models.Town", "Town")
@@ -1112,6 +1153,10 @@ namespace InternetERP.Data.Migrations
                     b.HasOne("InternetERP.Data.Models.FailureTeam", "FailureTeams")
                         .WithMany("Employees")
                         .HasForeignKey("FailureTeamId");
+
+                    b.HasOne("InternetERP.Data.Models.Phone", null)
+                        .WithMany("Employees")
+                        .HasForeignKey("PhoneId");
 
                     b.Navigation("EmployeeUser");
 
@@ -1199,6 +1244,10 @@ namespace InternetERP.Data.Migrations
                         .WithMany()
                         .HasForeignKey("InternetUserId");
 
+                    b.HasOne("InternetERP.Data.Models.Phone", null)
+                        .WithMany("InternetAccounts")
+                        .HasForeignKey("PhoneId");
+
                     b.Navigation("AccountType");
 
                     b.Navigation("InternetUser");
@@ -1206,10 +1255,6 @@ namespace InternetERP.Data.Migrations
 
             modelBuilder.Entity("InternetERP.Data.Models.Invoice", b =>
                 {
-                    b.HasOne("InternetERP.Data.Models.Bill", "Bill")
-                        .WithMany()
-                        .HasForeignKey("BillId");
-
                     b.HasOne("InternetERP.Data.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
@@ -1218,26 +1263,11 @@ namespace InternetERP.Data.Migrations
 
                     b.HasOne("InternetERP.Data.Models.PaymentType", "PaymentType")
                         .WithMany()
-                        .HasForeignKey("PaymentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Bill");
+                        .HasForeignKey("PaymentTypeId");
 
                     b.Navigation("Customer");
 
                     b.Navigation("PaymentType");
-                });
-
-            modelBuilder.Entity("InternetERP.Data.Models.Phone", b =>
-                {
-                    b.HasOne("InternetERP.Data.Models.Customer", "Customer")
-                        .WithMany("Phones")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Sale", b =>
@@ -1340,11 +1370,6 @@ namespace InternetERP.Data.Migrations
                     b.Navigation("Sales");
                 });
 
-            modelBuilder.Entity("InternetERP.Data.Models.Customer", b =>
-                {
-                    b.Navigation("Phones");
-                });
-
             modelBuilder.Entity("InternetERP.Data.Models.Failure", b =>
                 {
                     b.Navigation("FailurePhases");
@@ -1363,6 +1388,13 @@ namespace InternetERP.Data.Migrations
             modelBuilder.Entity("InternetERP.Data.Models.Invoice", b =>
                 {
                     b.Navigation("Sales");
+                });
+
+            modelBuilder.Entity("InternetERP.Data.Models.Phone", b =>
+                {
+                    b.Navigation("Employees");
+
+                    b.Navigation("InternetAccounts");
                 });
 
             modelBuilder.Entity("InternetERP.Data.Models.Product", b =>

@@ -1,4 +1,4 @@
-﻿namespace InternetERP.Services.Data.Contracts
+﻿namespace InternetERP.Services.Data.Administration.Contracts
 {
     using System.Threading.Tasks;
 

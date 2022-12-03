@@ -35,6 +35,7 @@
                               new TownsSeeder(),
                               new ProductsSeeder(),
                               new FailuresSeeder(),
+                              new AddCustomersSeeder(),
                           };
 
             foreach (var seeder in seeders)

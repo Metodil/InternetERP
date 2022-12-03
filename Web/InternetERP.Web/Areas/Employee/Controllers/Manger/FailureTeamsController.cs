@@ -1,7 +1,7 @@
 ﻿namespace InternetERP.Web.Areas.Employee.Controllers.Manger
 {
     using System.Threading.Tasks;
-
+    using InternetERP.Services.Data.Administration.Contracts;
     using InternetERP.Services.Data.Contracts;
     using InternetERP.Web.ViewModels.Employee.Manager;
     using Microsoft.AspNetCore.Mvc;

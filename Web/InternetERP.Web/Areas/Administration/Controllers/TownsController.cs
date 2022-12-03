@@ -4,7 +4,7 @@
 
     using InternetERP.Common;
     using InternetERP.Data.Models;
-    using InternetERP.Services.Data.Contracts;
+    using InternetERP.Services.Data.Administration.Contracts;
     using InternetERP.Web.ViewModels.Administration.Towns;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;

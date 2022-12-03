@@ -5,7 +5,7 @@
     using System.IO;
     using System.Net;
     using System.Threading.Tasks;
-
+    using InternetERP.Data.Common.Repositories;
     using InternetERP.Services.Contracts;
     using InternetERP.Web.ViewModels.Employee.Sales;
     using Microsoft.Extensions.Configuration;
@@ -15,10 +15,14 @@
     public class PaypalService : IPaypalService
     {
         private readonly IConfiguration configuration;
+        private readonly IDeletableEntityRepository<Data.Models.Payment> paymentsRepository;
 
-        public PaypalService(IConfiguration configuration)
+        public PaypalService(
+            IConfiguration configuration,
+            IDeletableEntityRepository<Data.Models.Payment> paymentsRepository)
         {
             this.configuration = configuration;
+            this.paymentsRepository = paymentsRepository;
         }
 
         public async Task<Payment> CreatePayment(PayPalInputModel input)
@@ -60,7 +64,7 @@
                     redirect_urls = new RedirectUrls
                     {
                         cancel_url = @"localhost:44319/Employee/Paypal/FailedPayment",
-                        return_url = $@"localhost:44319/Employee/Paypal/SuccessedPayment?description={input.Description}",
+                        return_url = $@"localhost:44319/Employee/Paypal/SuccessedPayment?amount={input.Amount}&billId={input.BillId}",
                         //return_url = "nativexo://paypalpay",
                     },
                 };
