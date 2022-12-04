@@ -72,7 +72,6 @@
 ### Dependencies:
 * [Cloudinary](https://www.cloudinary.com/)
 * [SendGrid](https://www.sendgrid.com/)
-* [ipinfo](https://www.ipinfo.io/)
 
 ## Screen Shots:
 
