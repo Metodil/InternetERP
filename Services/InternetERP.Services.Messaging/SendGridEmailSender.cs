@@ -39,6 +39,7 @@
             {
                 var response = await this.client.SendEmailAsync(message);
                 Console.WriteLine(response.StatusCode);
+                var body = await response.Body.ReadAsStringAsync();
                 Console.WriteLine(await response.Body.ReadAsStringAsync());
             }
             catch (Exception e)

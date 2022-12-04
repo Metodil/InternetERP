@@ -1,25 +1,24 @@
 ﻿namespace InternetERP.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Threading.Tasks;
+
     using InternetERP.Data.Common.Repositories;
     using InternetERP.Services.Contracts;
     using InternetERP.Web.ViewModels.Employee.Sales;
     using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Logging;
     using PayPal.Api;
 
     public class PaypalService : IPaypalService
     {
         private readonly IConfiguration configuration;
-        private readonly IDeletableEntityRepository<Data.Models.Payment> paymentsRepository;
+        private readonly IDeletableEntityRepository<InternetERP.Data.Models.Payment> paymentsRepository;
 
         public PaypalService(
             IConfiguration configuration,
-            IDeletableEntityRepository<Data.Models.Payment> paymentsRepository)
+            IDeletableEntityRepository<InternetERP.Data.Models.Payment> paymentsRepository)
         {
             this.configuration = configuration;
             this.paymentsRepository = paymentsRepository;
@@ -65,7 +64,8 @@
                     {
                         cancel_url = @"localhost:44319/Employee/Paypal/FailedPayment",
                         return_url = $@"localhost:44319/Employee/Paypal/SuccessedPayment?amount={input.Amount}&billId={input.BillId}",
-                        //return_url = "nativexo://paypalpay",
+
+                        // return_url = "nativexo://paypalpay",
                     },
                 };
                 var result = payment.Create(apiContext);

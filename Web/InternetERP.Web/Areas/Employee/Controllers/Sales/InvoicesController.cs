@@ -77,7 +77,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public IActionResult All()
         {
             return this.View();
         }

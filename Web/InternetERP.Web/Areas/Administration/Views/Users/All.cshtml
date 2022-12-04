@@ -41,10 +41,10 @@
                             <tbody>
                                 @foreach (var user in Model.Users)
                                 {
-                                    var picUrl = string.IsNullOrEmpty(@user.ProfilePictureUrl) ? "~/images/Monster/assets/images/users/2.jpg" : @user.ProfilePictureUrl;
+                                    var picUrl = string.IsNullOrEmpty(@user.ProfilePictureUrl) ? "~/images/website/users/2.jpg" : @user.ProfilePictureUrl;
                                     <tr>
                                         <td class="small">
-                                            <img src="~/images/Monster/assets/images/users/2.jpg" alt="user" class="rounded-circle" width="30" />
+                                            <img src="~/images/website/users/2.jpg" alt="user" class="rounded-circle" width="30" />
                                             @user.FirstName @user.LastName
                                         </td>
                                         <td class="small">@user.Email</td>

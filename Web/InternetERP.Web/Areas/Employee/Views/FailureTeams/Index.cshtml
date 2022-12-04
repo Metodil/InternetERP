@@ -1,4 +1,9 @@
 ﻿@model InternetERP.Web.ViewModels.Employee.Manager.FailureTeamsViewModel
+@section AddToHead{
+    <link href="~/css/Monster/bootstrap-duallistbox.min.css" rel="stylesheet" type="text/css" />
+}
+
+
 @{
     this.ViewData["Title"] = "Manage Failure teams";
     var count = 0;
@@ -90,7 +95,7 @@
 @section Scripts {
     @{
         // TODO move dual list to main js
-        <script src="~/images/Monster/assets/libs/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js"></script>
+        <script src="~/js/Monster/jquery.bootstrap-duallistbox.min.js"></script>
         <script src="~/js/Monster/pages/forms/dual-listbox/dual-listbox.js"></script>
     }
     }

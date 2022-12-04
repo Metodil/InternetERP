@@ -15,6 +15,8 @@
     using InternetERP.Services.Data;
     using InternetERP.Services.Data.Administration;
     using InternetERP.Services.Data.Administration.Contracts;
+    using InternetERP.Services.Data.ContactUs;
+    using InternetERP.Services.Data.ContactUs.Contracts;
     using InternetERP.Services.Data.Contracts;
     using InternetERP.Services.Data.Employee;
     using InternetERP.Services.Data.Employee.Contracts;
@@ -23,7 +25,6 @@
     using InternetERP.Web.Areas.Identity.Pages.Account;
     using InternetERP.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authentication.Facebook;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using SendGrid;
 
     public class Program
     {
@@ -86,13 +88,28 @@
 
             services.AddSingleton(configuration);
 
+            //// Add clodinary
+            // var cloudinary = new Cloudinary(new Account()
+            // {
+            //    Cloud = this.configuration["Cloudinary:CloudName"],
+            //    ApiKey = this.configuration["Cloudinary:ApiKey"],
+            //    ApiSecret = this.configuration["Cloudinary:ApiSecret"],
+            // });
+            // services.AddSingleton(cloudinary);
+
+            // Add sendgrid
+//            var sendGrid = new SendGridClient(configuration["SendGrid:ApiKey"]);
+            //services.AddSingleton(sendGrid);
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+ //           services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(
+                serviceProvider => new SendGridEmailSender(configuration["SendGrid:ApiKey"]));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ICustomUsersService, CustomUsersService>();
@@ -107,6 +124,8 @@
             services.AddTransient<IPaypalService, PaypalService>();
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
+            services.AddTransient<IContactUsService, ContactUsService>();
+            services.AddTransient<IMailKitSender, MailKitSender>();
 
             // Add HttpContextAccessor to access cookies
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

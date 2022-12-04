@@ -19,6 +19,7 @@
         public const string TextError = "The {0} must be at least {2} and at max {1} characters long.";
         public const string RangeErrorPrice = "Value for {0} must be at least {1} and max {2}.";
         public const string PositiveNumberError = "Only positive number allowed";
+        public const string EmailTextError = "The {0} must be max {1} characters long.";
 
         // Path for Products image
         public const string RootPathForImages = "images";
