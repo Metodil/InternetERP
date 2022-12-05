@@ -80,7 +80,7 @@
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670275196/home-page-internetERP_hp5zjo.jpg)
 
 ### Home Page:
-![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670275196/home-page-internetERP_hp5zjo.jpg)
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670275518/Login_qacacc.jpg)
 
 
 
