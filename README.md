@@ -58,6 +58,7 @@
 * ASP.NET Core 6.0
 * SignalR
 * Entity Framework Core 6.0
+* AutoMapper
 * xUnit
 * JavaScript
 * jQuery
