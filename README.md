@@ -77,7 +77,7 @@
 ## Screen Shots:
 
 ### Home Page:
-![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670274714/home-page-internetERP_xavooc.jpg)
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670275196/home-page-internetERP_hp5zjo.jpg)
 
 
 
