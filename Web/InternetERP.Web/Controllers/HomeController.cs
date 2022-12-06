@@ -1,16 +1,31 @@
 ﻿namespace InternetERP.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
+    using InternetERP.Services.Data.Home.Contracts;
     using InternetERP.Web.ViewModels;
-
+    using InternetERP.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly IHomeService homeService;
+
+        public HomeController(
+            IHomeService homeService)
         {
-            return this.View();
+            this.homeService = homeService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = new HomeViewModel
+            {
+                PromoProducts = await this.homeService.GetPromoProducts(),
+            };
+
+            return this.View(model);
         }
 
         public IActionResult Privacy()

@@ -7,6 +7,7 @@ namespace InternetERP.Data.Models
     using System.ComponentModel.DataAnnotations.Schema;
 
     using InternetERP.Data.Common.Models;
+    using InternetERP.Data.Seeding;
 
     public class Product : BaseDeletableModel<int>
     {
@@ -29,6 +30,12 @@ namespace InternetERP.Data.Models
 
         [Required]
         public int StockQuantity { get; set; }
+
+        #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        public int? PromotionId { get; set; }
+        #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+
+        public Promotion Promotion { get; set; }
 
         public string Description { get; set; } = string.Empty;
 

@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Reflection;
 
+    using CloudinaryDotNet;
     using InternetERP.Data;
     using InternetERP.Data.Common;
     using InternetERP.Data.Common.Repositories;
@@ -20,6 +21,8 @@
     using InternetERP.Services.Data.Contracts;
     using InternetERP.Services.Data.Employee;
     using InternetERP.Services.Data.Employee.Contracts;
+    using InternetERP.Services.Data.Home;
+    using InternetERP.Services.Data.Home.Contracts;
     using InternetERP.Services.Mapping;
     using InternetERP.Services.Messaging;
     using InternetERP.Web.Areas.Identity.Pages.Account;
@@ -88,18 +91,14 @@
 
             services.AddSingleton(configuration);
 
-            //// Add clodinary
-            // var cloudinary = new Cloudinary(new Account()
-            // {
-            //    Cloud = this.configuration["Cloudinary:CloudName"],
-            //    ApiKey = this.configuration["Cloudinary:ApiKey"],
-            //    ApiSecret = this.configuration["Cloudinary:ApiSecret"],
-            // });
-            // services.AddSingleton(cloudinary);
-
-            // Add sendgrid
-//            var sendGrid = new SendGridClient(configuration["SendGrid:ApiKey"]);
-            //services.AddSingleton(sendGrid);
+            // Add clodinary
+            var cloudinary = new Cloudinary(new Account()
+            {
+                Cloud = configuration["Cloudinary:CloudName"],
+                ApiKey = configuration["Cloudinary:ApiKey"],
+                ApiSecret = configuration["Cloudinary:ApiSecret"],
+            });
+            services.AddSingleton(cloudinary);
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -126,6 +125,7 @@
             services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IContactUsService, ContactUsService>();
             services.AddTransient<IMailKitSender, MailKitSender>();
+            services.AddTransient<IHomeService, HomeService>();
 
             // Add HttpContextAccessor to access cookies
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

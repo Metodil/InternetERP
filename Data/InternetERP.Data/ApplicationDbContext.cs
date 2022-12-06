@@ -8,6 +8,7 @@
 
     using InternetERP.Data.Common.Models;
     using InternetERP.Data.Models;
+    using InternetERP.Data.Seeding;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +47,8 @@
         public DbSet<Phone> Phones { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Promotion> Promotions { get; set; }
 
         public DbSet<Sale> Sales { get; set; }
 

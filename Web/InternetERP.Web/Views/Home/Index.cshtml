@@ -1,6 +1,8 @@
-﻿@using InternetERP.Common
+﻿@model InternetERP.Web.ViewModels.Home.HomeViewModel
+@using InternetERP.Common
 @{
     this.ViewData["Title"] = "Home Page";
+    bool isActive = true;
 }
 
 <div class="text-center">
@@ -12,15 +14,34 @@
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="~/images/promo/Tenda-promo.jpg" class="d-block w-100" alt="Tenda-promo">
-            </div>
-            <div class="carousel-item">
-                <img src="~/images/promo/tp-link-promo.jpg" class="d-block w-100" alt="tp-link-ptomo">
-            </div>
-            <div class="carousel-item">
-                <img src="~/images/promo/mercusys.jpg" class="d-block w-100"alt="mercusys ruter">
-            </div>
+            @foreach (var product in Model.PromoProducts)
+            {
+                <div class="carousel-item @(isActive ? "active" : "") bg-image" style="background-image: url('https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670266552/background2_crcl7g.jpg');height:399px;">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-1"></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 bg-white mt-5">
+                            <div class="white-box text-center">
+                                <img src="~/images/Products/@product.Images.FirstOrDefault().Name"
+                                 class="img-fluid" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 bg-white mt-5">
+                            <h4 class="box-title mt-5">@product.Name</h4>
+                            <p>
+                                @product.Description
+                            </p>
+                            <h2 class="mt-5">
+                                $@product.SellPrice <small class="text-success">(promo)</small>
+                            </h2>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+                    </div>
+                </div>
+                @if (isActive)
+                {
+                    isActive = false;
+                }
+            }
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
