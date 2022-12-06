@@ -58,6 +58,7 @@
 * ASP.NET Core 6.0
 * SignalR
 * Entity Framework Core 6.0
+* AutoMapper
 * xUnit
 * JavaScript
 * jQuery
@@ -76,7 +77,10 @@
 ## Screen Shots:
 
 ### Home Page:
-![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670183959/home-page-internetERP_ykveir.jpg)
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670275196/home-page-internetERP_hp5zjo.jpg)
+
+### Home Page:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670275518/Login_qacacc.jpg)
 
 
 
