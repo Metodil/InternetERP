@@ -85,6 +85,59 @@
 ### Extra Login Providers:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ExtraLoginProviders_zimkr5.jpg)
 
+### Admin DashBoard:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/AdminDashBoard_npyysw.jpg)
+
+### Manage Users:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ManageUsers_dwyhpo.jpg)
+
+### Update Users Profiles:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/UpdateUsersProfile_lat8ve.jpg)
+
+### Manage Roles:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ManageRoles_yi0unn.jpg)
+
+### Delete Town:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/DeleteTown_kenufm.jpg)
+
+### Create Product:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ManagerCreateProduct_yqmznp.jpg)
+
+### Manage Products:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ManageProducts_gercho.jpg)
+
+### Manage Failure Teams:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ManageFailureTeams_hwlted.jpg)
+
+### Step 1 : Create New Sale:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/CreateNewSale_kav6zz.jpg)
+
+### Step 2 : Sell Products:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/Step2SellingProducts_zq472m.jpg)
+
+### Step 3 : Sell Service:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/SellService_awsawp.jpg)
+
+### Step 4 : Sale Failure:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/SaleFailure_viaail.jpg)
+
+### Step 5 : Checkout:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/Checkout_ok1ms8.jpg)
+
+### Step 5 : BankTransfer:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/BankTransfer_tfltoo.jpg)
+
+### Step 5 : PayPal:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/PayPal_sdjp5k.jpg)
+
+### Create Invoice:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/CreateInvoice_rbf34i.jpg)
+
+### Invoice:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/Invoice_ewpeyp.jpg)
+
+### Create Failure:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/CreateFailure_gaddji.jpg)
 
 
 
