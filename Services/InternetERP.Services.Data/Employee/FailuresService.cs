@@ -11,21 +11,25 @@
     using InternetERP.Web.ViewModels.Employee.Failure;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
 
     public class FailuresService : IFailuresService
     {
         private readonly IDeletableEntityRepository<InternetAccount> internetAccountsRepository;
         private readonly IDeletableEntityRepository<Failure> failureRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly ILogger<FailuresService> logger;
 
         public FailuresService(
             IDeletableEntityRepository<InternetAccount> internetAccountsRepository,
             IDeletableEntityRepository<Failure> failureRepository,
-            IDeletableEntityRepository<ApplicationUser> userRepository)
+            IDeletableEntityRepository<ApplicationUser> userRepository,
+            ILogger<FailuresService> logger)
         {
             this.internetAccountsRepository = internetAccountsRepository;
             this.failureRepository = failureRepository;
             this.userRepository = userRepository;
+            this.logger = logger;
         }
 
         public async Task<ICollection<InternetAccount>> GetAllAccounts()
@@ -74,9 +78,9 @@
                 await this.failureRepository.AddAsync(newFailure);
                 await this.failureRepository.SaveChangesAsync();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                // Log Error
+                this.logger.LogError(ex.Message);
                 result = false;
             }
 

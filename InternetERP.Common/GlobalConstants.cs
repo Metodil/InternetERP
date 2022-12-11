@@ -39,6 +39,10 @@
         public const string FailureFinishedStatus = "Finished";
         public const int FailureFinishedStatusId = 3;
 
+        public const string ConstMailSubject = "InternetERP form MailSubject";
+
+        public const string DummyTestImage = "dummyTestImage.jpg";
+
         // Users data for Seeding
         public static class DataForSeeding
         {

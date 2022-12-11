@@ -22,47 +22,41 @@
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly RoleManager<ApplicationRole> roleManaget;
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IDeletableEntityRepository<Bill> billsRepository;
-        private readonly IDeletableEntityRepository<Sale> saleRepository;
+        private readonly IDeletableEntityRepository<Sale> salesRepository;
         private readonly IDeletableEntityRepository<InternetAccountType> internetAccountTypesRepository;
         private readonly IDeletableEntityRepository<InternetAccount> internetAccountRepository;
         private readonly IDeletableEntityRepository<Failure> failuresRepository;
-        private readonly IDeletableEntityRepository<Sale> salesRepository;
 
         public SaleGoodsService(
             UserManager<ApplicationUser> userManager,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IDeletableEntityRepository<Product> productsRepository,
             RoleManager<ApplicationRole> roleManaget,
-            IHttpContextAccessor httpContextAccessor,
             IDeletableEntityRepository<Bill> billsRepository,
-            IDeletableEntityRepository<Sale> saleRepository,
+            IDeletableEntityRepository<Sale> salesRepository,
             IDeletableEntityRepository<InternetAccountType> internetAccountTypesRepository,
             IDeletableEntityRepository<InternetAccount> internetAccountRepository,
-            IDeletableEntityRepository<Failure> failuresRepository,
-            IDeletableEntityRepository<Sale> salesRepository)
+            IDeletableEntityRepository<Failure> failuresRepository)
         {
             this.userManager = userManager;
             this.userRepository = userRepository;
             this.productsRepository = productsRepository;
             this.roleManaget = roleManaget;
-            this.httpContextAccessor = httpContextAccessor;
             this.billsRepository = billsRepository;
-            this.saleRepository = saleRepository;
+            this.salesRepository = salesRepository;
             this.internetAccountTypesRepository = internetAccountTypesRepository;
             this.internetAccountRepository = internetAccountRepository;
             this.failuresRepository = failuresRepository;
-            this.salesRepository = salesRepository;
         }
 
-        public async Task<IEnumerable<T>> GetFilteredProductsPagingAsync<T>(
+        public async Task<ICollection<T>> GetFilteredProductsPagingAsync<T>(
            int page,
            int itemsPerPage,
-#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+            #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
            string? filterBy = null,
            string? categoryFilter = null)
-#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+            #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             if (filterBy == null)
             {
@@ -90,16 +84,16 @@
             }
         }
 
-#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public async Task<int> CountAsync(string? filterBy = null)
-#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             var role = await this.roleManaget.FindByNameAsync(GlobalConstants.InternetAccountRoleName);
 
             if (filterBy == null)
             {
                 return await this.userRepository
-                                .All()
+                    .AllAsNoTracking()
                     .Where(u => u.Roles.Any(r => r.RoleId == role.Id))
                     .OrderBy(x => x.FirstName)
                     .ThenBy(x => x.LastName)
@@ -107,7 +101,7 @@
             }
 
             return await this.userRepository
-                                .All()
+                    .AllAsNoTracking()
                     .Where(u => u.Roles.Any(r => r.RoleId == role.Id))
                     .Where(p => p.FirstName.Contains(filterBy) ||
                         p.LastName.Contains(filterBy))
@@ -116,7 +110,7 @@
                                 .CountAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllUsersAsync<T>()
+        public async Task<ICollection<T>> GetAllUsersAsync<T>()
         {
             var role = await this.roleManaget.FindByNameAsync(GlobalConstants.InternetAccountRoleName);
 
@@ -192,9 +186,9 @@
             };
             try
             {
-                await this.saleRepository
+                await this.salesRepository
                     .AddAsync(newSale);
-                await this.saleRepository.SaveChangesAsync();
+                await this.salesRepository.SaveChangesAsync();
             }
             catch (System.Exception)
             {
@@ -247,9 +241,9 @@
             };
             try
             {
-                await this.saleRepository
+                await this.salesRepository
                     .AddAsync(newSale);
-                await this.saleRepository.SaveChangesAsync();
+                await this.salesRepository.SaveChangesAsync();
                 var internetAccount = await this.internetAccountRepository
                     .All()
                     .Where(ia => ia.InternetUserId == input.SaleInternetAccountId)
@@ -297,9 +291,9 @@
             };
             try
             {
-                await this.saleRepository
+                await this.salesRepository
                     .AddAsync(newSale);
-                await this.saleRepository.SaveChangesAsync();
+                await this.salesRepository.SaveChangesAsync();
                 List<string> failureIdsForUpdate = input.FailureIdsForUpdate
                     .Split(',', System.StringSplitOptions.RemoveEmptyEntries)
                     .ToList();
@@ -338,14 +332,14 @@
             var index = 0;
             foreach (var stockId in input.StockIds)
             {
-                var stock = await this.saleRepository
+                var stock = await this.salesRepository
                     .All()
                     .Where(s => s.Id == stockId)
                     .FirstAsync();
                 var newQuantity = input.Quantities[index];
                 if (newQuantity == 0)
                 {
-                    this.saleRepository.Delete(stock);
+                    this.salesRepository.Delete(stock);
                 }
                 else
                 {
@@ -355,7 +349,7 @@
                 index++;
             }
 
-            await this.saleRepository.SaveChangesAsync();
+            await this.salesRepository.SaveChangesAsync();
         }
     }
 }

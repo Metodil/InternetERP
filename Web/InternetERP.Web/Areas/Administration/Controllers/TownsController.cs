@@ -50,8 +50,7 @@
                 return this.View(newTown);
             }
 
-            // TODO show mess on success
-            return this.View(town);
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]
@@ -85,7 +84,7 @@
                 await this.townsService.Update(town);
             }
 
-            return this.View(town);
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]

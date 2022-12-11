@@ -49,7 +49,7 @@
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            return this.View(applicationRole);
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]
@@ -85,7 +85,7 @@
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            return this.View(applicationRole);
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]

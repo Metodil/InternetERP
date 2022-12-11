@@ -19,6 +19,6 @@
 
         Task<Invoice> GetInvoiceInfoAsync(int id);
 
-        Task<List<SelectListItem>> GetPaymentTypes();
+        Task<List<SelectListItem>> GetPaymentTypesAsync();
     }
 }

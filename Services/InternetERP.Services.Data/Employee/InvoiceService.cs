@@ -94,7 +94,7 @@
             return selectedListItems;
         }
 
-        public async Task<List<SelectListItem>> GetPaymentTypes()
+        public async Task<List<SelectListItem>> GetPaymentTypesAsync()
         {
             var selectedListItem = new SelectListItem
             {
@@ -146,12 +146,13 @@
 
         public async Task<Invoice> GetInvoiceInfoAsync(int id)
         {
-            return await this.invoiceRepository
+            var invoice =  await this.invoiceRepository
                 .AllAsNoTracking()
                 .Include(i => i.Sales)
                 .Include(i => i.PaymentType)
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
+            return invoice;
         }
 
         public async Task<Customer> GetCustomerAsync(int id)

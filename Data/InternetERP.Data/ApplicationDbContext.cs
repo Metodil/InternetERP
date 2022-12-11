@@ -44,6 +44,8 @@
 
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
+        public DbSet<Payment> Payments { get; set; }
+
         public DbSet<Phone> Phones { get; set; }
 
         public DbSet<Product> Products { get; set; }

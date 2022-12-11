@@ -1,11 +1,12 @@
 ﻿namespace InternetERP.Services.Data.Employee
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using InternetERP.Data.Common.Repositories;
     using InternetERP.Data.Models;
     using InternetERP.Services.Data.Employee.Contracts;
     using Microsoft.EntityFrameworkCore;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class BillService : IBillService
     {

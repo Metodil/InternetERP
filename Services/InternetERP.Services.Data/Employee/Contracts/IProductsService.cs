@@ -18,7 +18,7 @@
 
         Task<bool> DeleteProductImage(string imageId);
 
-        Task<IEnumerable<T>> GetFilteredProductsPagingAsync<T>(int page, int itemsPerPage, string nameFilter = null, string categoryFilter = null);
+        Task<ICollection<T>> GetFilteredProductsPagingAsync<T>(int page, int itemsPerPage, string nameFilter = null, string categoryFilter = null);
 
         Task<T> GetProductByIdAsync<T>(int id);
 

@@ -82,7 +82,7 @@
                 EmployeesInTeam = await this.failureTeamsService.GetEmployeesInTeamAsync(model.ManagedTeam),
             };
 
-            return this.View(updatedModel);
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

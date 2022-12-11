@@ -13,10 +13,22 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
+            if (!dbContext.Promotions.Any())
+            {
+                var promotion = new Promotion
+                {
+                    Name = "Best Selling",
+                    Description = "Our best selling products",
+                };
+                await dbContext.Promotions.AddAsync(promotion);
+                await dbContext.SaveChangesAsync();
+            }
+
             if (!dbContext.Products.Any())
             {
                 var products = JsonConvert.DeserializeObject<ProductDto[]>(File.ReadAllText(@"../../Data/InternetERP.Data/Seeding/Data/Products.json"));
 
+                int promotionId = 1;
                 foreach (var product in products)
                 {
                     var newProduct = new Product()
@@ -27,6 +39,11 @@
                         StockQuantity = product.StockQuantity,
                         Description = product.Description,
                     };
+                    if (product.Promotion)
+                    {
+                        newProduct.PromotionId = promotionId;
+                    }
+
                     if (product.Images.Count > 0)
                     {
                         foreach (var imageProduct in product.Images)

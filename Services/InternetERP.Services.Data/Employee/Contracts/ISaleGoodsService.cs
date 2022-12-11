@@ -11,7 +11,7 @@
     {
         Task<int> CountAsync(string filterBy = null);
 
-        Task<IEnumerable<T>> GetAllUsersAsync<T>();
+        Task<ICollection<T>> GetAllUsersAsync<T>();
 
         Task<BillInfo> GetBillInfo(string billId);
 
@@ -19,7 +19,7 @@
 
         Task<ICollection<Failure>> GetFailures(int internetAccountUserId);
 
-        Task<IEnumerable<T>> GetFilteredProductsPagingAsync<T>(
+        Task<ICollection<T>> GetFilteredProductsPagingAsync<T>(
             int page,
             int itemsPerPage,
             string filterBy = null,

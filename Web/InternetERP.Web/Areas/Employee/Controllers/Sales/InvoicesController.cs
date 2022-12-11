@@ -1,6 +1,7 @@
 ﻿namespace InternetERP.Web.Areas.Employee.Controllers.Sales
 {
     using System.Threading.Tasks;
+
     using InternetERP.Data.Models;
     using InternetERP.Services.Data.Employee.Contracts;
     using InternetERP.Web.ViewModels.Employee.Invoices;
@@ -28,7 +29,7 @@
             {
                 Customers = await this.invoiceService.GetCustomersForSelectAsync(),
                 Bills = await this.invoiceService.GetBillsForSelectAsync(billId),
-                PaymentTypes = await this.invoiceService.GetPaymentTypes(),
+                PaymentTypes = await this.invoiceService.GetPaymentTypesAsync(),
             };
 
             return this.View(newModel);
@@ -44,7 +45,7 @@
             {
                 input.Customers = await this.invoiceService.GetCustomersForSelectAsync();
                 input.Bills = await this.invoiceService.GetBillsForSelectAsync(billId);
-                input.PaymentTypes = await this.invoiceService.GetPaymentTypes();
+                input.PaymentTypes = await this.invoiceService.GetPaymentTypesAsync();
                 return this.View(input);
             }
 

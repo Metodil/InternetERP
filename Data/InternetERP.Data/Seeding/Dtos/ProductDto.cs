@@ -21,6 +21,8 @@
 
         public string Description { get; set; } = string.Empty;
 
+        public bool Promotion { get; set; }
+
         public virtual ICollection<Image> Images { get; set; }
     }
 }

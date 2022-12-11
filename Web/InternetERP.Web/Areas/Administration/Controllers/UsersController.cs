@@ -69,9 +69,7 @@
                 return this.View(input);
             }
 
-            var model = await this.usersService.GetUserByIdAsync<ProfileInputModel>(input.Id);
-            model.ReturnMessage = "Ok";
-            return this.View(model);
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

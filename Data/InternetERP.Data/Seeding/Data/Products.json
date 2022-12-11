@@ -1,113 +1,128 @@
-[ 
-{ 
-"Name":"MIKROTIK ROUTER hAP Mini",
-"SellPrice":"44.00",
-"BayPrice":"34.20",
-"StockQuantity":2,
-"Description":"Идеалният рутер за малки фирми и офиси. както и крайни клиенти с по-високи изисквания. Несравним в SOHO сегмента като съотношение ЦЕНА/ФУНКЦИОНАЛНОСТ.\r\n5бр, конфируриращи се LAN портове.\r\n32MB RAM, MikroTik RouterOS Level4\r\nAR7240 CPU, \r\nПластмасова кутия и захранване.\r\n",
-"Images":[{"Name":"11649_RB750.png"}]
-},
-{ 
-"Name":"TL-WR841N 300Mbps Wireless N Router, Atheros",
-"SellPrice":"37.00",
-"BayPrice":"32.00",
-"StockQuantity":5,
-"Description":"2T2R, 2.4GHz, 802.11n/g/b, Built-in 4-port Switch, with 2 fixed antennas",
-"Images":[{"Name":"45578_networking-router-tp-link-tl-wr841n.jpg"}]
-},
-{ 
-"Name":"Рутер Wireless N300 MERCUSYS MW305R ",
-"SellPrice":"37.00",
-"BayPrice":"23.76",
-"StockQuantity":2,
-"Description":"300 Mbps скорост на безжично предаване на данни е идеална за HD стрийминг, онлайн игри и теглене на големи файлове\nТри 5dBi антени увеличават сериозно силата на безжичния сигнал, неговото покритие и стабилност\nИнтуитивна уеб страница ви води в процеса на начална настройка, който извършвате за броени минути",
-"Images":[{"Name":"18972-ruter-wireless-n300-mercusys-mw305r.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер TP-LINK TL-WR844N 300Mbps, 5dB антени",
-"SellPrice":"36.00",
-"BayPrice":"27.12",
-"StockQuantity":2,
-"Description":"TP-TL-WR844N : <p>Безжичен рутер TP-LINK TL-WR844N 300Mbps, 5dB антени</p>\n<ul>\n<li><strong>High-Speed Wi-Fi</strong>&nbsp;- 300 Mbps wireless transmission rate is ideal for both bandwidth sensitive tasks and basic work.</li>\n<li><strong>Boosted Coverage</strong>&nbsp;- Two omnidirectional&nbsp;antennas and 2&times;2&nbsp;MIMO deliver strong Wi-Fi signal and reliable&nbsp;connections.</li>\n<li><strong>Multi-Mode 4 in 1</strong>&nbsp;- Supports Router, Access Point, Range Extender, and WISP modes to meet any network need.</li>\n<li><strong>Parental Controls</strong>&nbsp;- Manages when and how connected devices can access the internet.</li>\n<li><strong>Guest Network</strong>&nbsp;-&nbsp;&nbsp;Provides separate access for guests while securing the host network.</li>\n<li><strong>Smooth HD Streaming</strong>&nbsp;- Supports IGMP Proxy/Snooping, Bridge and Tag VLAN to optimize IPTV streaming.</li>\n<li><strong>IPv6 Supported</strong>&nbsp;- Compatible with the IPv6 (the latest Internet Protocol version 6</li>\n</ul>",
-"Images":[{"Name":"42587-bezzhichen-ruter-tp-link-tl-wr844n-300mbps-5db-anteni.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер TP-Link Archer C50 AC1200, Dual band, 4 антени",
-"SellPrice":"60.00",
-"BayPrice":"52.00",
-"StockQuantity":6,
-"Description":"TL-ARCHERC50 : <p><strong>Безжичен рутер TP-Link Archer C50 AC1200, Dual band, 4 антени</strong></p>\n<ul>\n<li>Поддържа стандарта 802.11ac - следващото поколение Wi-Fi</li>\n<li>Едновременни 2,4GHz 300Mbps и 5GHz 867Mbps връзки за 1,2Gbps обща пропускателна способност за данни</li>\n<li>4 външни антени осигуряват стабилни безжични връзки и оптимално покритие</li>\n<li>Лесно управление на мрежата на върха на вашите пръсти с приложението TP-Link Tether</li>\n</ul>",
-"Images":[{"Name":"43645-15991-tp-tl-archer-c50-0.jpg"}]
-},
-{ 
-"Name":"Router TP-Link TL-WR940N, 2,4GHz Wireless N 450Mbps, 4 x 10/100Mbps LAN Ports, 1 x 10/100Mbps WAN Port, Fixed Omni Directional Antenna 3 x 5dBi",
-"SellPrice":"48.00",
-"BayPrice":"37.20",
-"StockQuantity":1,
-"Description":"Router TP-Link TL-WR940N, 2,4GHz Wireless N 450Mbps, 4 x 10/100Mbps LAN Ports, 1 x 10/100Mbps WAN Port, Fixed Omni Directional Antenna 3 x 5dBi",
-"Images":[{"Name":"53688-router-tp-link-tl-wr940n-2-4ghz-wireless-n-450mbps.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер TP-Link Archer AX10 AC1500 Wi-Fi 6",
-"SellPrice":"125.00",
-"BayPrice":"98.40",
-"StockQuantity":5,
-"Description":"    Wi-Fi 6 технология - Archer AX10 е оборудван с най-новата безжична технология Wi-Fi 6, за по-бързи скорости, по-голям капацитет и намалено натоварване на мрежата.\n    1.5 Gbps скорости от ново поколение -  Archer AX10 е двубандов рутер, който достига още по-бързи скорости до 1,5 Gbps (1201 Mbps в честотната лента от 5 GHz и 300 Mbps в тази от 2,4 GHz).\n    Едновременна свързаност на десетки устройства - повече едновременни връзки и намалена латентност с OFDMA и MU-MIMO.\n    Триядрен централен процесор - Незабавна реакция на всички мрежови активности, благодарение на 1,5 GHz триядрен процесор.\n    По-широко покритие - 4-те антени и Beamforming технологията насочват сигнала към индивидуални  клиенти за по-широко покритие.\n    Full Gigabit портове - Възползвайте се от ненадминати широколентови скорости до 1 Gbps.\n    Лесна настройка - Направете мрежов ъпгрейд за минути с приложението Tether.\n    Съвместим с Alexa - Контролирайте своя рутер чрез гласови команди и живейте по-интелигентно и по-лесно с Amazon Alexa.",
-"Images":[{"Name":"31445-bezzhichen-ruter-tp-link-archer-ax10-ac1500-wi-fi-6.jpg"}]
-},
-{ 
-"Name":"AC1200 Dual Band Wireless Gigabit Router",
-"SellPrice":"109.00",
-"BayPrice":"95.00",
-"StockQuantity":8,
-"Description":"AC1200 Dual Band Wireless Gigabit Router, 867Mbps at 5GHz + 300Mbps at 2.4GHz, 802.11ac/a/b/g/n, 1x10/100/1000M WAN +4x10/100/1000M LAN, 2xUSB 2.0, 3х Ext Antennas",
-"Images":[{"Name":"39367-ac1200-dual-band-wireless-gigabit-router-867mbps-at.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер TP-Link Archer C20 AC750",
-"SellPrice":"57.00",
-"BayPrice":"42.00",
-"StockQuantity":10,
-"Description":"    Поддържа стандарта 802.11ac - следващото поколение Wi-Fi\r\n    Едновременни 2,4 GHz 300Mbps и 5 GHz 433Mbps връзки за 733Mbps обща достъпна пропускателна способност\r\n    3 външни антени осигуряват безжично покритие във всеки ъгъл на вашия дом\r\n",
-"Images":[{"Name":"19898_bezzhichen-ruter-tp-link-archer-c20-ac750.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер ASUS ROG Rapture GT-AC2900, 2.4/5 GHz, 750 - 2167 Mbps, 10/100/1000, PoE",
-"SellPrice":"579.00",
-"BayPrice":"491.00",
-"StockQuantity":3,
-"Description":"GT-AC2900 : &lt;p&gt;&lt;strong&gt;Безжичен рутер ASUS ROG Rapture GT-AC2900 Dual Band, NVIDIA GeForce NOW recommended, Triple-level game acceleration, AiMesh, Lifetime Free AiProtection Pro Internet Security, Open NAT&lt;/strong&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;TEAM UP YOUR ROG GEARS FOR VICTORY&lt;/strong&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;ROG PCs (motherboard, laptop, desktops) and ROG wifi routers together with Game First V network acceleration software ensure smoother online game with lower ping and less lag. No matter wire or wireless, Game First and Game Boost prioritize gaming packets and decrease so that you do not miss a bullet from the back.&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Triple-level Game Accelerator&lt;/strong&gt;&amp;nbsp;- Optimizes your online gaming packets all the way from your PC to the game server.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;GeForceNow Recommended Router&lt;/strong&gt;&amp;nbsp;&amp;ndash; Enjoy an unrivaled cloud gaming experience withno latency.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;AiMesh Supported&lt;/strong&gt;&amp;nbsp;- Works with ASUS AiMesh compatible routers to create a powerful, flexible, seamless whole-home Wi-Fi system.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Front-line Network Security&lt;/strong&gt;&amp;nbsp;&amp;ndash; Lifetime free AiProtection Pro, powered by Trend Micro&amp;trade;, protects all connected devices from internet threats.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;ASUSAura Lighting&lt;/strong&gt;&amp;ndash; Multiple effects for a stylish vibe while caneven be set to reflect the status of your network.&lt;/li&gt;\n&lt;/ul&gt;",
-"Images":[{"Name":"36929-19088-asus-rt-gt-ac2900-0.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер ASUS TUF Gaming AX5400 Dual Band WiFi 6, Gaming Port, AiMesh, AiProtection Pro Network Security, AURA RGB lighting",
-"SellPrice":"319.00",
-"BayPrice":"275.00",
-"StockQuantity":2,
-"Description":"RT-TUF-AX5400 : &lt;p&gt;&lt;strong&gt;Безжичен рутер ASUS TUF Gaming AX5400 Dual Band WiFi 6, Gaming Port, AiMesh, AiProtection Pro Network Security, AURA RGB lighting&lt;/strong&gt;&lt;/p&gt;\n&lt;div class=&quot;KvSummary__productHeadiing__UPRDo&quot;&gt;TUF Gaming AX5400 Dual Band WiFi 6 Gaming Router with dedicated Gaming Port, 3 steps port forwarding, AiMesh for mesh WiFi, AiProtection Pro network security and AURA RGB lighting&lt;/div&gt;\n&lt;div class=&quot;KvSummary__productIntro__1WXF-&quot;&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Ultrafast WiFi 6&lt;/strong&gt;&amp;nbsp;- Enjoy speeds up to 5400 Mbps and 4X network efficiency with OFDMA and 160 MHz channels.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Fast &amp;amp; Stable Wired Gaming&lt;/strong&gt;&amp;nbsp;- Dedicated gaming port to prioritize connected gaming device.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Easy Port Forwarding in 3 Steps&lt;/strong&gt;&amp;nbsp;- Open NAT makes port forwarding simple, eliminating frustrating and complicated manual configuration.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;ASUS AiMesh Support&lt;/strong&gt;&amp;nbsp;&amp;ndash; Create a flexible, seamless whole-home mesh network with AiMesh-compatible routers.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Tested Durability and Stable Operation&lt;/strong&gt;&amp;nbsp;- TUF Gaming AX5400 is built to be durable and undergoes verified testing to ensure reliable, stable operation.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/div&gt;",
-"Images":[{"Name":"12683-22660-asus-rt-tuf-ax5400-0.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер TP-LINK TL-WR820N 300Mbps, 5dB антени",
-"SellPrice":"33.00",
-"BayPrice":"23.38",
-"StockQuantity":12,
-"Description":"TL-WR820N : <p>Безжичен рутер TP-LINK TL-WR820N 300Mbps, 5dB антени</p>\n<ul>\n<li>300 Mbps безжична скорост на трансфер на данни, идеална както за задачи чувствителни към пропускателната способност, така и за базова работа</li>\n<li>IPTV поддържа IGMP прокси/снупинг, Bridge и Tag VLAN за оптимизация на IPTV стриминга</li>\n<li>Съвместим с IPv6 (Интернет протокол версия 6)</li>\n<li>Мрежата за гости осигурява отделен достъп за гостите, докато защитава домашната мрежа</li>\n<li>Родителски контрол - управлявайте кога и как свързаните към мрежата устройства могат да имат достъп до интернет.</li>\n<li>Протоколите за сигурност защитават вашата домашна мрежа със защитни стени и безжично криптиране</li>\n</ul>",
-"Images":[{"Name":"57986-18323-tp-tl-wr820n-0.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер TP-Link TL-Archer C60 AC 1350Mbps",
-"SellPrice":"82.00",
-"BayPrice":"66.00",
-"StockQuantity":1,
-"Description":"TL-ARCHERC60 : <p>Безжичен рутер TP-Link TL-Archer C60 AC 1350Mbps</p>\n<ul>\n<li>Get faster Wi-Fi at both the 2.4GHz band (450Mbps) and the 5GHz band (867Mbps)</li>\n<li>The advanced AC Wi-Fi unlocks the performance of all your wireless devices</li>\n<li>Three 2.4GHz antennas and two&nbsp;5GHz antennas create&nbsp;superior Wi-Fi coverage</li>\n<li>Advanced software functions like Parental Control and Guest Network</li>\n<li>Tether app provides easy router management in your palm</li>\n</ul>",
-"Images":[{"Name":"59688-13720-tp-tl-archerc60-0.jpg"}]
-},
-{ 
-"Name":"Безжичен рутер TP-Link Archer C6 AC1200, Dual band, 5xGbE, MU-MIMO",
-"SellPrice":"78.00",
-"BayPrice":"65.00",
-"StockQuantity":6,
-"Description":"TL-ARCHERC6 : <p><strong>Безжичен рутер TP-Link Archer C6 AC1200, Dual band, 5xGbE, MU-MIMO</strong></p>\n<ul>\n<li>Поддържа стандарта 802.11ac</li>\n<li>Едновременни връзки по 2,4 GHz лента с 300 Mbps и по 5 GHz лента с 867 Mbps за обща скорост 1200 Mbps</li>\n<li>4 външни и една вътрешна антени осигуряват стабилни безжични връзки и оптимално покритие</li>\n<li>Лесно управление на мрежата от смарт устройства с помощта на мобилното приложение TP-Link Tether</li>\n<li>MU-MIMO постига 2 пъти по-добра ефективност, като комуникира с до 2 устройства едновременно</li>\n<li>Поддържа режим Точка за достъп, за създаване на нова Wi-Fi точка за достъп</li>\n</ul>\n<p>&nbsp;</p>",
-"Images":[{"Name":"59819-15981-tp-tl-archer-c6-a6-0.jpg"}]
-}]
+[
+  {
+    "BayPrice": "34.20",
+    "Description": "Идеалният рутер за малки фирми и офиси. както и крайни клиенти с по-високи изисквания. Несравним в SOHO сегмента като съотношение ЦЕНА/ФУНКЦИОНАЛНОСТ.\r\n5бр, конфируриращи се LAN портове.\r\n32MB RAM, MikroTik RouterOS Level4\r\nAR7240 CPU, \r\nПластмасова кутия и захранване.\r\n",
+    "Images": [ { "Name": "11649_RB750.png" } ],
+    "Name": "MIKROTIK ROUTER hAP Mini",
+    "Promotion": true,
+    "SellPrice": "44.00",
+    "StockQuantity": 2
+  },
+  {
+    "Name": "TL-WR841N 300Mbps Wireless N Router, Atheros",
+    "SellPrice": "37.00",
+    "BayPrice": "32.00",
+    "StockQuantity": 5,
+    "Description": "2T2R, 2.4GHz, 802.11n/g/b, Built-in 4-port Switch, with 2 fixed antennas",
+    "Promotion": true,
+    "Images": [ { "Name": "45578_networking-router-tp-link-tl-wr841n.jpg" } ]
+  },
+  {
+    "Name": "Рутер Wireless N300 MERCUSYS MW305R ",
+    "SellPrice": "37.00",
+    "BayPrice": "23.76",
+    "StockQuantity": 2,
+    "Description": "300 Mbps скорост на безжично предаване на данни е идеална за HD стрийминг, онлайн игри и теглене на големи файлове\nТри 5dBi антени увеличават сериозно силата на безжичния сигнал, неговото покритие и стабилност\nИнтуитивна уеб страница ви води в процеса на начална настройка, който извършвате за броени минути",
+    "Promotion": true,
+    "Images": [ { "Name": "18972-ruter-wireless-n300-mercusys-mw305r.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер TP-LINK TL-WR844N 300Mbps, 5dB антени",
+    "SellPrice": "36.00",
+    "BayPrice": "27.12",
+    "StockQuantity": 2,
+    "Description": "TP-TL-WR844N : <p>Безжичен рутер TP-LINK TL-WR844N 300Mbps, 5dB антени</p>\n<ul>\n<li><strong>High-Speed Wi-Fi</strong>&nbsp;- 300 Mbps wireless transmission rate is ideal for both bandwidth sensitive tasks and basic work.</li>\n<li><strong>Boosted Coverage</strong>&nbsp;- Two omnidirectional&nbsp;antennas and 2&times;2&nbsp;MIMO deliver strong Wi-Fi signal and reliable&nbsp;connections.</li>\n<li><strong>Multi-Mode 4 in 1</strong>&nbsp;- Supports Router, Access Point, Range Extender, and WISP modes to meet any network need.</li>\n<li><strong>Parental Controls</strong>&nbsp;- Manages when and how connected devices can access the internet.</li>\n<li><strong>Guest Network</strong>&nbsp;-&nbsp;&nbsp;Provides separate access for guests while securing the host network.</li>\n<li><strong>Smooth HD Streaming</strong>&nbsp;- Supports IGMP Proxy/Snooping, Bridge and Tag VLAN to optimize IPTV streaming.</li>\n<li><strong>IPv6 Supported</strong>&nbsp;- Compatible with the IPv6 (the latest Internet Protocol version 6</li>\n</ul>",
+    "Promotion": false,
+    "Images": [ { "Name": "42587-bezzhichen-ruter-tp-link-tl-wr844n-300mbps-5db-anteni.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер TP-Link Archer C50 AC1200, Dual band, 4 антени",
+    "SellPrice": "60.00",
+    "BayPrice": "52.00",
+    "StockQuantity": 6,
+    "Description": "TL-ARCHERC50 : <p><strong>Безжичен рутер TP-Link Archer C50 AC1200, Dual band, 4 антени</strong></p>\n<ul>\n<li>Поддържа стандарта 802.11ac - следващото поколение Wi-Fi</li>\n<li>Едновременни 2,4GHz 300Mbps и 5GHz 867Mbps връзки за 1,2Gbps обща пропускателна способност за данни</li>\n<li>4 външни антени осигуряват стабилни безжични връзки и оптимално покритие</li>\n<li>Лесно управление на мрежата на върха на вашите пръсти с приложението TP-Link Tether</li>\n</ul>",
+    "Promotion": false,
+    "Images": [ { "Name": "43645-15991-tp-tl-archer-c50-0.jpg" } ]
+  },
+  {
+    "Name": "Router TP-Link TL-WR940N, 2,4GHz Wireless N 450Mbps, 4 x 10/100Mbps LAN Ports, 1 x 10/100Mbps WAN Port, Fixed Omni Directional Antenna 3 x 5dBi",
+    "SellPrice": "48.00",
+    "BayPrice": "37.20",
+    "StockQuantity": 1,
+    "Description": "Router TP-Link TL-WR940N, 2,4GHz Wireless N 450Mbps, 4 x 10/100Mbps LAN Ports, 1 x 10/100Mbps WAN Port, Fixed Omni Directional Antenna 3 x 5dBi",
+    "Promotion": false,
+    "Images": [ { "Name": "53688-router-tp-link-tl-wr940n-2-4ghz-wireless-n-450mbps.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер TP-Link Archer AX10 AC1500 Wi-Fi 6",
+    "SellPrice": "125.00",
+    "BayPrice": "98.40",
+    "StockQuantity": 5,
+    "Description": "    Wi-Fi 6 технология - Archer AX10 е оборудван с най-новата безжична технология Wi-Fi 6, за по-бързи скорости, по-голям капацитет и намалено натоварване на мрежата.\n    1.5 Gbps скорости от ново поколение -  Archer AX10 е двубандов рутер, който достига още по-бързи скорости до 1,5 Gbps (1201 Mbps в честотната лента от 5 GHz и 300 Mbps в тази от 2,4 GHz).\n    Едновременна свързаност на десетки устройства - повече едновременни връзки и намалена латентност с OFDMA и MU-MIMO.\n    Триядрен централен процесор - Незабавна реакция на всички мрежови активности, благодарение на 1,5 GHz триядрен процесор.\n    По-широко покритие - 4-те антени и Beamforming технологията насочват сигнала към индивидуални  клиенти за по-широко покритие.\n    Full Gigabit портове - Възползвайте се от ненадминати широколентови скорости до 1 Gbps.\n    Лесна настройка - Направете мрежов ъпгрейд за минути с приложението Tether.\n    Съвместим с Alexa - Контролирайте своя рутер чрез гласови команди и живейте по-интелигентно и по-лесно с Amazon Alexa.",
+    "Promotion": false,
+    "Images": [ { "Name": "31445-bezzhichen-ruter-tp-link-archer-ax10-ac1500-wi-fi-6.jpg" } ]
+  },
+  {
+    "Name": "AC1200 Dual Band Wireless Gigabit Router",
+    "SellPrice": "109.00",
+    "BayPrice": "95.00",
+    "StockQuantity": 8,
+    "Description": "AC1200 Dual Band Wireless Gigabit Router, 867Mbps at 5GHz + 300Mbps at 2.4GHz, 802.11ac/a/b/g/n, 1x10/100/1000M WAN +4x10/100/1000M LAN, 2xUSB 2.0, 3х Ext Antennas",
+    "Promotion": false,
+    "Images": [ { "Name": "39367-ac1200-dual-band-wireless-gigabit-router-867mbps-at.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер TP-Link Archer C20 AC750",
+    "SellPrice": "57.00",
+    "BayPrice": "42.00",
+    "StockQuantity": 10,
+    "Description": "    Поддържа стандарта 802.11ac - следващото поколение Wi-Fi\r\n    Едновременни 2,4 GHz 300Mbps и 5 GHz 433Mbps връзки за 733Mbps обща достъпна пропускателна способност\r\n    3 външни антени осигуряват безжично покритие във всеки ъгъл на вашия дом\r\n",
+    "Promotion": false,
+    "Images": [ { "Name": "19898_bezzhichen-ruter-tp-link-archer-c20-ac750.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер ASUS ROG Rapture GT-AC2900, 2.4/5 GHz, 750 - 2167 Mbps, 10/100/1000, PoE",
+    "SellPrice": "579.00",
+    "BayPrice": "491.00",
+    "StockQuantity": 3,
+    "Description": "GT-AC2900 : &lt;p&gt;&lt;strong&gt;Безжичен рутер ASUS ROG Rapture GT-AC2900 Dual Band, NVIDIA GeForce NOW recommended, Triple-level game acceleration, AiMesh, Lifetime Free AiProtection Pro Internet Security, Open NAT&lt;/strong&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;TEAM UP YOUR ROG GEARS FOR VICTORY&lt;/strong&gt;&lt;/p&gt;\n&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;ROG PCs (motherboard, laptop, desktops) and ROG wifi routers together with Game First V network acceleration software ensure smoother online game with lower ping and less lag. No matter wire or wireless, Game First and Game Boost prioritize gaming packets and decrease so that you do not miss a bullet from the back.&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Triple-level Game Accelerator&lt;/strong&gt;&amp;nbsp;- Optimizes your online gaming packets all the way from your PC to the game server.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;GeForceNow Recommended Router&lt;/strong&gt;&amp;nbsp;&amp;ndash; Enjoy an unrivaled cloud gaming experience withno latency.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;AiMesh Supported&lt;/strong&gt;&amp;nbsp;- Works with ASUS AiMesh compatible routers to create a powerful, flexible, seamless whole-home Wi-Fi system.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Front-line Network Security&lt;/strong&gt;&amp;nbsp;&amp;ndash; Lifetime free AiProtection Pro, powered by Trend Micro&amp;trade;, protects all connected devices from internet threats.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;ASUSAura Lighting&lt;/strong&gt;&amp;ndash; Multiple effects for a stylish vibe while caneven be set to reflect the status of your network.&lt;/li&gt;\n&lt;/ul&gt;",
+    "Promotion": false,
+    "Images": [ { "Name": "36929-19088-asus-rt-gt-ac2900-0.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер ASUS TUF Gaming AX5400 Dual Band WiFi 6, Gaming Port, AiMesh, AiProtection Pro Network Security, AURA RGB lighting",
+    "SellPrice": "319.00",
+    "BayPrice": "275.00",
+    "StockQuantity": 2,
+    "Description": "RT-TUF-AX5400 : &lt;p&gt;&lt;strong&gt;Безжичен рутер ASUS TUF Gaming AX5400 Dual Band WiFi 6, Gaming Port, AiMesh, AiProtection Pro Network Security, AURA RGB lighting&lt;/strong&gt;&lt;/p&gt;\n&lt;div class=&quot;KvSummary__productHeadiing__UPRDo&quot;&gt;TUF Gaming AX5400 Dual Band WiFi 6 Gaming Router with dedicated Gaming Port, 3 steps port forwarding, AiMesh for mesh WiFi, AiProtection Pro network security and AURA RGB lighting&lt;/div&gt;\n&lt;div class=&quot;KvSummary__productIntro__1WXF-&quot;&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Ultrafast WiFi 6&lt;/strong&gt;&amp;nbsp;- Enjoy speeds up to 5400 Mbps and 4X network efficiency with OFDMA and 160 MHz channels.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Fast &amp;amp; Stable Wired Gaming&lt;/strong&gt;&amp;nbsp;- Dedicated gaming port to prioritize connected gaming device.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Easy Port Forwarding in 3 Steps&lt;/strong&gt;&amp;nbsp;- Open NAT makes port forwarding simple, eliminating frustrating and complicated manual configuration.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;ASUS AiMesh Support&lt;/strong&gt;&amp;nbsp;&amp;ndash; Create a flexible, seamless whole-home mesh network with AiMesh-compatible routers.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Tested Durability and Stable Operation&lt;/strong&gt;&amp;nbsp;- TUF Gaming AX5400 is built to be durable and undergoes verified testing to ensure reliable, stable operation.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/div&gt;",
+    "Promotion": false,
+    "Images": [ { "Name": "12683-22660-asus-rt-tuf-ax5400-0.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер TP-LINK TL-WR820N 300Mbps, 5dB антени",
+    "SellPrice": "33.00",
+    "BayPrice": "23.38",
+    "StockQuantity": 12,
+    "Description": "TL-WR820N : <p>Безжичен рутер TP-LINK TL-WR820N 300Mbps, 5dB антени</p>\n<ul>\n<li>300 Mbps безжична скорост на трансфер на данни, идеална както за задачи чувствителни към пропускателната способност, така и за базова работа</li>\n<li>IPTV поддържа IGMP прокси/снупинг, Bridge и Tag VLAN за оптимизация на IPTV стриминга</li>\n<li>Съвместим с IPv6 (Интернет протокол версия 6)</li>\n<li>Мрежата за гости осигурява отделен достъп за гостите, докато защитава домашната мрежа</li>\n<li>Родителски контрол - управлявайте кога и как свързаните към мрежата устройства могат да имат достъп до интернет.</li>\n<li>Протоколите за сигурност защитават вашата домашна мрежа със защитни стени и безжично криптиране</li>\n</ul>",
+    "Promotion": false,
+    "Images": [ { "Name": "57986-18323-tp-tl-wr820n-0.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер TP-Link TL-Archer C60 AC 1350Mbps",
+    "SellPrice": "82.00",
+    "BayPrice": "66.00",
+    "StockQuantity": 1,
+    "Description": "TL-ARCHERC60 : <p>Безжичен рутер TP-Link TL-Archer C60 AC 1350Mbps</p>\n<ul>\n<li>Get faster Wi-Fi at both the 2.4GHz band (450Mbps) and the 5GHz band (867Mbps)</li>\n<li>The advanced AC Wi-Fi unlocks the performance of all your wireless devices</li>\n<li>Three 2.4GHz antennas and two&nbsp;5GHz antennas create&nbsp;superior Wi-Fi coverage</li>\n<li>Advanced software functions like Parental Control and Guest Network</li>\n<li>Tether app provides easy router management in your palm</li>\n</ul>",
+    "Promotion": false,
+    "Images": [ { "Name": "59688-13720-tp-tl-archerc60-0.jpg" } ]
+  },
+  {
+    "Name": "Безжичен рутер TP-Link Archer C6 AC1200, Dual band, 5xGbE, MU-MIMO",
+    "SellPrice": "78.00",
+    "BayPrice": "65.00",
+    "StockQuantity": 6,
+    "Description": "TL-ARCHERC6 : <p><strong>Безжичен рутер TP-Link Archer C6 AC1200, Dual band, 5xGbE, MU-MIMO</strong></p>\n<ul>\n<li>Поддържа стандарта 802.11ac</li>\n<li>Едновременни връзки по 2,4 GHz лента с 300 Mbps и по 5 GHz лента с 867 Mbps за обща скорост 1200 Mbps</li>\n<li>4 външни и една вътрешна антени осигуряват стабилни безжични връзки и оптимално покритие</li>\n<li>Лесно управление на мрежата от смарт устройства с помощта на мобилното приложение TP-Link Tether</li>\n<li>MU-MIMO постига 2 пъти по-добра ефективност, като комуникира с до 2 устройства едновременно</li>\n<li>Поддържа режим Точка за достъп, за създаване на нова Wi-Fi точка за достъп</li>\n</ul>\n<p>&nbsp;</p>",
+    "Promotion": false,
+    "Images": [ { "Name": "59819-15981-tp-tl-archer-c6-a6-0.jpg" } ]
+  }
+]

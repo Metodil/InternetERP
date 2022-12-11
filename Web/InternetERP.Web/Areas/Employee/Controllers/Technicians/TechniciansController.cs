@@ -74,7 +74,8 @@
 
             await this.techniciansService.SaveFailure(input);
             var editedModel = await this.techniciansService.GetFailuresByIdAsync<FailureEditInputModel>(input.Id);
-            return this.View(editedModel);
+
+            return this.RedirectToAction("AllFailures");
         }
 
         [HttpPost]

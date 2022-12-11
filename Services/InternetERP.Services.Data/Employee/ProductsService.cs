@@ -16,6 +16,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
 
     public class ProductsService : IProductsService
     {
@@ -23,22 +24,25 @@
         private readonly IRepository<Image> imagesRepository;
         private readonly IFileService fileService;
         private readonly IHostingEnvironment environment;
+        private readonly ILogger<ProductsService> logger;
         private readonly string[] allowedExtensions = new[] { "jpg", "png" };
 
         public ProductsService(
             IDeletableEntityRepository<Product> productsRepository,
             IRepository<Image> imagesRepository,
             IFileService fileService,
-            IHostingEnvironment environment)
+            IHostingEnvironment environment,
+            ILogger<ProductsService> logger)
         {
             this.productsRepository = productsRepository;
             this.imagesRepository = imagesRepository;
             this.fileService = fileService;
             this.environment = environment;
+            this.logger = logger;
         }
 #nullable enable
 
-        public async Task<IEnumerable<T>> GetFilteredProductsPagingAsync<T>(
+        public async Task<ICollection<T>> GetFilteredProductsPagingAsync<T>(
             int page,
             int itemsPerPage,
             string? filterBy = null,
@@ -87,13 +91,13 @@
 
         public async Task<T> GetProductByIdAsync<T>(int id)
         {
-            #pragma warning disable CS8603 // Possible null reference return.
+#pragma warning disable CS8603 // Possible null reference return.
             return await this.productsRepository
                 .AllWithDeleted()
                 .Where(p => p.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
-            #pragma warning restore CS8603 // Possible null reference return.
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<bool> ProductExist(int id)
@@ -171,8 +175,9 @@
                     await this.productsRepository.SaveChangesAsync();
                     response = Environment.NewLine + "Product is updated successful.";
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException duce)
                 {
+                    this.logger.LogError(productInput.Id + " " + productInput.Name + " " + duce.Message);
                     response = Environment.NewLine + "Error on updating product.";
                     result = false;
                 }
@@ -255,6 +260,10 @@
                     result = false;
                 }
             }
+            else
+            {
+                result = false;
+            }
 
             return result;
         }
@@ -270,7 +279,7 @@
             return imageUrlList;
         }
 
-        private async Task<string> AddImageToProduct(Product productForUpdate, ProductInputModelView productInput)
+        public async Task<string> AddImageToProduct(Product productForUpdate, ProductInputModelView productInput)
         {
             var result = string.Empty;
             if (productInput.ImageUpload != null && productInput.ImageUpload.Length > 0)
@@ -295,9 +304,12 @@
                         GlobalConstants.RootPathForImages,
                         GlobalConstants.ProductsPathForImages));
                     var imageName = $"{image.Id}.{extension}";
-                    if (!await this.fileService.UploadFile(imageName, path, productInput.ImageUpload))
+                    if (productInput.ImageUpload.FileName != GlobalConstants.DummyTestImage)
                     {
-                        result = "File Upload Failed";
+                        if (!await this.fileService.UploadFile(imageName, path, productInput.ImageUpload))
+                        {
+                            result = "File Upload Failed";
+                        }
                     }
                 }
                 catch (Exception ex)

@@ -21,13 +21,22 @@
 
         public async Task<ICollection<Product>> GetPromoProducts()
         {
-            return await this.productsRepository
+            var products = await this.productsRepository
                 .AllAsNoTracking()
                 .Include(p => p.Images)
-
-                // .Where(p => p.)
+                .Where(p => p.PromotionId != null)
                 .Take(3)
                 .ToListAsync();
+            if (products == null)
+            {
+                products = await this.productsRepository
+                .AllAsNoTracking()
+                .Include(p => p.Images)
+                .Take(3)
+                .ToListAsync();
+            }
+
+            return products;
         }
     }
 }
