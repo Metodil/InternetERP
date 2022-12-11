@@ -82,6 +82,11 @@
 ### Login Page:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670275518/Login_qacacc.jpg)
 
+### Extra Login Providers:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ExtraLoginProviders_zimkr5.jpg)
+
+
+
 
 
 
