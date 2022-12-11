@@ -139,6 +139,12 @@
 ### Create Failure:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769223/CreateFailure_a6i4x5.jpg)
 
+### Contact Up By Mail:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769747/ContactUpByMail_budd3m.jpg)
+
+### Contact Up By Phone Or Address:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769662/ContactUpByPhoneOrAddress_pmdnrd.jpg)
+
 
 
 
