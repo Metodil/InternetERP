@@ -139,6 +139,9 @@
 ### Create Failure:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769223/CreateFailure_a6i4x5.jpg)
 
+### All Failures:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670770599/AllFailures_cse4ti.jpg)
+
 ### Contact Up By Mail:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769747/ContactUpByMail_budd3m.jpg)
 
