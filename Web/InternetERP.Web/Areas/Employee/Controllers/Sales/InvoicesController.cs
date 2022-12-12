@@ -56,18 +56,18 @@
                 InvoiceId = invoiceId,
             };
 
-            return this.View(newInvoice);
+            return this.RedirectToAction("Show", new { id = invoiceId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Show(int invoiceId)
+        public async Task<IActionResult> Show(int id)
         {
-            if (invoiceId == 0)
+            if (id == 0)
             {
                 return this.RedirectToAction("All");
             }
 
-            var invoiceInfo = await this.invoiceService.GetInvoiceInfoAsync(invoiceId);
+            var invoiceInfo = await this.invoiceService.GetInvoiceInfoAsync(id);
             var newModel = new InvoiceViewModel
             {
                 InvoiceInfo = invoiceInfo,

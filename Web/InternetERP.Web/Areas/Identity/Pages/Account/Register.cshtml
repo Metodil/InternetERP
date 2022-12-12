@@ -2,6 +2,7 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
+    var btnStyle = "btn btn-primary btn-lg";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -51,7 +52,16 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
-                                    <button type="submit" class="btn btn-primary btn-lg" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    if (provider.Name == "Google")
+                                    {
+                                        btnStyle = "btn btn-googleplus waves-effect waves-light";
+                                    }
+                                    else if (provider.Name == "Facebook")
+                                    {
+                                        btnStyle = "btn btn-facebook waves-effect waves-light";
+                                    }
+
+                                    <button type="submit" class="@btnStyle" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>
