@@ -34,9 +34,9 @@
                 Subject = "Subject",
                 Content = "Content",
             };
-            var result = service.SendToUsAsync(input);
+            var result = await service.SendToUsAsync(input);
 
-            Assert.True(result.Result);
+            Assert.True(result);
         }
      }
 }

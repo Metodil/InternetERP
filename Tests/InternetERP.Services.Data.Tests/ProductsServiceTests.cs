@@ -1,7 +1,9 @@
 ﻿namespace InternetERP.Services.Data.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -368,6 +370,109 @@
             var sellPrice = 40m;
             Assert.Equal(name, createdProduct.Result.Name);
             Assert.Equal(sellPrice, createdProduct.Result.SellPrice);
+        }
+
+        [Fact]
+        public async Task DeleteProductImageReturnFalseWhenImageNotFound()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                      .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var db = new ApplicationDbContext(options);
+            var productRepository = new EfDeletableEntityRepository<Product>(db);
+            var imagesRepository = new EfRepository<Image>(db);
+            var fileService = new Mock<IFileService>();
+            var environment = new Mock<IHostingEnvironment>();
+            var logger = new Mock<ILogger<ProductsService>>();
+            new MapperInitializationProfile();
+
+            var service = new ProductsService(
+                productRepository,
+                imagesRepository,
+                fileService.Object,
+                environment.Object,
+                logger.Object);
+            await productRepository.SaveChangesAsync();
+
+            var id = "Not found";
+            var result = await service.DeleteProductImage(id);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task DeleteProductImageReturnTrueWhenImageIsDeleted()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                      .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var db = new ApplicationDbContext(options);
+            var productRepository = new EfDeletableEntityRepository<Product>(db);
+            var imagesRepository = new EfRepository<Image>(db);
+            var fileService = new Mock<IFileService>();
+            var environment = new Mock<IHostingEnvironment>();
+            environment
+                .Setup(m => m.WebRootPath)
+                .Returns("WebRootPath:WebRootPathEnvironment");
+            var logger = new Mock<ILogger<ProductsService>>();
+            new MapperInitializationProfile();
+
+            var service = new ProductsService(
+                productRepository,
+                imagesRepository,
+                fileService.Object,
+                environment.Object,
+                logger.Object);
+            var productId = Guid.NewGuid().ToString();
+            var newImage = new Image
+            {
+                Id = productId,
+                Path = "Path",
+            };
+            await imagesRepository.AddAsync(newImage);
+            await imagesRepository.SaveChangesAsync();
+
+            var result = await service.DeleteProductImage(productId);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task CreateImageUrlListReturnDictionary()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                      .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var db = new ApplicationDbContext(options);
+            var productRepository = new EfDeletableEntityRepository<Product>(db);
+            var imagesRepository = new EfRepository<Image>(db);
+            var fileService = new Mock<IFileService>();
+            var environment = new Mock<IHostingEnvironment>();
+            environment
+                .Setup(m => m.WebRootPath)
+                .Returns("WebRootPath:WebRootPathEnvironment");
+            var logger = new Mock<ILogger<ProductsService>>();
+            new MapperInitializationProfile();
+
+            var service = new ProductsService(
+                productRepository,
+                imagesRepository,
+                fileService.Object,
+                environment.Object,
+                logger.Object);
+            var productId = Guid.NewGuid().ToString();
+            var newImage = new Image
+            {
+                Id = productId,
+                Path = "Path",
+                Name = "Name",
+                Extension = "Extension",
+
+            };
+            var listImages = new List<Image>();
+            listImages.Add(newImage);
+
+            var result = service.CreateImageUrlList(listImages).FirstOrDefault();
+
+            Assert.Equal(productId, result.Key);
+            Assert.Equal("/images/Path/Name", result.Value);
         }
 
         [Fact]
