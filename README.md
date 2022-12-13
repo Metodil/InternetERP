@@ -56,7 +56,6 @@
 ### Technologies and tools used:
 * .NET Core 6.0
 * ASP.NET Core 6.0
-* SignalR
 * Entity Framework Core 6.0
 * AutoMapper
 * xUnit
