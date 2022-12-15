@@ -16,6 +16,12 @@
                 <input asp-for="Username" class="form-control" disabled />
                 <label asp-for="Username" class="form-label"></label>
             </div>
+            @if (!string.IsNullOrEmpty(Model.Input.ProfilePictureUrl))
+            {
+                <div class="card-img">
+                    <img src="@Model.Input.ProfilePictureUrl" class="col-md-6">
+                </div>
+            }
             <div class="form-floating mt-1">
                 <input asp-for="Input.FirstName" class="form-control" />
                 <label asp-for="Input.FirstName" class="form-label"></label>

@@ -45,5 +45,7 @@
         public ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public string ReturnMessage { get; set; }
+
+        public string ProfilePictureUrl { get; set; }
     }
 }

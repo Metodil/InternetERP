@@ -14,7 +14,9 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account
     using System.Threading.Tasks;
 
     using InternetERP.Data.Models;
+    using InternetERP.Services.Contracts;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
@@ -30,13 +32,15 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ICloudinaryService cloudinaryService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ICloudinaryService cloudinaryService)
         {
             this._userManager = userManager;
             this._userStore = userStore;
@@ -44,6 +48,7 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account
             this._signInManager = signInManager;
             this._logger = logger;
             this._emailSender = emailSender;
+            this.cloudinaryService = cloudinaryService;
         }
 
         /// <summary>
@@ -98,8 +103,9 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
 
+            public IFormFile PictureFile { get; set; }
+        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -111,9 +117,15 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account
         {
             returnUrl ??= this.Url.Content("~/");
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
             if (this.ModelState.IsValid)
             {
+                string profilePicUrl = await this.cloudinaryService.UploudAsync(this.Input.PictureFile);
+
                 var user = this.CreateUser();
+                user.ProfilePictureUrl = profilePicUrl;
+               
 
                 await this._userStore.SetUserNameAsync(user, this.Input.Email, CancellationToken.None);
                 await this._emailStore.SetEmailAsync(user, this.Input.Email, CancellationToken.None);

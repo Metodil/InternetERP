@@ -27,8 +27,15 @@
                 return principal;
             }
 
-            claimsIdentity.AddClaim(new Claim("FirstName", user.FirstName));
+            if (user.FirstName != null)
+            {
+                claimsIdentity.AddClaim(new Claim("FirstName", user.FirstName));
+            }
+
+            if (user.LastName != null)
+            {
             claimsIdentity.AddClaim(new Claim("LastName", user.LastName));
+            }
 
             principal.AddIdentity(claimsIdentity);
             return await Task.FromResult(principal);

@@ -282,5 +282,17 @@
 
             return this.View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFailureInfo(int id)
+        {
+            var model = new FailureInfoViewModel
+            {
+                Failure = await this.saleGoodsService.GetFailureById(id),
+            };
+
+            return this.PartialView("./Partial/_FailureInfo", model);
+        }
+
     }
 }

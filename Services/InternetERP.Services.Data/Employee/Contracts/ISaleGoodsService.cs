@@ -17,6 +17,8 @@
 
         Task<T> GetCurrentSaleId<T>(string id);
 
+        Task<Failure> GetFailureById(int id);
+
         Task<ICollection<Failure>> GetFailures(int internetAccountUserId);
 
         Task<ICollection<T>> GetFilteredProductsPagingAsync<T>(

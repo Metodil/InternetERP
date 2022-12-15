@@ -7,7 +7,7 @@
 
 @section AddToHead{
 }
-    <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+<partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
 
 @if (Model.SaleId != null)
 {
@@ -41,17 +41,11 @@
                             <td width="120">@(failure.FinishDate != null ? failure.FinishDate.Value.ToString("dd-MM-yy") : "")</td>
                             <td width="200" class="font-500">@failure.StatusFailure.Name</td>
                             <td width="300" class="font-500">
-                                <ul>
-
-                                    @foreach (var phase in failure.FailurePhases)
-                                    {
-                                        <li><h6>Team: @phase.FailureTeam.Name On: @phase.CreatedOn.ToString("dd-MM-yy")</h6></li>
-                                        <li><h6>@phase.User.FirstName @phase.User.LastName</h6></li>
-                                        <li><h6>Status: @phase.StatusFailure.Name</h6></li>
-                                        <li style="list-style-type: none;"><hr /></li>
-                                    }
-                                </ul>
-
+                                <div id="history"></div>
+                                <input type="hidden" id="failureId" value="@failure.Id">
+                                <button class="btn btn-primary" id="showHistory">
+                                    Show history
+                                </button>
                             </td>
                             @if (failure.Price > 0)
                             {
@@ -117,5 +111,23 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function () {
+            $("#showHistory").on("click", function () {
+                var failureId = $('#failureId').val();
+                var urlTo = '@Url.Action("GetFailureInfo", "SaleGoods")' + '/' + failureId;
+                $.ajax({
+                    url: urlTo,
+                    type: "GET",
+                })
+                .done(function (partialViewResult) {
+                    $("#history").html(partialViewResult);
+                    $("#showHistory").attr('class', 'btn btn-primary disabled');
+                    $("#showHistory").prop('disabled', true)
+
+                });
+            });
+        });
+    </script>
     }
 

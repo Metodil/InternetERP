@@ -113,6 +113,7 @@
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ICustomUsersService, CustomUsersService>();
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IRolesService, RolesService>();
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IFileService, FileLocalService>();

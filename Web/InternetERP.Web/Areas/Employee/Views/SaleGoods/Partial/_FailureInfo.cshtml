@@ -1,0 +1,12 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Sales.FailureInfoViewModel
+<div class="row" style="width:300px;">
+    <ul>
+        @foreach (var phase in Model.Failure.FailurePhases)
+        {
+            <li><h6>Team: @phase.FailureTeam.Name On: @phase.CreatedOn.ToString("dd-MM-yy")</h6></li>
+            <li><h6>@phase.User.FirstName @phase.User.LastName</h6></li>
+            <li><h6>Status: @phase.StatusFailure.Name</h6></li>
+            <li style="list-style-type: none;"><hr /></li>
+        }
+    </ul>
+</div>

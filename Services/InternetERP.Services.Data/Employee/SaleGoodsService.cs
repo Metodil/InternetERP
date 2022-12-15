@@ -351,5 +351,19 @@
 
             await this.salesRepository.SaveChangesAsync();
         }
+
+        public async Task<Failure> GetFailureById(int id)
+        {
+            return await this.failuresRepository
+                .AllAsNoTracking()
+                .Include(f => f.StatusFailure)
+                .Include(f => f.FailurePhases)
+                .ThenInclude(fp => fp.FailureTeam)
+                .Include(f => f.FailurePhases)
+                .ThenInclude(fp => fp.User)
+                .Include(f => f.FailurePhases)
+                .ThenInclude(fp => fp.StatusFailure)
+                .FirstOrDefaultAsync(f => f.Id == id);
+        }
     }
 }

@@ -39,6 +39,12 @@
                     @Model.ReturnMessage
                 </div>
             }
+            @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+            {
+                <div class="card-img">
+                    <img src="@Model.ProfilePictureUrl" class="">
+                </div>
+            }
             <div class="form-floating">
                 <input asp-for="@Model.UserName" class="form-control" disabled />
                 <label asp-for="@Model.UserName" class="form-label"></label>

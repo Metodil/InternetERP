@@ -81,6 +81,9 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
             public string Note { get; set; }
 
             public IEnumerable<KeyValuePair<string, string>> Towns { get; set; }
+
+            public string ProfilePictureUrl { get; set; }
+
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -139,6 +142,7 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
             var note = await this.customUsersService.GetNoteAsync(user.Id);
             var towns = this.townsService.GetAllTownsAsKetValuePairs();
             var townId = await this.customUsersService.GetTownIdAsync(user.Id);
+            var picture = user.ProfilePictureUrl; 
             this.Username = userName;
 
             this.Input = new InputModel
@@ -151,6 +155,7 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
                 Note = note,
                 TownId = townId,
                 Towns = towns,
+                ProfilePictureUrl = picture,
             };
         }
     }

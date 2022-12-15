@@ -42,6 +42,7 @@ namespace InternetERP.Data.Models
         public string? Street { get; set; } = null!;
 
         public string? Note { get; set; } = null!;
+
 #nullable disable
 
         // Audit info
