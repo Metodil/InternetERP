@@ -120,12 +120,12 @@
                     url: urlTo,
                     type: "GET",
                 })
-                .done(function (partialViewResult) {
-                    $("#history").html(partialViewResult);
-                    $("#showHistory").attr('class', 'btn btn-primary disabled');
-                    $("#showHistory").prop('disabled', true)
+                    .done(function (partialViewResult) {
+                        $("#history").html(partialViewResult);
+                        $("#showHistory").attr('class', 'btn btn-primary disabled');
+                        $("#showHistory").prop('disabled', true)
 
-                });
+                    });
             });
         });
     </script>
