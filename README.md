@@ -10,6 +10,7 @@
 ### Description and Futures:
 	Register and Login:
     - using ASP.NET Core Identity
+    - using custom claim
     - login with Facebook and Google account 
     - Extent Identity with distinct, street, town ...
 	Admin futures:
@@ -30,6 +31,7 @@
       -creates a sale to a specific internet user
       -sale product
       -sale service(internet montly payment)
+      	-using custom DateRangeAttribute
       -sale failure amount(If there is)
       -chekout for sale
         -choose payment:
