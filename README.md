@@ -52,6 +52,9 @@
 + In Technician area is implemented filtration for failures. 
 + Pagination implemented in all listing pages.
 + Third-party authentication include - register with Facebook or Google account.
++ Usinng Global Error Handling Middleware
++ Usung UseStatusCodePagesWithReExecute to custom error pages
++ Using custom claim
 ```
 ## Using ASP.NET Core 6.0.5 Template by : [Nikolay Kostov](https://github.com/NikolayIT)
 
