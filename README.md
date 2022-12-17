@@ -12,6 +12,7 @@
     - using ASP.NET Core Identity
     - using custom claim
     - login with Facebook and Google account 
+    - adding cloudinary user picture
     - Extent Identity with distinct, street, town ...
 	Admin futures:
     - has dashboard
@@ -22,8 +23,9 @@
     - manage Addresses.
 	Manager futures:
     - has dashboard
-    - add new products.
-    - edit/update product.
+    - add new products
+    - edit/update product
+    - product can add/remove multiple photos with local storage
     - add/remove technician from failure teams
 	Sales futures:
     - has dashboard
@@ -55,6 +57,8 @@
 + Usinng Global Error Handling Middleware
 + Usung UseStatusCodePagesWithReExecute to custom error pages
 + Using custom claim
++ using DataAnnotations custom attribute
++ using ViewComponent
 ```
 ## Using ASP.NET Core 6.0.5 Template by : [Nikolay Kostov](https://github.com/NikolayIT)
 
