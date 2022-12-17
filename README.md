@@ -10,7 +10,9 @@
 ### Description and Futures:
 	Register and Login:
     - using ASP.NET Core Identity
+    - using custom claim
     - login with Facebook and Google account 
+    - adding cloudinary user picture
     - Extent Identity with distinct, street, town ...
 	Admin futures:
     - has dashboard
@@ -21,8 +23,9 @@
     - manage Addresses.
 	Manager futures:
     - has dashboard
-    - add new products.
-    - edit/update product.
+    - add new products
+    - edit/update product
+    - product can add/remove multiple photos with local storage
     - add/remove technician from failure teams
 	Sales futures:
     - has dashboard
@@ -30,6 +33,7 @@
       -creates a sale to a specific internet user
       -sale product
       -sale service(internet montly payment)
+      	-using custom DateRangeAttribute
       -sale failure amount(If there is)
       -chekout for sale
         -choose payment:
@@ -50,6 +54,11 @@
 + In Technician area is implemented filtration for failures. 
 + Pagination implemented in all listing pages.
 + Third-party authentication include - register with Facebook or Google account.
++ Usinng Global Error Handling Middleware
++ Usung UseStatusCodePagesWithReExecute to custom error pages
++ Using custom claim
++ using DataAnnotations custom attribute
++ using ViewComponent
 ```
 ## Using ASP.NET Core 6.0.5 Template by : [Nikolay Kostov](https://github.com/NikolayIT)
 
@@ -74,9 +83,12 @@
 * [Cloudinary](https://www.cloudinary.com/)
 * [SendGrid](https://www.sendgrid.com/)
 
+
+### Database Diagram
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1671263618/DatabaseDiagrams_xfua0h.jpg)
+
 ### Code coverage with Xunit and Moq
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1671003907/Code_coverege_2022-12-14_09_bsmjg6.png)
-
 
 
 ## Screen Shots:
@@ -153,10 +165,10 @@
 ### All Failures:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670770599/AllFailures_cse4ti.jpg)
 
-### Contact Up By Mail:
+### Contact Us By Mail:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769747/ContactUpByMail_budd3m.jpg)
 
-### Contact Up By Phone Or Address:
+### Contact Us By Phone Or Address:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769662/ContactUpByPhoneOrAddress_pmdnrd.jpg)
 
 
