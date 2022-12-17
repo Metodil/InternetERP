@@ -62,9 +62,8 @@
                     },
                     redirect_urls = new RedirectUrls
                     {
-                        cancel_url = @"localhost:44319/Employee/Paypal/FailedPayment",
-                        return_url = $@"localhost:44319/Employee/Paypal/SuccessedPayment?amount={input.Amount}&billId={input.BillId}",
-
+                        cancel_url = @"https://localhost:44319/Employee/Paypal/FailedPayment",
+                        return_url = $@"https://localhost:44319/Employee/Paypal/SuccessedPayment?amount={input.Amount}&billId={input.BillId}",
                         // return_url = "nativexo://paypalpay",
                     },
                 };

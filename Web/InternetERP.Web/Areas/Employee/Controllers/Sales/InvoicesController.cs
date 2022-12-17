@@ -1,20 +1,24 @@
 ﻿namespace InternetERP.Web.Areas.Employee.Controllers.Sales
 {
     using System.Threading.Tasks;
-
+    using InternetERP.Common;
     using InternetERP.Data.Models;
     using InternetERP.Services.Data.Employee.Contracts;
     using InternetERP.Web.ViewModels.Employee.Invoices;
     using Microsoft.AspNetCore.Mvc;
+    using PayPal.Api;
 
     public class InvoicesController : EmployeeController
     {
         private readonly IInvoiceService invoiceService;
+        private readonly IBillService billService;
 
         public InvoicesController(
-            IInvoiceService invoiceService)
+            IInvoiceService invoiceService,
+            IBillService billService)
         {
             this.invoiceService = invoiceService;
+            this.billService = billService;
         }
 
         [HttpGet]
@@ -40,7 +44,7 @@
 
         public async Task<IActionResult> Create(CreateInvoiceInputModel input)
         {
-            var billId = input.BillId == null ? string.Empty : input.BillId;
+            var billId = input.BillId == null ? input.SelectedBillId : input.BillId;
             if (!this.ModelState.IsValid)
             {
                 input.Customers = await this.invoiceService.GetCustomersForSelectAsync();
@@ -49,12 +53,11 @@
                 return this.View(input);
             }
 
+            var amount = await this.billService.GetBillAmount(billId);
+            await this.billService.AddPaymentToBill(amount, billId, "Bank Tranfer");
+            await this.billService.ChangeStatus(billId, GlobalConstants.BillFinishedId);
+
             var invoiceId = await this.invoiceService.Create(input);
-            var newInvoice = new CreateInvoiceInputModel
-            {
-                SuccessMsg = "Sucesfuly create Invoce.",
-                InvoiceId = invoiceId,
-            };
 
             return this.RedirectToAction("Show", new { id = invoiceId });
         }

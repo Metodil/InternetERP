@@ -86,6 +86,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Employee\Views\Paypal\SuccessedPayment.cshtml" />
     <None Include="Views\Error\error-404.cshtml" />
     <None Include="Views\Error\error-500.cshtml" />
     <None Include="Views\Error\error-503.cshtml" />

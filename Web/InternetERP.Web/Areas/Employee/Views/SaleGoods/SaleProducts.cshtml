@@ -7,7 +7,7 @@
     <link href="~/css/Monster/magnific-popup.css" rel="stylesheet" type="text/css" />
 }
 
-    <partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
+<partial name="./Partial/_SaleGoodsSteps.cshtml" model="Model.Step" />
 
 @if (Model.SaleId != null)
 {
@@ -16,67 +16,72 @@
 }
 
 <div class="container-fluid">
-    <form metod="post" asp-action="SaleProducts">
-        <div class="row el-element-overlay">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="SaleUserId" value="@Model.SaleId.SaleUserId" />
-            <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
-            <input type="hidden" asp-for="PageNumber" value="@Model.PageNumber" />
-            <input type="hidden" asp-for="ProductFilterBy" value="@Model.FilterBy" />
-            @foreach (var product in Model.Products)
-            {
-                nameProduct = InternetERP.Common.Utils.TruncateAtWord(product.Name, 50);
-                if (product.ImageUrl == null)
-                {
-                    imageUrl = "/images/products/" + product.Images.Select(i => i.Name).FirstOrDefault();
-                }
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <input type="hidden" asp-for="ProductId" value="@product.Id" />
-                        <div class="el-card-item pb-3">
-                            <div class="el-card-avatar mb-3 el-overlay-1 w-100 overflow-hidden position-relative text-center">
-                                <img style="width:150px;height:150px;object-fit:cover;" src="@imageUrl" class="d-block position-relative" alt="no Image" />
-                                <div class="el-overlay w-100 overflow-hidden">
-                                    <ul class="list-style-none el-info text-white text-uppercase d-inline-block p-0">
-                                        <li class="el-item d-inline-block my-0 mx-1">
-                                            <a class="btn default btn-outline image-popup-vertical-fit el-link text-white border-white"
-                                           href="@imageUrl">
-                                                <i class="icon-magnifier"></i>
+    <div class="row">
+
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-lg-3 col-md-6" style=" float: left;">
+                <form metod="post" style=" float: left;" asp-action="SaleProducts">
+                    <div class="">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="SaleUserId" value="@Model.SaleId.SaleUserId" />
+                        <input type="hidden" asp-for="BillId" value="@Model.SaleId.Id" />
+                        <input type="hidden" asp-for="PageNumber" value="@Model.PageNumber" />
+                        <input type="hidden" asp-for="ProductFilterBy" value="@Model.FilterBy" />
+                        @{
+                            nameProduct = InternetERP.Common.Utils.TruncateAtWord(product.Name, 50);
+                        }
+                        @if (product.ImageUrl == null)
+                        {
+                            imageUrl = "/images/products/" + product.Images.Select(i => i.Name).FirstOrDefault();
+                        }
+                        <div class="card">
+                            <input type="hidden" asp-for="ProductId" value="@product.Id" />
+                            <div class="el-card-item pb-3">
+                                <div class="el-card-avatar mb-3 el-overlay-1 w-100 overflow-hidden position-relative text-center">
+                                    <img style="width:150px;height:150px;object-fit:cover;" src="@imageUrl" class="d-block position-relative" alt="no Image" />
+                                    <div class="el-overlay w-100 overflow-hidden">
+                                        <ul class="list-style-none el-info text-white text-uppercase d-inline-block p-0">
+                                            <li class="el-item d-inline-block my-0 mx-1">
+                                                <a class="btn default btn-outline image-popup-vertical-fit el-link text-white border-white"
+                                               href="@imageUrl">
+                                                    <i class="icon-magnifier"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="d-flex no-block align-items-center">
+                                    <div style="height:100px;" class="ms-3">
+                                        <h4 class="mb-0">
+                                            <a asp-area="Employee" asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id" target="_blank">
+                                                @nameProduct
                                             </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="d-flex no-block align-items-center">
-                                <div style="height:100px;" class="ms-3">
-                                    <h4 class="mb-0">
-                                        <a asp-area="Employee" asp-controller="Products" asp-action="Details" asp-route-productId="@product.Id" target="_blank">
-                                            @nameProduct
+                                        </h4>
+                                        <span class="text-muted">Description</span>
+                                    </div>
+                                    <div class="ms-auto me-3">
+                                        <a href="#" class="btn btn-dark">
+                                            $@product.SellPrice
                                         </a>
-                                    </h4>
-                                    <span class="text-muted">Description</span>
+                                    </div>
                                 </div>
-                                <div class="ms-auto me-3">
-                                    <a href="#" class="btn btn-dark">
-                                        $@product.SellPrice
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="d-flex no-block align-items-center  form-inline">
-                                <div class="ms-auto me-2">
-                                    <input class="text-end ms-3" type="text" asp-for="StockQuantity" value="0" />
-                                    <span asp-validation-for="StockQuantity" class="text-danger"></span>
-                                </div>
-                                <div class="ms-auto me-1">
-                                    <input type="submit" value="Sale" class="text-white btn btn-primary m-2" />
+                                <div class="d-flex no-block align-items-center  form-inline">
+                                    <div class="ms-auto me-2">
+                                        <input class="text-end ms-3" type="text" asp-for="StockQuantity" value="0" />
+                                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                                    </div>
+                                    <div class="ms-auto me-1">
+                                        <input type="submit" value="Sale" class="text-white btn btn-primary m-2" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
-    </form>
+                </form>
+            </div>
+        }
+    </div>
 </div>
 <partial name="_PagingPartial" model="@Model" />
 

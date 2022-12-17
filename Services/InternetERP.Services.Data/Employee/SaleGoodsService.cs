@@ -164,7 +164,7 @@
                 .Where(u => u.SaleUserId == saleUserId)
                 .Where(u => u.Status.Name != GlobalConstants.BillFinishedStatus)
                 .To<T>()
-                .FirstAsync();
+                .FirstOrDefaultAsync();
             return tempT;
         }
 

@@ -49,10 +49,16 @@
         public async Task<IActionResult> SuccessedPayment(string paymentId, string token, string payerId, decimal amount, string billId)
         {
             var result = await this.paypalService.ExecutePayment(payerId, paymentId, token);
-            await this.billService.AddPaymentToBill(amount, billId);
+            await this.billService.AddPaymentToBill(amount, billId, "PayPal");
             await this.billService.ChangeStatus(billId, GlobalConstants.BillFinishedId);
 
-            return this.View(amount);
+            var model = new PayPalSuccessedPaymentViewModel
+            {
+                Amount = amount,
+                BillId = billId,
+            };
+
+            return this.View(model);
         }
     }
 }

@@ -84,10 +84,7 @@
         public async Task<IActionResult> DeleteProductImage(string imageId, int productId)
         {
             await this.productsService.DeleteProductImage(imageId);
-            var productForUpdate = await this.productsService
-                .GetProductByIdAsync<ProductInputModelView>(productId);
-            productForUpdate.ImageUrlList = this.productsService.CreateImageUrlList(productForUpdate.Images);
-            return this.RedirectToAction("Edit", productForUpdate);
+            return this.RedirectToAction("Edit", new { id = productId } );
         }
 
         [HttpGet]

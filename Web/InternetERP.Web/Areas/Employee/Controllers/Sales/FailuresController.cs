@@ -32,6 +32,10 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SelectAccount(SelectUserInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
 
             var internetUser = await this.failuresService.GetInternetUserById(input.SelectedAccountId);
             input.FullName = internetUser.FirstName + " " + internetUser.LastName;
@@ -39,6 +43,7 @@
             input.Email = internetUser.Email;
             input.Address = internetUser.Town.Name + ", " + internetUser.Street;
             input.InternetAccounts = await this.failuresService.GetAllInternetAcountsList();
+            input.SelectedAccountId = input.SelectedAccountId;
             return this.RedirectToAction("Create", input);
         }
 

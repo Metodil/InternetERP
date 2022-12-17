@@ -134,6 +134,7 @@
         {
             return await this.userRepository
                 .All()
+                .OrderByDescending(x => x.CreatedOn)
                 .To<T>()
                 .ToListAsync();
         }
@@ -142,7 +143,7 @@
         {
             return await this.userRepository
                 .All()
-                .OrderBy(x => x.UserName)
+                .OrderByDescending(x => x.CreatedOn)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
                 .To<T>()
@@ -213,7 +214,7 @@
         public async Task<T> GetUserByIdAsync<T>(string id)
         {
             return await this.userRepository
-                .AllAsNoTracking()
+                .All()
                 .Include(u => u.Town)
                 .Where(x => x.Id == id)
                 .To<T>()
@@ -223,7 +224,7 @@
         public async Task<ApplicationUser> GetUserByIdAsync(string id)
         {
             return await this.userRepository
-                .AllAsNoTracking()
+                .All()
                 .Include(u => u.Town)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }

@@ -1,0 +1,19 @@
+﻿@model InternetERP.Web.ViewModels.Employee.Sales.PayPalSuccessedPaymentViewModel
+
+@{
+    ViewData["Title"] = "PayPal Payment Success";
+}
+
+<div class="row">
+    <div class="card-body">
+        <div class="col-6 mt-4">
+        <h3>You successfully bought products and service for $@Model.Amount.ToString() from InternetERP. Thank you for that.</h3>
+        </div>
+        <div class="col-6">
+            <a asp-action="Index" asp-controller="Home" asp-area="" class="btn btn-primary pill px-4 py-2 mt-3 text-center">Home</a>
+        </div>
+        <div class="col-6">
+            <a asp-action="Index" asp-controller="DashboardSales" asp-area="Employee" class="btn btn-primary pill px-4 py-2 mt-3 text-center">Sales Dashboard</a>
+        </div>
+    </div>
+</div>
