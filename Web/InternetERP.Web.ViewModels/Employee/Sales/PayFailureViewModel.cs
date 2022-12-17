@@ -6,7 +6,7 @@
 
     using InternetERP.Common;
     using InternetERP.Data.Models;
-    using InternetERP.Web.Infrastructure;
+    using InternetERP.Web.Infrastructure.CustomValidate;
 
     public class PayFailureViewModel
     {

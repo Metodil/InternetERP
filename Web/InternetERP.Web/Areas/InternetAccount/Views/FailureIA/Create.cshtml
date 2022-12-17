@@ -1,0 +1,68 @@
+﻿@using Microsoft.Extensions.Configuration
+@model InternetERP.Web.ViewModels.Employee.Failure.FailureInputModel
+@{
+    ViewData["Title"] = "Create new failure for Me";
+}
+<h1>Create new failure</h1>
+
+<div>
+    <a class="btn btn-primary" asp-area="InternetAccount" asp-controller="Dashboard"  asp-action="Index">Back to My DashBoard</a>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        @if (!string.IsNullOrEmpty(Model.Address))
+        {
+            <div class="card-body">
+                <small class="text-dark">Full Name </small>
+                <h4>@Model.FullName</h4>
+                <small class="text-dark">Email address </small>
+                <h4>@Model.Email</h4>
+                <small class="text-dark pt-4 db">Phone</small>
+                <h4>@Model.Phone</h4>
+                <small class="text-dark pt-4 db">Address</small>
+                <h4>@Model.Address</h4>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.SuccessMsg))
+        {
+            <div class="p-3 mb-2 bg-success text-white">@Model.SuccessMsg</div>
+        }
+        else
+        {
+            <form method="post" asp-controller="FailureIA" asp-action="Create">
+                <input type="hidden" asp-for="FullName" value="@Model.FullName" />
+                <input type="hidden" asp-for="Email" value="@Model.Email" />
+                <input type="hidden" asp-for="Phone" value="@Model.Phone" />
+                <input type="hidden" asp-for="Address" value="@Model.Address" />
+                <input type="hidden" asp-for="SelectedAccountId" value="@Model.SelectedAccountId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="ShortDescription" class="control-label"></label>
+                    <textarea class="form-control" asp-for="ShortDescription" rows="2">@Model.ShortDescription</textarea>
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h5 class="card-title mt-2">Note</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <textarea class="form-control" asp-for="Note" rows="4">@Model.Note</textarea>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+@section Scripts {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

@@ -150,16 +150,19 @@
 
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            app.UseStatusCodePagesWithReExecute("/error/{0}");
-
             if (app.Environment.IsDevelopment())
             {
-//                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
             else
             {
-//                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/error/{0}");
+
+                // add custom globabal Error Handling Middleware
+                app.UseMiddleware(typeof(GlobalErrorHandlingMiddleware));
+
+                // app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
@@ -167,8 +170,6 @@
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            // add custom globabal Error Handling Middleware
-            app.UseMiddleware(typeof(GlobalErrorHandlingMiddleware));
 
             app.UseRouting();
 

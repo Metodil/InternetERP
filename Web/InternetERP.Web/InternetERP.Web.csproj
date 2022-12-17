@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <Content Remove="Views\Error\error-404.cshtml" />
+    <Content Remove="Views\Error\error-500.cshtml" />
+    <Content Remove="Views\Error\error-503.cshtml" />
   </ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\stylecop.json" />
@@ -85,5 +87,7 @@
 
   <ItemGroup>
     <None Include="Views\Error\error-404.cshtml" />
+    <None Include="Views\Error\error-500.cshtml" />
+    <None Include="Views\Error\error-503.cshtml" />
   </ItemGroup>
 </Project>

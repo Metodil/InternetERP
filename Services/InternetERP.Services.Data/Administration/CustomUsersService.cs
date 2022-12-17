@@ -213,7 +213,8 @@
         public async Task<T> GetUserByIdAsync<T>(string id)
         {
             return await this.userRepository
-                .All()
+                .AllAsNoTracking()
+                .Include(u => u.Town)
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstAsync();
@@ -222,7 +223,8 @@
         public async Task<ApplicationUser> GetUserByIdAsync(string id)
         {
             return await this.userRepository
-                .All()
+                .AllAsNoTracking()
+                .Include(u => u.Town)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 

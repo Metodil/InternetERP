@@ -2,6 +2,8 @@
 {
     public class IndexViewModel
     {
-        public int SettingsCount { get; set; }
+        public string InternetAccointId { get; set; }
+
+        public int FailureCount { get; set; }
     }
 }

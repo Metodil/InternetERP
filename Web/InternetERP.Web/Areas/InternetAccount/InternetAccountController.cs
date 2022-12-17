@@ -1,6 +1,7 @@
-﻿namespace InternetERP.Web.Areas.InternetAccount.Controllers
+﻿namespace InternetERP.Web.Areas.Employee.Controllers
 {
     using InternetERP.Common;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 

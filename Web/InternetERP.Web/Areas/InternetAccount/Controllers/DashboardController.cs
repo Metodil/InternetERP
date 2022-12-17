@@ -1,6 +1,9 @@
 ﻿namespace InternetERP.Web.Areas.InternetAccount.Controllers
 {
+    using System.Security.Claims;
+
     using InternetERP.Services.Data.Contracts;
+    using InternetERP.Web.Areas.Employee.Controllers;
     using InternetERP.Web.ViewModels.InternetAccount.Dashboard;
     using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +18,12 @@
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var viewModel = new IndexViewModel
+            {
+                InternetAccointId = userId,
+            };
+
             return this.View(viewModel);
         }
     }

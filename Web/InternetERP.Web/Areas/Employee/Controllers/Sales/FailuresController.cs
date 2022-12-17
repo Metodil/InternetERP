@@ -32,6 +32,7 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SelectAccount(SelectUserInputModel input)
         {
+
             var internetUser = await this.failuresService.GetInternetUserById(input.SelectedAccountId);
             input.FullName = internetUser.FirstName + " " + internetUser.LastName;
             input.Phone = internetUser.PhoneNumber;
@@ -77,7 +78,7 @@
                 SuccessMsg = "Failure create successfully.",
             };
 
-            return this.View(newModel);
+            return this.RedirectToAction("Index", "DashboardSales", new { area = "Employee" });
         }
     }
 }

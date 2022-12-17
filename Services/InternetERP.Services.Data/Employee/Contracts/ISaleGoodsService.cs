@@ -27,8 +27,6 @@
             string filterBy = null,
             string categoryFilter = null);
 
-        Task<InternetAccount> GetInternetAccountInfo();
-
         Task<ICollection<Sale>> GetSales(string saleId);
 
         Task<ICollection<InternetAccountType>> GetServices();
@@ -42,5 +40,9 @@
         Task<bool> SellService(SaleServicesViewModel input);
 
         Task UpdateCheckout(CheckoutViewModel input);
+
+        Task<ICollection<Sale>> GetLatestPaymentsForInternetAccountAsync(string internetAccountId);
+
+        Task<InternetAccount> GetInternetAccountInfo(string internetUserId);
     }
 }

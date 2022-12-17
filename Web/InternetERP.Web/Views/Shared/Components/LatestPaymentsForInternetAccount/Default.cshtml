@@ -1,0 +1,18 @@
+﻿@model InternetERP.Web.ViewModels.InternetAccount.Dashboard.LatestsPaymentsForInternetAccountsViewModel
+<div class="card my-sm-3 contacts_card">
+    <div class="contacts_body">
+        <div class="card-header">
+            <h4 style="color:blue">Dates</h4>
+            <hr />
+        </div>
+        <ul class="contacts text-start">
+            @foreach (var payment in Model.LatestPaymentsForInternetAccounts)
+            {
+                <li>
+                        <span>@payment.CreatedOn - @payment.SellPrice</span>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="card-footer"></div>
+</div>

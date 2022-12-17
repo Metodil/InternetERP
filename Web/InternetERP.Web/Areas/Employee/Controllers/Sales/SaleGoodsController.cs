@@ -11,6 +11,7 @@
     using InternetERP.Web.ViewModels.Employee.Manager;
     using InternetERP.Web.ViewModels.Employee.Sales;
     using Microsoft.AspNetCore.Mvc;
+    using PayPal.Api;
 
     public class SaleGoodsController : EmployeeController
     {
@@ -136,7 +137,7 @@
                 SaleId = saleId,
                 BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id),
                 Services = await this.saleGoodsService.GetServices(),
-                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(),
+                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId),
             };
 
             return this.View(model);
@@ -146,18 +147,19 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaleServices(SaleServicesViewModel input)
         {
+            var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
             if (!this.ModelState.IsValid)
             {
-                var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
                 input.Step = 3;
                 input.SaleId = saleId;
                 input.BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id);
                 input.Services = await this.saleGoodsService.GetServices();
-                input.InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+                input.InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId);
                 return this.View(input);
             }
 
+            input.InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId);
             var result = await this.saleGoodsService.SellService(input);
 
             var saleUserIdN = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -168,7 +170,7 @@
                 SaleId = saleIdN,
                 BillInfo = await this.saleGoodsService.GetBillInfo(saleIdN.Id),
                 Services = await this.saleGoodsService.GetServices(),
-                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(),
+                InternetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId),
                 SuccessMsg = "Successfuly pay montrly payment to this internet account!",
             };
 
@@ -180,7 +182,7 @@
         {
             var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
-            var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+            var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId);
             var model = new PayFailureViewModel
             {
                 Step = 4,
@@ -201,7 +203,7 @@
             {
                 var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
-                var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+                var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId);
                 input.Step = 4;
                 input.SaleId = saleId;
                 input.BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id);
@@ -215,7 +217,7 @@
 
             var saleUserIdN = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var saleIdN = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserIdN);
-            var internetAccountInfoN = await this.saleGoodsService.GetInternetAccountInfo();
+            var internetAccountInfoN = await this.saleGoodsService.GetInternetAccountInfo(saleIdN.SelectedUserId);
             var model = new PayFailureViewModel
             {
                 Step = 4,
@@ -234,7 +236,7 @@
         {
             var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
-            var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+            var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId);
             var model = new CheckoutViewModel
             {
                 Step = 5,
@@ -255,7 +257,7 @@
             {
                 var saleUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var saleId = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserId);
-                var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo();
+                var internetAccountInfo = await this.saleGoodsService.GetInternetAccountInfo(saleId.SelectedUserId);
                 input.Step = 5;
                 input.SaleId = saleId;
                 input.BillInfo = await this.saleGoodsService.GetBillInfo(saleId.Id);
@@ -269,7 +271,7 @@
 
             var saleUserIdN = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var saleIdN = await this.saleGoodsService.GetCurrentSaleId<SaleSelectedUser>(saleUserIdN);
-            var internetAccountInfoN = await this.saleGoodsService.GetInternetAccountInfo();
+            var internetAccountInfoN = await this.saleGoodsService.GetInternetAccountInfo(saleIdN.SelectedUserId);
             var model = new CheckoutViewModel
             {
                 Step = 5,
@@ -293,6 +295,5 @@
 
             return this.PartialView("./Partial/_FailureInfo", model);
         }
-
     }
 }

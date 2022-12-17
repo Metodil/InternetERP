@@ -14,7 +14,7 @@
         Task<ICollection<InternetAccount>> GetAllAccounts();
 
         Task<List<SelectListItem>> GetAllInternetAcountsList();
-
+        Task<int> GetInternetIdByUserId(string userId);
         Task<ApplicationUser> GetInternetUserById(int selectedAccountId);
     }
 }

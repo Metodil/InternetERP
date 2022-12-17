@@ -101,5 +101,14 @@
                 .Where(u => u.Id == applicationUserId)
                 .FirstAsync();
         }
+
+        public async Task<int> GetInternetIdByUserId(string userId)
+        {
+            return await this.internetAccountsRepository
+                .AllAsNoTracking()
+                .Where(u => u.InternetUserId == userId)
+                .Select(u => u.Id)
+                .FirstAsync();
+        }
     }
 }

@@ -8,11 +8,11 @@
         <ul class="contacts text-start">
             @foreach (var user in Model.LatestAddedUsers)
             {
-                    <li>
-                                <span>Name: @user.FirstName<br />
-@*                                email: @user.Email<br />
-                                phone: @user.PhoneNumber<br />
-*@                    </li>
+                <li>
+                    <a asp-controller="Users" asp-area="Administration" asp-action="Profile" asp-route-userId="@user.Id">
+                        <span>Name: @user.FirstName</span>
+                    </a>
+                </li>
             }
         </ul>
     </div>

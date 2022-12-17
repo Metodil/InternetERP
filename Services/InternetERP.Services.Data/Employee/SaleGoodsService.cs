@@ -219,10 +219,11 @@
                 .ToListAsync();
         }
 
-        public async Task<InternetAccount> GetInternetAccountInfo()
+        public async Task<InternetAccount> GetInternetAccountInfo(string internetUserId)
         {
             return await this.internetAccountRepository
                 .AllAsNoTracking()
+                .Where(ia => ia.InternetUserId == internetUserId)
                 .Include(a => a.AccountType)
                 .FirstAsync();
         }
@@ -230,10 +231,11 @@
         public async Task<bool> SellService(SaleServicesViewModel input)
         {
             var result = true;
+            var inernetAccountId = input.InternetAccountInfo.InternetUserId;
             var newSale = new Sale
             {
                 BillId = input.BillId,
-                InernetAccountId = input.SaleInternetAccountId,
+                InernetAccountId = inernetAccountId,
                 StockQuantity = 1,
                 Name = "Montly Payment",
                 SellPrice = input.MontlyPayment,
@@ -246,7 +248,7 @@
                 await this.salesRepository.SaveChangesAsync();
                 var internetAccount = await this.internetAccountRepository
                     .All()
-                    .Where(ia => ia.InternetUserId == input.SaleInternetAccountId)
+                    .Where(ia => ia.InternetUserId == inernetAccountId)
                     .FirstAsync();
                 internetAccount.ExparedDate = input.ExparedDate;
                 await this.internetAccountRepository.SaveChangesAsync();
@@ -364,6 +366,16 @@
                 .Include(f => f.FailurePhases)
                 .ThenInclude(fp => fp.StatusFailure)
                 .FirstOrDefaultAsync(f => f.Id == id);
+        }
+
+        public async Task<ICollection<Sale>> GetLatestPaymentsForInternetAccountAsync(string internetAccountId)
+        {
+            return await this.salesRepository
+                .AllAsNoTracking()
+                .Where(s => s.InernetAccountId == internetAccountId)
+                .OrderByDescending(s => s.CreatedOn)
+                .Take(10)
+                .ToListAsync();
         }
     }
 }
