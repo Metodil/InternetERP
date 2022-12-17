@@ -61,6 +61,7 @@
 * xUnit
 * JavaScript
 * jQuery
+* Ajax request with partial view
 * Bootstrap
 * HTML 5
 * CSS
@@ -91,6 +92,9 @@
 
 ### Admin DashBoard:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/AdminDashBoard_npyysw.jpg)
+
+### Admin DashBoard with VC Latest Users:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1671112127/AdminDashBoardVCLatestUsers_nulicm.jpg)
 
 ### Manage Users:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767966/ManageUsers_dwyhpo.jpg)
@@ -124,6 +128,9 @@
 
 ### Step 4 : Sale Failure:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/SaleFailure_viaail.jpg)
+
+### Step 4.1 : Sale Failure with Ajax, get failure history:
+![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1671100815/SaleFailureWithAjax_um34sv.jpg)
 
 ### Step 5 : Checkout:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670767965/Checkout_ok1ms8.jpg)
