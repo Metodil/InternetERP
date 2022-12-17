@@ -156,10 +156,10 @@
 ### All Failures:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670770599/AllFailures_cse4ti.jpg)
 
-### Contact Up By Mail:
+### Contact Us By Mail:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769747/ContactUpByMail_budd3m.jpg)
 
-### Contact Up By Phone Or Address:
+### Contact Us By Phone Or Address:
 ![alt text](https://res.cloudinary.com/dqzm8tfvg/image/upload/v1670769662/ContactUpByPhoneOrAddress_pmdnrd.jpg)
 
 
