@@ -1,0 +1,20 @@
+﻿@model InternetERP.Web.ViewModels.Administration.Users.LatestsAddedUsersViewModel
+<div class="card my-sm-3 contacts_card">
+    <div class="contacts_body">
+        <div class="card-header">
+            <h4 style="color:blue">Latest users</h4>
+            <hr />
+        </div>
+        <ul class="contacts text-start">
+            @foreach (var user in Model.LatestAddedUsers)
+            {
+                    <li>
+                                <span>Name: @user.FirstName<br />
+@*                                email: @user.Email<br />
+                                phone: @user.PhoneNumber<br />
+*@                    </li>
+            }
+        </ul>
+    </div>
+    <div class="card-footer"></div>
+</div>

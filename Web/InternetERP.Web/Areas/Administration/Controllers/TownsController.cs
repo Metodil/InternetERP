@@ -3,11 +3,10 @@
     using System.Threading.Tasks;
 
     using InternetERP.Common;
-    using InternetERP.Data.Models;
     using InternetERP.Services.Data.Administration.Contracts;
+    using InternetERP.Web.ErrorHandlingMiddleware.Exceptions;
     using InternetERP.Web.ViewModels.Administration.Towns;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
     public class TownsController : AdministrationController
     {
@@ -21,10 +20,11 @@
         [HttpGet]
         public async Task<IActionResult> Index(int id = 1)
         {
+            var towns = await this.townsService.GetAllTownsPagingAsync<TownListViewModel>(
+                    id, GlobalConstants.ItemsPerPageList);
             var model = new AllTownsViewModel
             {
-                Towns = await this.townsService.GetAllTownsPagingAsync<TownListViewModel>(
-                    id, GlobalConstants.ItemsPerPageList),
+                Towns = towns,
                 ItemsPerPage = GlobalConstants.ItemsPerPageList,
                 PageNumber = id,
                 AspAction = nameof(this.Index),
@@ -58,13 +58,13 @@
         {
             if (await this.townsService.CountAsync() == 0)
             {
-                return this.NotFound();
+                throw new NotFoundException($"Town ID {id} not found.");
             }
 
             var town = await this.townsService.GetTownByIdAsync(id);
             if (town == null)
             {
-                return this.NotFound();
+              throw new NotFoundException($"Town ID {id} not found.");
             }
 
             return this.View(town);
@@ -76,7 +76,7 @@
         {
             if (id == null || !await this.townsService.TownExist((int)id))
             {
-                return this.NotFound();
+                throw new NotFoundException($"Town ID {id} not found.");
             }
 
             if (this.ModelState.IsValid)
@@ -92,7 +92,7 @@
         {
             if (id == null || !await this.townsService.TownExist((int)id))
             {
-                return this.NotFound();
+                throw new NotFoundException($"Town ID {id} not found.");
             }
 
             var town = await this.townsService

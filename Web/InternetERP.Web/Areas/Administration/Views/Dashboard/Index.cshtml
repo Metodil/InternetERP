@@ -67,6 +67,10 @@
                         <div class="box p-2 rounded bg-primary text-center">
                             <h1 class="fw-light text-white">1,738</h1>
                             <h6 class="text-white">Users</h6>
+                            <div class="view-component-content align-content-lg-start">
+                                @await Component.InvokeAsync("LatestAddedUsers");
+                                <vc:LatestAddedUsers></vc:LatestAddedUsers>
+                            </div>
                         </div>
                     </div>
                 </div>

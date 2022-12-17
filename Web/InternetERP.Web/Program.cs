@@ -26,6 +26,8 @@
     using InternetERP.Services.Mapping;
     using InternetERP.Services.Messaging;
     using InternetERP.Web.Areas.Identity.Pages.Account;
+    using InternetERP.Web.ErrorHandlingMiddleware;
+    using InternetERP.Web.ErrorHandlingMiddleware.Exceptions;
     using InternetERP.Web.ViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Builder;
@@ -36,6 +38,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using SendGrid;
 
     public class Program
@@ -147,20 +150,25 @@
 
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
+
             if (app.Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+//                app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+//                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            // add custom globabal Error Handling Middleware
+            app.UseMiddleware(typeof(GlobalErrorHandlingMiddleware));
 
             app.UseRouting();
 

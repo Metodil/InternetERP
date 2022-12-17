@@ -49,5 +49,7 @@
         public Task<ApplicationUser> GetUserByIdAsync(string id);
 
         public bool CheckForEmailsAsync(string email);
+
+        Task<ICollection<ApplicationUser>> GetLatestAddedUsersAsync();
     }
 }

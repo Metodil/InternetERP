@@ -25,6 +25,7 @@
                 .AllAsNoTracking()
                 .Include(p => p.Images)
                 .Where(p => p.PromotionId != null)
+                .OrderByDescending(p => p.CreatedOn)
                 .Take(3)
                 .ToListAsync();
             if (products == null)
@@ -32,6 +33,7 @@
                 products = await this.productsRepository
                 .AllAsNoTracking()
                 .Include(p => p.Images)
+                .OrderByDescending(p => p.CreatedOn)
                 .Take(3)
                 .ToListAsync();
             }

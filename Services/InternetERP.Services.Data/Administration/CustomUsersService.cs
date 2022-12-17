@@ -226,6 +226,15 @@
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<ICollection<ApplicationUser>> GetLatestAddedUsersAsync()
+        {
+            return await this.userRepository
+                .AllAsNoTracking()
+                .OrderByDescending(u => u.CreatedOn)
+                .Take(10)
+                .ToListAsync();
+        }
+
         public async Task<int> CountAsync()
         {
             return await this.userRepository

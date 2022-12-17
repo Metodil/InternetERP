@@ -83,7 +83,6 @@ namespace InternetERP.Web.Areas.Identity.Pages.Account.Manage
             public IEnumerable<KeyValuePair<string, string>> Towns { get; set; }
 
             public string ProfilePictureUrl { get; set; }
-
         }
 
         public async Task<IActionResult> OnGetAsync()

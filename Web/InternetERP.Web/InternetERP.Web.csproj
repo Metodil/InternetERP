@@ -18,6 +18,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>True</Optimize>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Error\error-404.cshtml" />
+  </ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\stylecop.json" />
 	</ItemGroup>
@@ -77,5 +81,9 @@
 
   <ItemGroup>
     <Folder Include="Areas\Employee\Views\Manager\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Error\error-404.cshtml" />
   </ItemGroup>
 </Project>
